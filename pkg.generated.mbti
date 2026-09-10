@@ -1,0 +1,62 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "localreview/thrift"
+
+import {
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn decode(Bytes, Kind, Protocol) -> Value raise CodecError
+
+pub fn decode_message(Bytes, Protocol) -> Message raise CodecError
+
+pub fn encode(Value, Protocol) -> Bytes raise CodecError
+
+pub fn encode_message(Message, Protocol) -> Bytes raise CodecError
+
+// Errors
+pub suberror CodecError {
+  Invalid(String)
+} derive(@debug.Debug)
+
+// Types and methods
+pub(all) enum Kind {
+  BoolKind
+  ByteKind
+  I16Kind
+  I32Kind
+  I64Kind
+  DoubleKind
+  BinaryKind
+  StructKind
+  ListKind
+} derive(Eq, @debug.Debug)
+
+pub(all) struct Message {
+  name : String
+  message_type : Int
+  sequence_id : Int
+  body : Value
+} derive(Eq, @debug.Debug)
+
+pub(all) enum Protocol {
+  BinaryProtocol
+  CompactProtocol
+} derive(Eq, @debug.Debug)
+
+pub(all) enum Value {
+  Bool(Bool)
+  Byte(Int)
+  I16(Int)
+  I32(Int)
+  I64(Int64)
+  Double(Double)
+  Binary(Bytes)
+  Struct(Array[(Int, Value)])
+  List(Kind, Array[Value])
+} derive(Eq, @debug.Debug)
+pub fn Value::kind(Self) -> Kind
+
+// Type aliases
+
+// Traits
