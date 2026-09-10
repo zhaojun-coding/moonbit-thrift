@@ -112,7 +112,8 @@ fn Reader::value(
       self.pos += n.to_int()
       Binary(value)
     }
-    ListKind => {
+    ListKind | SetKind => {
+      let is_set = tag == SetKind
       let header = self.byte()
       let tag = kind(
         if self.compact {
@@ -138,7 +139,48 @@ fn Reader::value(
       for _ in 0..<n.to_int() {
         items.push(self.value(tag, depth + 1))
       }
-      List(tag, items)
+      if is_set {
+        SetValue(tag, items)
+      } else {
+        List(tag, items)
+      }
+    }
+    MapKind => {
+      let (kt, vt, n) = if self.compact {
+        let n = self.varint()
+        if n == 0UL {
+          (0, 0, n)
+        } else {
+          let types = self.byte()
+          (types >> 4, types & 15, n)
+        }
+      } else {
+        let k = self.byte()
+        let v = self.byte()
+        (k, v, self.fixed(4, false))
+      }
+      if n > 100000UL {
+        raise Invalid("map length limit")
+      }
+      let key_kind = if n == 0UL && kt == 0 {
+        None
+      } else {
+        Some(kind(kt, self.compact))
+      }
+      let value_kind = if n == 0UL && vt == 0 {
+        None
+      } else {
+        Some(kind(vt, self.compact))
+      }
+      let entries = []
+      for _ in 0..<n.to_int() {
+        match (key_kind, value_kind) {
+          (Some(k), Some(v)) =>
+            entries.push((self.value(k, depth + 1), self.value(v, depth + 1)))
+          _ => raise Invalid("missing map types")
+        }
+      }
+      MapValue(key_kind, value_kind, entries)
     }
     StructKind => {
       let fields = []

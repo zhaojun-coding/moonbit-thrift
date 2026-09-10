@@ -20,6 +20,8 @@ pub(all) enum Kind {
   BinaryKind
   StructKind
   ListKind
+  SetKind
+  MapKind
 } derive(Debug, Eq)
 
 ///|
@@ -33,6 +35,8 @@ pub(all) enum Value {
   Binary(Bytes)
   Struct(Array[(Int, Value)])
   List(Kind, Array[Value])
+  SetValue(Kind, Array[Value])
+  MapValue(Kind?, Kind?, Array[(Value, Value)])
 } derive(Debug, Eq)
 
 ///|
@@ -47,6 +51,8 @@ pub fn Value::kind(self : Value) -> Kind {
     Binary(_) => BinaryKind
     Struct(_) => StructKind
     List(_, _) => ListKind
+    SetValue(_, _) => SetKind
+    MapValue(_, _, _) => MapKind
   }
 }
 
@@ -62,6 +68,8 @@ fn code(kind : Kind, compact : Bool) -> Int {
       DoubleKind => 7
       BinaryKind => 8
       ListKind => 9
+      SetKind => 10
+      MapKind => 11
       StructKind => 12
     }
   } else {
@@ -74,6 +82,8 @@ fn code(kind : Kind, compact : Bool) -> Int {
       DoubleKind => 4
       BinaryKind => 11
       ListKind => 15
+      SetKind => 14
+      MapKind => 13
       StructKind => 12
     }
   }
@@ -91,6 +101,8 @@ fn kind(raw : Int, compact : Bool) -> Kind raise CodecError {
       DoubleKind,
       BinaryKind,
       ListKind,
+      SetKind,
+      MapKind,
       StructKind,
     ] {
     if code(k, compact) == raw {

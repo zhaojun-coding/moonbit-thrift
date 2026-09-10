@@ -71,7 +71,7 @@ fn write_value(
         out.push(b)
       }
     }
-    List(element, items) => {
+    List(element, items) | SetValue(element, items) => {
       if items.length() > 100000 {
         raise Invalid("list too long")
       }
@@ -92,6 +92,48 @@ fn write_value(
           raise Invalid("heterogeneous list")
         }
         write_value(out, item, compact, depth + 1)
+      }
+    }
+    MapValue(key_kind, value_kind, entries) => {
+      if entries.length() > 100000 {
+        raise Invalid("map length limit")
+      }
+      if compact && entries.is_empty() {
+        out.push(0)
+      } else {
+        let kt = match key_kind {
+          Some(k) => code(k, compact)
+          None =>
+            if entries.is_empty() {
+              0
+            } else {
+              raise Invalid("missing map key type")
+            }
+        }
+        let vt = match value_kind {
+          Some(k) => code(k, compact)
+          None =>
+            if entries.is_empty() {
+              0
+            } else {
+              raise Invalid("missing map value type")
+            }
+        }
+        if compact {
+          varint(out, entries.length().to_uint64())
+          out.push(((kt << 4) | vt).to_byte())
+        } else {
+          out.push(kt.to_byte())
+          out.push(vt.to_byte())
+          fixed(out, entries.length().to_uint64(), 4, false)
+        }
+        for (key, value) in entries {
+          if Some(key.kind()) != key_kind || Some(value.kind()) != value_kind {
+            raise Invalid("heterogeneous map")
+          }
+          write_value(out, key, compact, depth + 1)
+          write_value(out, value, compact, depth + 1)
+        }
       }
     }
     Struct(fields) => {

@@ -1,0 +1,47 @@
+{
+  "project": "moonbit-thrift",
+  "timestamp": "2026-09-10T10:41:05.297312+00:00",
+  "exit_code": 0,
+  "backend_test_counts": [
+    [
+      "61",
+      "61",
+      "0"
+    ],
+    [
+      "61",
+      "61",
+      "0"
+    ]
+  ],
+  "scope": "Local Windows verify.ps1; remote CI and full upstream conformance not run",
+  "coverage": {
+    "covered": 367,
+    "total": 402,
+    "measurement": "MoonBit instrumentation points, not upstream feature coverage"
+  },
+  "robustness": {
+    "project": "thrift",
+    "seed": 20260910,
+    "cases": 307,
+    "expected_error_responses": 306,
+    "uncaught_exceptions": 0,
+    "scope": "bounded malformed-input robustness, not proof of full language/protocol conformance"
+  },
+  "benchmark": {
+    "project": "thrift",
+    "utc": "2026-09-10T10:41:05.063Z",
+    "runtime": "v24.11.0",
+    "platform": "win32",
+    "cpu": "Intel(R) Core(TM) i7-14700HX",
+    "input_utf8_bytes": 39,
+    "samples": 30,
+    "warmup": 5,
+    "median_ms": 0.06869999999999976,
+    "p95_ms": 0.21249999999999858,
+    "max_ms": 0.5105000000000004,
+    "scope": "JS warm execution of documented example; no cross-project or upstream performance claim"
+  },
+  "remote_ci": "not run",
+  "network_interoperability": "not run"
+}

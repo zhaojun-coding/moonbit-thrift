@@ -1,6 +1,6 @@
 # Thrift 值编解码
 
-Binary/Compact 协议的带类型值树序列化。本地候选版 0.2.0，供比较和代码审查；尚未作为完整竞赛作品提交。
+Binary/Compact 协议的带类型值树序列化。本地候选版 0.3.0，供比较和代码审查；尚未作为完整竞赛作品提交。
 
 ## 运行
 
@@ -16,9 +16,9 @@ moon run cmd/main
 
 ## 本版范围
 
-实现目标：标量、结构体、列表的 binary/compact 编解码和边界拒绝。
+实现目标：标量、结构体、列表、映射和集合的 binary/compact 编解码和边界拒绝。
 
-未承诺：IDL 编译器、RPC transport、Map/Set。
+未承诺：IDL 编译器、RPC transport。
 
 ## 来源与实现方式
 
@@ -32,7 +32,7 @@ moon run cmd/main
 
 ## 下一阶段与明确限制
 
-增加 Map/Set、未知字段跳过 API、IDL schema 校验及 RPC transport；当前支持全部常见标量、Struct、List 和严格 Binary/Compact RPC 消息 envelope，最大嵌套 64、字节上限 1 MiB。
+增加未知字段跳过 API、IDL schema 校验及 RPC transport；当前支持全部常见标量、Struct、List、Map、Set 和严格 Binary/Compact RPC 消息 envelope，最大嵌套 64、字节上限 1 MiB。
 
 本分装包自带 `web/index.html`（用 `start-review.ps1` 启动）。`cmd/web/main.mbt` 为薄适配层，网页调用编译后的真实 MoonBit 模块。
 
@@ -46,4 +46,25 @@ moon run cmd/main
 
 打开 http://127.0.0.1:8776/web/ 。修改和测试源码需安装 MoonBit 与 Node.js，再运行 `./verify.ps1`。本机尚未将 MoonBit 加入 PATH 时，可传入 `-MoonPath`。独立包不捆绑编译器。
 
-仅含本项目源码和构建产物；没有上传仓库或发布包。`DUPLICATION.md`、`evidence/verification.json` 和 `MANIFEST.sha256.json` 提供查重、测试和完整性资料。
+仅含本项目源码和构建产物；没有上传仓库或发布包。`DUPLICATION.md`、`evidence/current-validation.json` 和本次分装清单 提供查重、测试和完整性资料。
+
+## 独立仓库工作流
+
+本目录是该项目后续开发的唯一主仓库，旧批次目录及 ZIP 为历史审查快照。没有 Git remote，没有共享构建目录，没有上级 moon.work。
+
+真实 CLI 支持输入参数、文件和标准输入：
+
+```powershell
+node tools/cli.mjs --help
+node tools/cli.mjs --file sample.txt --json
+```
+
+需要安装 MoonBit 后传 `-MoonPath` 或将 moon 加入 PATH；不依赖工作区之外的私有脚本。详见 [TESTING.md](TESTING.md) 和 [CONTRIBUTING.md](CONTRIBUTING.md)。
+
+## 本轮功能升级
+
+增加 Binary/Compact Map/Set，12 组 Apache Thrift 独立向量对照。
+
+无 IDL 编译器、schema 校验与 RPC transport；Compact 空 Map 无法从线路恢复类型，解码为 None/None。
+
+[可执行 API 示例](README.mbt.md)会随测试运行；[功能边界](FEATURES.md)和[测试说明](TESTING.md)用于独立审查。网页与 CLI 展示示例入口，新 API 的完整使用见可执行示例。

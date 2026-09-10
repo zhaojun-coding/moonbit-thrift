@@ -30,6 +30,8 @@ pub(all) enum Kind {
   BinaryKind
   StructKind
   ListKind
+  SetKind
+  MapKind
 } derive(Eq, @debug.Debug)
 
 pub(all) struct Message {
@@ -54,6 +56,8 @@ pub(all) enum Value {
   Binary(Bytes)
   Struct(Array[(Int, Value)])
   List(Kind, Array[Value])
+  SetValue(Kind, Array[Value])
+  MapValue(Kind?, Kind?, Array[(Value, Value)])
 } derive(Eq, @debug.Debug)
 pub fn Value::kind(Self) -> Kind
 
