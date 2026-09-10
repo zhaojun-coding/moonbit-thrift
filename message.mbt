@@ -8,11 +8,11 @@ pub(all) struct Message {
 } derive(Debug, Eq)
 
 ///|
-/// Strict/versioned Binary and Compact v1 envelopes, containing a struct body.
-/// Legacy unversioned Binary headers are deliberately rejected.
+/// Binary and Compact v1 envelopes. Binary writes strict headers by default.
 pub fn encode_message(
   message : Message,
   protocol : Protocol,
+  strict_write? : Bool = true,
 ) -> Bytes raise CodecError {
   if message.message_type < 1 || message.message_type > 4 {
     raise Invalid("invalid RPC message type")
@@ -31,9 +31,13 @@ pub fn encode_message(
     out.push(((message.message_type << 5) | 1).to_byte())
     varint(out, message.sequence_id.reinterpret_as_uint().to_uint64())
     write_value(out, Binary(name), true, 0)
-  } else {
+  } else if strict_write {
     fixed(out, 2147549184UL | message.message_type.to_uint64(), 4, false)
     write_value(out, Binary(name), false, 0)
+    fixed(out, message.sequence_id.reinterpret_as_uint().to_uint64(), 4, false)
+  } else {
+    write_value(out, Binary(name), false, 0)
+    out.push(message.message_type.to_byte())
     fixed(out, message.sequence_id.reinterpret_as_uint().to_uint64(), 4, false)
   }
   write_value(out, message.body, compact, 0)
@@ -47,6 +51,7 @@ pub fn encode_message(
 pub fn decode_message(
   data : Bytes,
   protocol : Protocol,
+  strict_read? : Bool = true,
 ) -> Message raise CodecError {
   if data.length() > 1048576 {
     raise Invalid("RPC message exceeds one MiB")
@@ -74,16 +79,32 @@ pub fn decode_message(
     (message_type, sequence_id, name_data)
   } else {
     let version_type = reader.fixed(4, false)
-    if (version_type & 4294967040UL) != 2147549184UL {
-      raise Invalid("expected strict Binary v1 header")
+    if (version_type & 2147483648UL) != 0UL {
+      if (version_type & 4294901760UL) != 2147549184UL {
+        raise Invalid("unsupported Binary version")
+      }
+      let message_type = (version_type & 255UL).to_int()
+      let name_data = match reader.value(BinaryKind, 0) {
+        Binary(bytes) => bytes
+        _ => raise Invalid("invalid method name")
+      }
+      let sequence_id = reader.fixed(4, false).to_uint().reinterpret_as_int()
+      (message_type, sequence_id, name_data)
+    } else {
+      if strict_read {
+        raise Invalid("expected strict Binary v1 header")
+      }
+      if version_type > 1024UL ||
+        version_type > (data.length() - reader.pos).to_uint64() {
+        raise Invalid("invalid legacy method length")
+      }
+      let end = reader.pos + version_type.to_int()
+      let name_data = data[reader.pos:end].to_owned()
+      reader.pos = end
+      let message_type = reader.byte()
+      let sequence_id = reader.fixed(4, false).to_uint().reinterpret_as_int()
+      (message_type, sequence_id, name_data)
     }
-    let message_type = (version_type & 255UL).to_int()
-    let name_data = match reader.value(BinaryKind, 0) {
-      Binary(bytes) => bytes
-      _ => raise Invalid("invalid method name")
-    }
-    let sequence_id = reader.fixed(4, false).to_uint().reinterpret_as_int()
-    (message_type, sequence_id, name_data)
   }
   if message_type < 1 || message_type > 4 {
     raise Invalid("invalid RPC message type")

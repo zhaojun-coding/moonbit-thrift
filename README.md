@@ -1,70 +1,59 @@
-# Thrift 值编解码
+# MoonBit Thrift
 
-Binary/Compact 协议的带类型值树序列化。本地候选版 0.3.0，供比较和代码审查；尚未作为完整竞赛作品提交。
+Binary/Compact 序列化与分帧 RPC 核心，0.4.0。本地独立仓库，无 remote，未上传或发布。
 
-## 运行
+## 已实现
 
-安装 MoonBit 后在本目录执行：
+- 所有传统 Thrift 标量、UUID、Struct、List、Set、Map；Binary 和 Compact v1。
+- 严格 Binary、可选旧式 Binary 消息头，4 种 RPC 消息类型、完整有符号序列号范围。
+- TFramedTransport 增量分帧：任意分片、多个连续帧、空帧、长度限制、截断检测和失败后重置。
+- Client 负责序列号、待响应请求、乱序回复、异常响应与单向调用；主机负责 socket I/O。
+- decode_prefix / skip_prefix 返回消费字节数；decode_selected 跳过未知或类型不匹配字段，不构造被跳过的容器树。
 
-```sh
-moon check
-moon test
-moon run cmd/main
-```
+## 快速运行
 
-也可在本目录运行 `./verify.ps1` 验证本项目。`pkg.generated.mbti` 是真实工具链生成的公共 API。命名空间 `localreview` 仅用于本地，正式发布前应替换为申请人的账号。
-
-## 本版范围
-
-实现目标：标量、结构体、列表、映射和集合的 binary/compact 编解码和边界拒绝。
-
-未承诺：IDL 编译器、RPC transport。
-
-## 来源与实现方式
-
-规格/算法参考：https://github.com/apache/thrift。
-
-当前代码是本地新写的 MoonBit 实现，不声称是上游完整移植；未复制上游源代码、词库或测试集。测试输入为本项目新写。MIT 仅适用于本目录原创代码。将来如移植上游文件，需要另行保存其版权声明并核查许可证，不能直接沿用当前说明。
-
-## 审查
-
-先看 `cmd/main/main.mbt` 的实际使用，再看公共 API 与测试文件。联网兼容性、性能数据或官方验收未执行的部分不得从本地单元测试成功推断。
-
-## 下一阶段与明确限制
-
-增加未知字段跳过 API、IDL schema 校验及 RPC transport；当前支持全部常见标量、Struct、List、Map、Set 和严格 Binary/Compact RPC 消息 envelope，最大嵌套 64、字节上限 1 MiB。
-
-本分装包自带 `web/index.html`（用 `start-review.ps1` 启动）。`cmd/web/main.mbt` 为薄适配层，网页调用编译后的真实 MoonBit 模块。
-
-## 独立分装使用
-
-本文件夹可以单独移动或建立仓库，不依赖其他候选项目。浏览器演示已编译，无须安装 MoonBit 即可试用（需要 Python 3）：
+已附真实 MoonBit 编译的浏览器引擎，需要 Python 3 与 Node.js：
 
 ```powershell
 ./start-review.ps1
-```
-
-打开 http://127.0.0.1:8776/web/ 。修改和测试源码需安装 MoonBit 与 Node.js，再运行 `./verify.ps1`。本机尚未将 MoonBit 加入 PATH 时，可传入 `-MoonPath`。独立包不捆绑编译器。
-
-仅含本项目源码和构建产物；没有上传仓库或发布包。`DUPLICATION.md`、`evidence/current-validation.json` 和本次分装清单 提供查重、测试和完整性资料。
-
-## 独立仓库工作流
-
-本目录是该项目后续开发的唯一主仓库，旧批次目录及 ZIP 为历史审查快照。没有 Git remote，没有共享构建目录，没有上级 moon.work。
-
-真实 CLI 支持输入参数、文件和标准输入：
-
-```powershell
-node tools/cli.mjs --help
 node tools/cli.mjs --file sample.txt --json
 ```
 
-需要安装 MoonBit 后传 `-MoonPath` 或将 moon 加入 PATH；不依赖工作区之外的私有脚本。详见 [TESTING.md](TESTING.md) 和 [CONTRIBUTING.md](CONTRIBUTING.md)。
+网页也支持 `framed-compact:`、`framed-binary:` 加十六进制连续 RPC 帧，以及原有 `rpc-compact:` / `rpc-binary:`、裸 Struct `compact:` / `binary:`。
 
-## 本轮功能升级
+## 从源码验证
 
-增加 Binary/Compact Map/Set，12 组 Apache Thrift 独立向量对照。
+安装 MoonBit 后运行：
 
-无 IDL 编译器、schema 校验与 RPC transport；Compact 空 Map 无法从线路恢复类型，解码为 None/None。
+```powershell
+./verify.ps1
+# 编译器未加入 PATH 时
+./verify.ps1 -MoonPath C:/path/to/moon/bin/moon.exe
+```
 
-[可执行 API 示例](README.mbt.md)会随测试运行；[功能边界](FEATURES.md)和[测试说明](TESTING.md)用于独立审查。网页与 CLI 展示示例入口，新 API 的完整使用见可执行示例。
+脚本实际测试 Wasm-GC 和 JS，运行示例、CLI、边界检查与基准。公开 API 见 pkg.generated.mbti；[可执行例子](README.mbt.md)随测试运行。
+
+## Apache Thrift 独立对照和真实互通
+
+```powershell
+python -m pip install -r tools/oracle-requirements.txt
+python tools/generate_oracles.py
+moon fmt
+./verify.ps1 -WithInterop
+```
+
+原始种子输入由本项目编写，Apache Thrift Python 0.22.0 独立计算 320 组嵌套结构/分帧向量和 48 组 RPC 消息向量。固定种子可再生，覆盖整数边界、Unicode、空容器、多层 Map/List/Set、非递增字段编号和 4 种消息类型。已有手写/独立容器向量继续保留。UUID 按当前公开 Binary/Compact 规格验证固定 16 字节和类型标签；Python 0.22.0 不支持 UUID，未将它计入 Apache 运行时对照。
+
+互通脚本只连接临时 127.0.0.1 端口，以 Apache 的 TSocket/TFramedTransport/TBinaryProtocol/TCompactProtocol 接收实际 MoonBit 客户端字节，返回乱序成功与应用异常响应，并验证单向调用和逐字节接收。原始证据见 evidence/interop.json。不是 TLS、公网或其他 Thrift 语言实现的互通证明。
+
+## 兼容性与资源边界
+
+Compact 空 Map 的线路不携带键值类型，解码为 MapValue(None,None,[])。泛型值树保留字段顺序与重复字段；选择解码同样保留已选字段的线路顺序。默认最大消息 1 MiB，嵌套深度 64、节点 100000，最多 1024 个待响应 RPC；单帧上限可配置至 16 MiB，单次 feed 最大 16 MiB 加头部。帧错误或非法 RPC 回复后实例进入失败状态，避免继续使用已丢失同步的连接。
+
+当前未实现 IDL 编译器、schema required/default 校验、TLS/认证和通用 socket 适配器；仍不能称为完整 Apache Thrift 替代。详见 [FEATURES.md](FEATURES.md)。
+
+## 来源与开发
+
+按 [Apache Binary 规格](https://github.com/apache/thrift/blob/master/doc/specs/thrift-binary-protocol.md)、[Compact 规格](https://github.com/apache/thrift/blob/master/doc/specs/thrift-compact-protocol.md) 和 [Python TFramedTransport](https://github.com/apache/thrift/blob/master/lib/py/src/transport/TTransport.py) 行为重新实现。没有复制上游源码；本项目原创代码为 MIT。Apache Thrift 仅作为固定版本的开发测试依赖，不打包它的源码。
+
+独立 Git 历史和构建目录；不依赖其他候选项目。CI 配置已包含独立向量再生与本地互通，但远端 CI 尚未运行。历史证据保留原日期，最新结果见 evidence/current-validation.json 与 evidence/quality-review.json。查重见 DUPLICATION.md，后续发布仍需重新核实生态和许可证。

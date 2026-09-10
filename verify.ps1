@@ -1,4 +1,4 @@
-param([string]$MoonPath)
+param([string]$MoonPath, [switch]$WithInterop)
 $ErrorActionPreference='Stop'
 if (-not $MoonPath) {
   $available=Get-Command moon -ErrorAction SilentlyContinue
@@ -34,4 +34,8 @@ try {
   if ($LASTEXITCODE -ne 0) {throw 'robustness failed'}
   node tools/benchmark.mjs
   if ($LASTEXITCODE -ne 0) {throw 'benchmark failed'}
+  if ($WithInterop) {
+    python tools/test-interop.py
+    if ($LASTEXITCODE -ne 0) {throw 'Apache interoperability failed'}
+  }
 } finally {Pop-Location}

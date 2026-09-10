@@ -1,13 +1,16 @@
-# 功能与兼容性边界
+# Thrift 兼容矩阵
 
-## 新增能力
+| 能力 | 状态 | 证据 |
+|---|---|---|
+| 传统标量与全部容器，Binary/Compact v1 | 已实现 | 320 组独立 Apache 结构/分帧向量，加既有边界测试 |
+| 严格/旧式 Binary、Compact 消息头 | 已实现 | 48 组独立 Apache RPC 向量，序列号与消息类型边界 |
+| 增量 TFramedTransport | 已实现 | 全分割位置、逐字节、连续帧、截断与失败状态测试 |
+| 未知字段/类型不匹配字段跳过 | 已实现 | 跳过时不构造容器树；嵌套向量及截断测试 |
+| RPC 请求响应关联 | 已实现 | 乱序、序列号、方法名、异常、单向调用、失败状态测试 |
+| 真实 Apache 本地连接 | 已验证三种模式 | tools/test-interop.py；socket I/O 由 Python/Node 主机提供 |
+| IDL 编译器和 schema | 未实现 | 保持待完成 |
+| UUID 扩展 | 已实现规格级测试 | 网络字节序、Binary 16/Compact 13 类型标签、容器、截断；尚无独立运行时对照 |
+| 通用 socket/TLS/认证与跨语言互通 | 未完成 | 本地 Python 对照不能代替 |
+| 全面性能/长期运行验证 | 未完成 | 现有仅样例基准 |
 
-增加 Binary/Compact Map/Set，12 组 Apache Thrift 独立向量对照。
-
-## 尚未达到上游的部分
-
-无 IDL 编译器、schema 校验与 RPC transport；Compact 空 Map 无法从线路恢复类型，解码为 None/None。已有基础能力参见 README 与生成的 `pkg.generated.mbti`。
-
-## 工程交付范围
-
-独立 Git 仓库、独立构建目录、可执行文档、Wasm-GC/JS 测试、真实编译的浏览器与 CLI、边界输入检查、样例基准、CI 配置均随仓库交付。运行记录见 evidence；配置 CI 不代表远端 CI 已运行。没有公开发布或比赛验收结论。
+目标仍包含 20 个项目追平对标完善度；本表不以已通过的测试重新定义完成范围。

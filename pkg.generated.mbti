@@ -8,11 +8,21 @@ import {
 // Values
 pub fn decode(Bytes, Kind, Protocol) -> Value raise CodecError
 
-pub fn decode_message(Bytes, Protocol) -> Message raise CodecError
+pub fn decode_message(Bytes, Protocol, strict_read? : Bool) -> Message raise CodecError
+
+pub fn decode_prefix(Bytes, Kind, Protocol) -> (Value, Int) raise CodecError
+
+pub fn decode_selected(Bytes, Array[(Int, Kind)], Protocol) -> Value raise CodecError
 
 pub fn encode(Value, Protocol) -> Bytes raise CodecError
 
-pub fn encode_message(Message, Protocol) -> Bytes raise CodecError
+pub fn encode_framed_message(Message, Protocol, strict_write? : Bool) -> Bytes raise CodecError
+
+pub fn encode_message(Message, Protocol, strict_write? : Bool) -> Bytes raise CodecError
+
+pub fn frame(Bytes, max_frame? : Int) -> Bytes raise CodecError
+
+pub fn skip_prefix(Bytes, Kind, Protocol) -> Int raise CodecError
 
 // Errors
 pub suberror CodecError {
@@ -20,6 +30,34 @@ pub suberror CodecError {
 } derive(@debug.Debug)
 
 // Types and methods
+pub struct Client {
+  protocol : Protocol
+  strict_read : Bool
+  strict_write : Bool
+  decoder : FrameDecoder
+  pending : Map[Int, String]
+  mut next_sequence : UInt
+  mut failed : Bool
+}
+pub fn Client::call(Self, String, Value, oneway? : Bool) -> Bytes raise CodecError
+pub fn Client::feed(Self, Bytes) -> Array[Message] raise CodecError
+pub fn Client::finish(Self) -> Unit raise CodecError
+pub fn Client::new(Protocol, strict_read? : Bool, strict_write? : Bool) -> Self raise CodecError
+pub fn Client::pending_count(Self) -> Int
+
+pub struct FrameDecoder {
+  max_frame : Int
+  mut header : UInt64
+  mut header_bytes : Int
+  mut expected : Int
+  mut buffer : Array[Byte]
+  mut failed : Bool
+}
+pub fn FrameDecoder::feed(Self, Bytes) -> Array[Bytes] raise CodecError
+pub fn FrameDecoder::finish(Self) -> Unit raise CodecError
+pub fn FrameDecoder::new(max_frame? : Int) -> Self raise CodecError
+pub fn FrameDecoder::reset(Self) -> Unit
+
 pub(all) enum Kind {
   BoolKind
   ByteKind
@@ -32,6 +70,7 @@ pub(all) enum Kind {
   ListKind
   SetKind
   MapKind
+  UuidKind
 } derive(Eq, @debug.Debug)
 
 pub(all) struct Message {
@@ -58,6 +97,7 @@ pub(all) enum Value {
   List(Kind, Array[Value])
   SetValue(Kind, Array[Value])
   MapValue(Kind?, Kind?, Array[(Value, Value)])
+  Uuid(Bytes)
 } derive(Eq, @debug.Debug)
 pub fn Value::kind(Self) -> Kind
 

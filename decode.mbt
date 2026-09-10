@@ -73,6 +73,14 @@ fn Reader::value(
     raise Invalid("decoding resource limit")
   }
   match tag {
+    UuidKind => {
+      if self.data.length() - self.pos < 16 {
+        raise Invalid("truncated UUID")
+      }
+      let data = self.data[self.pos:self.pos + 16].to_owned()
+      self.pos += 16
+      Uuid(data)
+    }
     BoolKind => {
       let b = self.byte()
       if b == 1 {

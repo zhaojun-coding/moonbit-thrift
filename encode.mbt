@@ -28,6 +28,14 @@ fn write_value(
     raise Invalid("serialization resource limit")
   }
   match value {
+    Uuid(data) => {
+      if data.length() != 16 {
+        raise Invalid("UUID requires 16 network-order bytes")
+      }
+      for byte in data {
+        out.push(byte)
+      }
+    }
     Bool(b) => out.push(if b { 1 } else if compact { 2 } else { 0 })
     Byte(n) => {
       if n < -128 || n > 127 {

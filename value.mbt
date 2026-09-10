@@ -22,6 +22,7 @@ pub(all) enum Kind {
   ListKind
   SetKind
   MapKind
+  UuidKind
 } derive(Debug, Eq)
 
 ///|
@@ -37,6 +38,7 @@ pub(all) enum Value {
   List(Kind, Array[Value])
   SetValue(Kind, Array[Value])
   MapValue(Kind?, Kind?, Array[(Value, Value)])
+  Uuid(Bytes)
 } derive(Debug, Eq)
 
 ///|
@@ -53,6 +55,7 @@ pub fn Value::kind(self : Value) -> Kind {
     List(_, _) => ListKind
     SetValue(_, _) => SetKind
     MapValue(_, _, _) => MapKind
+    Uuid(_) => UuidKind
   }
 }
 
@@ -71,6 +74,7 @@ fn code(kind : Kind, compact : Bool) -> Int {
       SetKind => 10
       MapKind => 11
       StructKind => 12
+      UuidKind => 13
     }
   } else {
     match kind {
@@ -85,6 +89,7 @@ fn code(kind : Kind, compact : Bool) -> Int {
       SetKind => 14
       MapKind => 13
       StructKind => 12
+      UuidKind => 16
     }
   }
 }
@@ -104,6 +109,7 @@ fn kind(raw : Int, compact : Bool) -> Kind raise CodecError {
       SetKind,
       MapKind,
       StructKind,
+      UuidKind,
     ] {
     if code(k, compact) == raw {
       return k

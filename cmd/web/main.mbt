@@ -1,12 +1,21 @@
 ///|
 pub fn run(input : String) -> String {
   try {
-    let rpc = input.has_prefix("rpc-")
-    let payload = if rpc { input[4:].to_owned() } else { input }
+    let framed = input.has_prefix("framed-")
+    let rpc = input.has_prefix("rpc-") || framed
+    let payload = if framed {
+      input[7:].to_owned()
+    } else if rpc {
+      input[4:].to_owned()
+    } else {
+      input
+    }
     let compact = payload.has_prefix("compact:")
     let binary = payload.has_prefix("binary:")
     if !compact && !binary {
-      raise Failure("use compact:, binary:, rpc-compact: or rpc-binary:")
+      raise Failure(
+        "use compact:, binary:, rpc-compact:, rpc-binary:, framed-compact: or framed-binary:",
+      )
     }
     let protocol = if compact {
       @lib.CompactProtocol
@@ -14,6 +23,21 @@ pub fn run(input : String) -> String {
       @lib.BinaryProtocol
     }
     let data = unhex(payload[if compact { 8 } else { 7 }:].to_owned())
+    if framed {
+      let decoder = @lib.FrameDecoder::new()
+      let frames = decoder.feed(data)
+      decoder.finish()
+      let messages = []
+      for frame in frames {
+        messages.push(
+          Repr(@lib.decode_message(frame, protocol, strict_read=false)).to_string(),
+        )
+      }
+      return "Frames: " +
+        frames.length().to_string() +
+        "\n" +
+        messages.join("\n")
+    }
     if rpc {
       let message = @lib.decode_message(data, protocol)
       return Repr(message).to_string() +

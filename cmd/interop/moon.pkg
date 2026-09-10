@@ -1,0 +1,16 @@
+import {
+  "localreview/thrift" @lib,
+}
+
+supported_targets = "js"
+
+pkgtype(kind: "executable")
+
+options(
+  link: {
+    "js": {
+      "exports": [ "open_client", "request", "feed", "finish" ],
+      "format": "esm",
+    },
+  },
+)
