@@ -1,0 +1,11 @@
+{
+  "utc": "2026-09-17T11:42:17.711Z",
+  "mode": "live Apache generated Python bindings",
+  "runtime": "Apache Thrift Python 0.24.0",
+  "compiler": "Thrift version 0.24.0",
+  "compilerSha256": "1663a374ba2960151445811b30273cd75c574108c12c2ea55bc7fbce6d77e5ed",
+  "total": 26,
+  "passed": 26,
+  "failed": 0,
+  "failures": []
+}

@@ -1,0 +1,4 @@
+# New generated-schema/TCP/TLS reference tests; install in an isolated environment.
+# Historical oracle-requirements.txt remains pinned to its original 0.22.0 vectors.
+thrift==0.24.0
+cryptography==49.0.0

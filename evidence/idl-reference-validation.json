@@ -1,0 +1,47 @@
+{
+  "utc": "2026-09-17T11:42:17.028Z",
+  "mode": "live Apache compiler",
+  "version": "Thrift version 0.24.0",
+  "binarySha256": "1663a374ba2960151445811b30273cd75c574108c12c2ea55bc7fbce6d77e5ed",
+  "engineSha256": "a503d23ab7a0396baceb97de1e3e9e1296c90eb3987987339ec5e90886650273",
+  "acceptanceOnly": 5,
+  "total": 108,
+  "comparable": 106,
+  "passed": 106,
+  "failed": 0,
+  "failures": [],
+  "unavailable": [
+    {
+      "test": {
+        "id": "idl-100",
+        "root": "main.thrift",
+        "sources": {
+          "main.thrift": "struct X{1:string x=\"unterminated}"
+        }
+      },
+      "actual": {
+        "ok": false,
+        "error": "Syntax(\n  \"unterminated string literal\",\n  { source: \"main.thrift\", offset: 20, line: 1, column: 21 },\n)"
+      },
+      "reference": {
+        "unavailable": "official compiler exceeded 8 seconds; process terminated by subprocess.run"
+      }
+    },
+    {
+      "test": {
+        "id": "idl-101",
+        "root": "main.thrift",
+        "sources": {
+          "main.thrift": "/* unterminated"
+        }
+      },
+      "actual": {
+        "ok": false,
+        "error": "Syntax(\n  \"unterminated comment\",\n  { source: \"main.thrift\", offset: 0, line: 1, column: 1 },\n)"
+      },
+      "reference": {
+        "unavailable": "official compiler exceeded 8 seconds; process terminated by subprocess.run"
+      }
+    }
+  ]
+}

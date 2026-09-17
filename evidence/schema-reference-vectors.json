@@ -1,0 +1,735 @@
+{
+  "sources": {
+    "common.thrift": "namespace py common\n\ntypedef i64 AccountId\nenum Status { READY = 1, ACTIVE = 2 }\n\nstruct Record {\n  1: required AccountId id\n  2: optional string name = \"anonymous\"\n  3: optional binary data\n  4: optional map<string, list<i32>> groups\n  5: optional uuid tag\n  6: optional set<string> labels\n  7: Status state = Status.READY\n  8: optional Record child\n}\n\nexception Problem {\n  1: i32 code\n  2: string message\n}\n\nservice Base {\n  string ping(1: string message)\n}\n",
+    "demo.thrift": "include \"common.thrift\"\nnamespace py demo\n\nservice Records extends common.Base {\n  common.Record echo(1: common.Record value)\n  i64 add(1: i64 a, 2: i64 b)\n  void fail(1: i32 code) throws (1: common.Problem problem)\n  oneway void notify(1: string message)\n  string slow(1: i32 delayMs)\n}\n"
+  },
+  "cases": [
+    {
+      "type": "common.Record",
+      "value": {
+        "id": "0"
+      },
+      "protocol": "binary"
+    },
+    {
+      "type": "common.Record",
+      "value": {
+        "id": "9223372036854775807",
+        "name": "象棋🙂",
+        "data": {
+          "$binary": "0001ff80"
+        },
+        "groups": [
+          [
+            "a",
+            [
+              1,
+              -2,
+              2147483647
+            ]
+          ],
+          [
+            "b",
+            []
+          ]
+        ],
+        "tag": "00112233-4455-6677-8899-aabbccddeeff",
+        "labels": [
+          "z",
+          "a"
+        ],
+        "state": 2
+      },
+      "protocol": "binary"
+    },
+    {
+      "type": "common.Record",
+      "value": {
+        "id": "-9223372036854775808",
+        "name": null,
+        "groups": [],
+        "labels": [],
+        "state": 9876
+      },
+      "protocol": "binary"
+    },
+    {
+      "type": "common.Record",
+      "value": {
+        "id": "7",
+        "child": {
+          "id": "8",
+          "child": {
+            "id": "9",
+            "name": "nested"
+          }
+        }
+      },
+      "protocol": "binary"
+    },
+    {
+      "type": "common.Record",
+      "value": {
+        "id": 7,
+        "labels": [
+          "a",
+          "a",
+          "b"
+        ]
+      },
+      "protocol": "binary"
+    },
+    {
+      "type": "common.Record",
+      "value": {
+        "id": "1",
+        "groups": [
+          [
+            "a",
+            [
+              1
+            ]
+          ],
+          [
+            "a",
+            [
+              2
+            ]
+          ]
+        ]
+      },
+      "protocol": "binary"
+    },
+    {
+      "type": "common.Record",
+      "value": {},
+      "protocol": "binary"
+    },
+    {
+      "type": "common.Record",
+      "value": {
+        "id": null
+      },
+      "protocol": "binary"
+    },
+    {
+      "type": "common.Record",
+      "value": {
+        "id": "9223372036854775808"
+      },
+      "protocol": "binary"
+    },
+    {
+      "type": "common.Record",
+      "value": {
+        "id": "1",
+        "data": {
+          "$binary": "xyz"
+        }
+      },
+      "protocol": "binary"
+    },
+    {
+      "type": "common.Record",
+      "value": {
+        "id": "1",
+        "tag": "invalid"
+      },
+      "protocol": "binary"
+    },
+    {
+      "type": "common.Record",
+      "value": {
+        "id": "1",
+        "groups": [
+          [
+            "x",
+            [
+              2147483648
+            ]
+          ]
+        ]
+      },
+      "protocol": "binary"
+    },
+    {
+      "type": "common.Record",
+      "value": {
+        "id": "1",
+        "unknown": "x"
+      },
+      "protocol": "binary"
+    },
+    {
+      "type": "common.Record",
+      "value": {
+        "id": "0"
+      },
+      "protocol": "compact"
+    },
+    {
+      "type": "common.Record",
+      "value": {
+        "id": "9223372036854775807",
+        "name": "象棋🙂",
+        "data": {
+          "$binary": "0001ff80"
+        },
+        "groups": [
+          [
+            "a",
+            [
+              1,
+              -2,
+              2147483647
+            ]
+          ],
+          [
+            "b",
+            []
+          ]
+        ],
+        "tag": "00112233-4455-6677-8899-aabbccddeeff",
+        "labels": [
+          "z",
+          "a"
+        ],
+        "state": 2
+      },
+      "protocol": "compact"
+    },
+    {
+      "type": "common.Record",
+      "value": {
+        "id": "-9223372036854775808",
+        "name": null,
+        "groups": [],
+        "labels": [],
+        "state": 9876
+      },
+      "protocol": "compact"
+    },
+    {
+      "type": "common.Record",
+      "value": {
+        "id": "7",
+        "child": {
+          "id": "8",
+          "child": {
+            "id": "9",
+            "name": "nested"
+          }
+        }
+      },
+      "protocol": "compact"
+    },
+    {
+      "type": "common.Record",
+      "value": {
+        "id": 7,
+        "labels": [
+          "a",
+          "a",
+          "b"
+        ]
+      },
+      "protocol": "compact"
+    },
+    {
+      "type": "common.Record",
+      "value": {
+        "id": "1",
+        "groups": [
+          [
+            "a",
+            [
+              1
+            ]
+          ],
+          [
+            "a",
+            [
+              2
+            ]
+          ]
+        ]
+      },
+      "protocol": "compact"
+    },
+    {
+      "type": "common.Record",
+      "value": {},
+      "protocol": "compact"
+    },
+    {
+      "type": "common.Record",
+      "value": {
+        "id": null
+      },
+      "protocol": "compact"
+    },
+    {
+      "type": "common.Record",
+      "value": {
+        "id": "9223372036854775808"
+      },
+      "protocol": "compact"
+    },
+    {
+      "type": "common.Record",
+      "value": {
+        "id": "1",
+        "data": {
+          "$binary": "xyz"
+        }
+      },
+      "protocol": "compact"
+    },
+    {
+      "type": "common.Record",
+      "value": {
+        "id": "1",
+        "tag": "invalid"
+      },
+      "protocol": "compact"
+    },
+    {
+      "type": "common.Record",
+      "value": {
+        "id": "1",
+        "groups": [
+          [
+            "x",
+            [
+              2147483648
+            ]
+          ]
+        ]
+      },
+      "protocol": "compact"
+    },
+    {
+      "type": "common.Record",
+      "value": {
+        "id": "1",
+        "unknown": "x"
+      },
+      "protocol": "compact"
+    }
+  ],
+  "reference": {
+    "runtime": "Apache Thrift Python 0.24.0",
+    "compiler": "Thrift version 0.24.0",
+    "compilerSha256": "1663a374ba2960151445811b30273cd75c574108c12c2ea55bc7fbce6d77e5ed",
+    "results": [
+      {
+        "ok": true,
+        "hex": "0a000100000000000000000b000200000009616e6f6e796d6f75730800070000000100",
+        "value": {
+          "id": "0",
+          "name": "anonymous",
+          "state": 1
+        },
+        "moonValue": {
+          "id": "0",
+          "name": "anonymous",
+          "state": 1
+        }
+      },
+      {
+        "ok": true,
+        "hex": "0a00017fffffffffffffff0b00020000000ae8b1a1e6a38bf09f99820b0003000000040001ff800d00040b0f000000020000000161080000000300000001fffffffe7fffffff0000000162080000000010000500112233445566778899aabbccddeeff0e00060b000000020000000161000000017a0800070000000200",
+        "value": {
+          "id": "9223372036854775807",
+          "name": "象棋🙂",
+          "data": {
+            "$binary": "0001ff80"
+          },
+          "groups": [
+            [
+              "a",
+              [
+                1,
+                -2,
+                2147483647
+              ]
+            ],
+            [
+              "b",
+              []
+            ]
+          ],
+          "tag": "00112233-4455-6677-8899-aabbccddeeff",
+          "labels": [
+            "a",
+            "z"
+          ],
+          "state": 2
+        },
+        "moonValue": {
+          "id": "9223372036854775807",
+          "name": "象棋🙂",
+          "data": {
+            "$binary": "0001ff80"
+          },
+          "groups": [
+            [
+              "a",
+              [
+                1,
+                -2,
+                2147483647
+              ]
+            ],
+            [
+              "b",
+              []
+            ]
+          ],
+          "tag": "00112233-4455-6677-8899-aabbccddeeff",
+          "labels": [
+            "a",
+            "z"
+          ],
+          "state": 2
+        }
+      },
+      {
+        "ok": true,
+        "hex": "0a000180000000000000000d00040b0f000000000e00060b000000000800070000269400",
+        "value": {
+          "id": "-9223372036854775808",
+          "name": "anonymous",
+          "groups": [],
+          "labels": [],
+          "state": 9876
+        },
+        "moonValue": {
+          "id": "-9223372036854775808",
+          "name": "anonymous",
+          "groups": [],
+          "labels": [],
+          "state": 9876
+        }
+      },
+      {
+        "ok": true,
+        "hex": "0a000100000000000000070b000200000009616e6f6e796d6f7573080007000000010c00080a000100000000000000080b000200000009616e6f6e796d6f7573080007000000010c00080a000100000000000000090b0002000000066e657374656408000700000001000000",
+        "value": {
+          "id": "7",
+          "name": "anonymous",
+          "state": 1,
+          "child": {
+            "id": "8",
+            "name": "anonymous",
+            "state": 1,
+            "child": {
+              "id": "9",
+              "name": "nested",
+              "state": 1
+            }
+          }
+        },
+        "moonValue": {
+          "id": "7",
+          "name": "anonymous",
+          "state": 1,
+          "child": {
+            "id": "8",
+            "name": "anonymous",
+            "state": 1,
+            "child": {
+              "id": "9",
+              "name": "nested",
+              "state": 1
+            }
+          }
+        }
+      },
+      {
+        "ok": true,
+        "hex": "0a000100000000000000070b000200000009616e6f6e796d6f75730e00060b00000002000000016100000001620800070000000100",
+        "value": {
+          "id": "7",
+          "name": "anonymous",
+          "labels": [
+            "a",
+            "b"
+          ],
+          "state": 1
+        },
+        "moonValue": {
+          "id": "7",
+          "name": "anonymous",
+          "labels": [
+            "a",
+            "b"
+          ],
+          "state": 1
+        }
+      },
+      {
+        "ok": true,
+        "hex": "0a000100000000000000010b000200000009616e6f6e796d6f75730d00040b0f0000000100000001610800000001000000020800070000000100",
+        "value": {
+          "id": "1",
+          "name": "anonymous",
+          "groups": [
+            [
+              "a",
+              [
+                2
+              ]
+            ]
+          ],
+          "state": 1
+        },
+        "moonValue": {
+          "id": "1",
+          "name": "anonymous",
+          "groups": [
+            [
+              "a",
+              [
+                2
+              ]
+            ]
+          ],
+          "state": 1
+        }
+      },
+      {
+        "ok": false,
+        "error": "TProtocolException: Required field id is unset!"
+      },
+      {
+        "ok": false,
+        "error": "TProtocolException: Required field id is unset!"
+      },
+      {
+        "ok": false,
+        "error": "error: 'q' format requires -9223372036854775808 <= number <= 9223372036854775807"
+      },
+      {
+        "ok": false,
+        "error": "ValueError: non-hexadecimal number found in fromhex() arg at position 0"
+      },
+      {
+        "ok": false,
+        "error": "ValueError: badly formed hexadecimal UUID string"
+      },
+      {
+        "ok": false,
+        "error": "error: 'i' format requires -2147483648 <= number <= 2147483647"
+      },
+      {
+        "ok": false,
+        "error": "KeyError: 'unknown'"
+      },
+      {
+        "ok": true,
+        "hex": "16001809616e6f6e796d6f7573550200",
+        "value": {
+          "id": "0",
+          "name": "anonymous",
+          "state": 1
+        },
+        "moonValue": {
+          "id": "0",
+          "name": "anonymous",
+          "state": 1
+        }
+      },
+      {
+        "ok": true,
+        "hex": "16feffffffffffffffff01180ae8b1a1e6a38bf09f998218040001ff801b02890161350203feffffff0f0162051d00112233445566778899aabbccddeeff1a280161017a150400",
+        "value": {
+          "id": "9223372036854775807",
+          "name": "象棋🙂",
+          "data": {
+            "$binary": "0001ff80"
+          },
+          "groups": [
+            [
+              "a",
+              [
+                1,
+                -2,
+                2147483647
+              ]
+            ],
+            [
+              "b",
+              []
+            ]
+          ],
+          "tag": "00112233-4455-6677-8899-aabbccddeeff",
+          "labels": [
+            "a",
+            "z"
+          ],
+          "state": 2
+        },
+        "moonValue": {
+          "id": "9223372036854775807",
+          "name": "象棋🙂",
+          "data": {
+            "$binary": "0001ff80"
+          },
+          "groups": [
+            [
+              "a",
+              [
+                1,
+                -2,
+                2147483647
+              ]
+            ],
+            [
+              "b",
+              []
+            ]
+          ],
+          "tag": "00112233-4455-6677-8899-aabbccddeeff",
+          "labels": [
+            "a",
+            "z"
+          ],
+          "state": 2
+        }
+      },
+      {
+        "ok": true,
+        "hex": "16ffffffffffffffffff013b002a0815a89a0100",
+        "value": {
+          "id": "-9223372036854775808",
+          "name": "anonymous",
+          "groups": [],
+          "labels": [],
+          "state": 9876
+        },
+        "moonValue": {
+          "id": "-9223372036854775808",
+          "name": "anonymous",
+          "groups": [],
+          "labels": [],
+          "state": 9876
+        }
+      },
+      {
+        "ok": true,
+        "hex": "160e1809616e6f6e796d6f757355021c16101809616e6f6e796d6f757355021c161218066e65737465645502000000",
+        "value": {
+          "id": "7",
+          "name": "anonymous",
+          "state": 1,
+          "child": {
+            "id": "8",
+            "name": "anonymous",
+            "state": 1,
+            "child": {
+              "id": "9",
+              "name": "nested",
+              "state": 1
+            }
+          }
+        },
+        "moonValue": {
+          "id": "7",
+          "name": "anonymous",
+          "state": 1,
+          "child": {
+            "id": "8",
+            "name": "anonymous",
+            "state": 1,
+            "child": {
+              "id": "9",
+              "name": "nested",
+              "state": 1
+            }
+          }
+        }
+      },
+      {
+        "ok": true,
+        "hex": "160e1809616e6f6e796d6f75734a2801610162150200",
+        "value": {
+          "id": "7",
+          "name": "anonymous",
+          "labels": [
+            "a",
+            "b"
+          ],
+          "state": 1
+        },
+        "moonValue": {
+          "id": "7",
+          "name": "anonymous",
+          "labels": [
+            "a",
+            "b"
+          ],
+          "state": 1
+        }
+      },
+      {
+        "ok": true,
+        "hex": "16021809616e6f6e796d6f75732b018901611504350200",
+        "value": {
+          "id": "1",
+          "name": "anonymous",
+          "groups": [
+            [
+              "a",
+              [
+                2
+              ]
+            ]
+          ],
+          "state": 1
+        },
+        "moonValue": {
+          "id": "1",
+          "name": "anonymous",
+          "groups": [
+            [
+              "a",
+              [
+                2
+              ]
+            ]
+          ],
+          "state": 1
+        }
+      },
+      {
+        "ok": false,
+        "error": "TProtocolException: Required field id is unset!"
+      },
+      {
+        "ok": false,
+        "error": "TProtocolException: Required field id is unset!"
+      },
+      {
+        "ok": false,
+        "error": "TProtocolException: i64 requires -9223372036854775808 <= number <= 9223372036854775807"
+      },
+      {
+        "ok": false,
+        "error": "ValueError: non-hexadecimal number found in fromhex() arg at position 0"
+      },
+      {
+        "ok": false,
+        "error": "ValueError: badly formed hexadecimal UUID string"
+      },
+      {
+        "ok": false,
+        "error": "TProtocolException: i32 requires -2147483648 <= number <= 2147483647"
+      },
+      {
+        "ok": false,
+        "error": "KeyError: 'unknown'"
+      }
+    ]
+  }
+}

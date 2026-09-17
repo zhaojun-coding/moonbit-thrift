@@ -1,0 +1,18 @@
+{
+  "utc": "2026-09-17T11:43:47.158Z",
+  "deterministic": true,
+  "backends": [
+    {
+      "target": "js",
+      "tests": 3,
+      "passed": 3
+    },
+    {
+      "target": "wasm-gc",
+      "tests": 3,
+      "passed": 3
+    }
+  ],
+  "minimalSchemas": 5,
+  "scope": "Generated public types and RPC bindings compiled and executed against MoonBit library, not Apache language-generator API equivalence"
+}

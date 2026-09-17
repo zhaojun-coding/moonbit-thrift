@@ -6,6 +6,10 @@ import {
 }
 
 // Values
+pub fn application_exception(String, Int, Int, String) -> Message
+
+pub fn compile_schema(String, Map[String, String], include_paths? : Array[String]) -> Schema raise SchemaError
+
 pub fn decode(Bytes, Kind, Protocol) -> Value raise CodecError
 
 pub fn decode_message(Bytes, Protocol, strict_read? : Bool) -> Message raise CodecError
@@ -22,11 +26,18 @@ pub fn encode_message(Message, Protocol, strict_write? : Bool) -> Bytes raise Co
 
 pub fn frame(Bytes, max_frame? : Int) -> Bytes raise CodecError
 
+pub fn parse_idl(String, source? : String) -> IdlModule raise SchemaError
+
 pub fn skip_prefix(Bytes, Kind, Protocol) -> Int raise CodecError
 
 // Errors
 pub suberror CodecError {
   Invalid(String)
+} derive(@debug.Debug)
+
+pub suberror SchemaError {
+  Syntax(String, IdlLocation)
+  InvalidSchema(String)
 } derive(@debug.Debug)
 
 // Types and methods
@@ -40,6 +51,7 @@ pub struct Client {
   mut failed : Bool
 }
 pub fn Client::call(Self, String, Value, oneway? : Bool) -> Bytes raise CodecError
+pub fn Client::call_with_id(Self, String, Value, oneway? : Bool, response_name? : String?) -> (Int, Bytes) raise CodecError
 pub fn Client::feed(Self, Bytes) -> Array[Message] raise CodecError
 pub fn Client::finish(Self) -> Unit raise CodecError
 pub fn Client::new(Protocol, strict_read? : Bool, strict_write? : Bool) -> Self raise CodecError
@@ -57,6 +69,66 @@ pub fn FrameDecoder::feed(Self, Bytes) -> Array[Bytes] raise CodecError
 pub fn FrameDecoder::finish(Self) -> Unit raise CodecError
 pub fn FrameDecoder::new(max_frame? : Int) -> Self raise CodecError
 pub fn FrameDecoder::reset(Self) -> Unit
+
+pub(all) enum IdlConst {
+  IntegerConstant(Int64)
+  FloatConstant(Double)
+  StringConstant(String)
+  NameConstant(String)
+  ListConstant(Array[IdlConst])
+  MapConstant(Array[(IdlConst, IdlConst)])
+} derive(Eq, @debug.Debug)
+
+pub(all) enum IdlDefinition {
+  Alias(String, IdlType, Map[String, String])
+  Enumeration(String, Array[(String, Int)], Map[String, String])
+  Record(String, String, Array[IdlField], Map[String, String])
+  Constant(String, IdlType, IdlConst)
+  Service(String, String?, Array[IdlMethod], Map[String, String])
+} derive(Eq, @debug.Debug)
+
+pub(all) struct IdlField {
+  id : Int
+  name : String
+  field_type : IdlType
+  requiredness : String
+  default_value : IdlConst?
+  annotations : Map[String, String]
+  location : IdlLocation
+} derive(Eq, @debug.Debug)
+
+pub(all) struct IdlLocation {
+  source : String
+  offset : Int
+  line : Int
+  column : Int
+} derive(Eq, ToJson, @debug.Debug)
+
+pub(all) struct IdlMethod {
+  name : String
+  return_type : IdlType
+  oneway : Bool
+  arguments : Array[IdlField]
+  exceptions : Array[IdlField]
+  annotations : Map[String, String]
+  location : IdlLocation
+} derive(Eq, @debug.Debug)
+
+pub(all) struct IdlModule {
+  source : String
+  includes : Array[String]
+  namespaces : Map[String, String]
+  cpp_includes : Array[String]
+  definitions : Array[IdlDefinition]
+} derive(Eq, @debug.Debug)
+
+pub(all) enum IdlType {
+  Base(String)
+  Named(String)
+  ListOf(IdlType)
+  SetOf(IdlType)
+  MapOf(IdlType, IdlType)
+} derive(Eq, @debug.Debug)
 
 pub(all) enum Kind {
   BoolKind
@@ -84,6 +156,30 @@ pub(all) enum Protocol {
   BinaryProtocol
   CompactProtocol
 } derive(Eq, @debug.Debug)
+
+pub(all) enum RpcOutcome {
+  Success(Json)
+  DeclaredException(String, Json)
+  ApplicationFailure(Int, String)
+} derive(Eq, @debug.Debug)
+
+pub struct Schema {
+  // private fields
+}
+pub fn Schema::decode_json(Self, String, Bytes, Protocol) -> Json raise
+pub fn Schema::describe(Self) -> Json raise SchemaError
+pub fn Schema::encode_json(Self, String, Json, Protocol) -> Bytes raise
+pub fn Schema::from_json(Self, String, Json) -> Value raise SchemaError
+pub fn Schema::get_method(Self, String, String) -> IdlMethod raise SchemaError
+pub fn Schema::get_module(Self) -> IdlModule
+pub fn Schema::make_call(Self, String, String, Json, Int) -> Message raise SchemaError
+pub fn Schema::make_reply(Self, String, String, Int, RpcOutcome) -> Message raise SchemaError
+pub fn Schema::read_call(Self, String, Message) -> Json raise SchemaError
+pub fn Schema::read_reply(Self, String, String, Message) -> RpcOutcome raise SchemaError
+pub fn Schema::service_functions(Self, String) -> Array[IdlMethod] raise SchemaError
+pub fn Schema::services(Self) -> Array[String]
+pub fn Schema::to_json(Self, String, Value) -> Json raise SchemaError
+pub fn Schema::warnings(Self) -> Array[String]
 
 pub(all) enum Value {
   Bool(Bool)

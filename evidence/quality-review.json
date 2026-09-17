@@ -1,87 +1,46 @@
 {
-  "project": "moonbit-thrift",
-  "version": "0.4.0",
-  "timestamp": "2026-09-10T11:29:55.945845+00:00",
-  "exit_code": 0,
-  "backend_test_counts": [
-    [
-      "437",
-      "437",
-      "0"
+  "utc": "2026-09-17T11:46:31.550141+00:00",
+  "version": "0.5.0",
+  "status": "local incremental upgrade; full Apache Thrift and overall 20-project parity incomplete",
+  "verify": {
+    "command": "verify.ps1 -WithInterop -WithReference",
+    "passed": true,
+    "coreTestsPerBackend": 444,
+    "targets": [
+      "js",
+      "wasm-gc"
     ],
-    [
-      "437",
-      "437",
-      "0"
-    ]
-  ],
-  "scope": "Local Windows verify.ps1 -WithInterop; Apache Thrift Python 0.22.0 loopback TCP; remote CI not run",
-  "coverage": {
-    "covered": 561,
-    "total": 614,
-    "measurement": "MoonBit instrumentation points"
-  },
-  "robustness": {
-    "project": "thrift",
-    "seed": 20260910,
-    "cases": 307,
-    "expected_error_responses": 306,
-    "uncaught_exceptions": 0,
-    "scope": "bounded malformed-input robustness, not proof of full language/protocol conformance"
-  },
-  "benchmark": {
-    "project": "thrift",
-    "utc": "2026-09-10T11:27:01.466Z",
-    "runtime": "v24.11.0",
-    "platform": "win32",
-    "cpu": "Intel(R) Core(TM) i7-14700HX",
-    "input_utf8_bytes": 54,
-    "samples": 30,
-    "warmup": 5,
-    "median_ms": 0.17479999999999762,
-    "p95_ms": 0.3329999999999984,
-    "max_ms": 1.0342999999999947,
-    "scope": "JS warm execution of documented example; no cross-project or upstream performance claim"
-  },
-  "interop": {
-    "utc": "2026-09-10T11:27:02.624918+00:00",
-    "oracle": "Apache Thrift Python 0.22.0",
-    "host": "loopback TCP only",
-    "cases": [
-      {
-        "mode": "binary",
-        "responses": [
-          "exception:1",
-          "0:42"
-        ],
-        "oneway": true,
-        "fragmented": true,
-        "ok": true
-      },
-      {
-        "mode": "compact",
-        "responses": [
-          "exception:1",
-          "0:42"
-        ],
-        "oneway": true,
-        "fragmented": true,
-        "ok": true
-      },
-      {
-        "mode": "legacy",
-        "responses": [
-          "exception:1",
-          "0:42"
-        ],
-        "oneway": true,
-        "fragmented": true,
-        "ok": true
-      }
+    "postVerifyTargeted": [
+      "test-generated.mjs after symbol collision handling",
+      "test-demo.mjs after web metadata change"
     ],
-    "scope": "framed Binary strict/legacy and Compact, fragmented writes, out-of-order replies, application exception, oneway"
+    "fmtInfoIdempotentFiles": 36
   },
-  "independent_generated_cases": 368,
-  "uuid": "specification vectors only; not supported by Python oracle",
-  "remote_ci": "not run"
+  "reference": {
+    "compiler": "Thrift version 0.24.0",
+    "compilerSha256": "1663a374ba2960151445811b30273cd75c574108c12c2ea55bc7fbce6d77e5ed",
+    "idlComparable": 106,
+    "idlAcceptanceOnly": 5,
+    "idlReferenceTimeouts": 2,
+    "generatedCodecCases": 26,
+    "networkRpcChecks": 192,
+    "networkHostGroups": 13,
+    "historicalCoreVectors": 368,
+    "historicalRuntime": "Apache Thrift Python 0.22.0"
+  },
+  "integration": {
+    "schemaCliGroups": 6,
+    "generatedGroupsPerBackend": 3,
+    "generatedMinimalSchemas": 5,
+    "legacyInteropModes": [
+      "binary",
+      "compact",
+      "legacy"
+    ],
+    "rawEngineMalformedCases": 307
+  },
+  "coverage": "Not remeasured; historical coverage is not current feature coverage",
+  "benchmark": "Local documented example only; no upstream performance claim",
+  "remoteCI": "Not run",
+  "archivesRefreshed": false
 }

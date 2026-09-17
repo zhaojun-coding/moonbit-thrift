@@ -1,9 +1,9 @@
 name = "localreview/thrift"
 
-version = "0.4.0"
+version = "0.5.0"
 
 license = "MIT"
 
 readme = "README.md"
 
-description = "Binary/Compact 协议的带类型值树序列化"
+description = "Thrift IDL、类型绑定、Binary/Compact 和分帧 RPC"

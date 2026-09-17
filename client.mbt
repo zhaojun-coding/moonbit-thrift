@@ -42,6 +42,19 @@ pub fn Client::call(
   body : Value,
   oneway? : Bool = false,
 ) -> Bytes raise CodecError {
+  self.call_with_id(name, body, oneway~).1
+}
+
+///|
+/// Return the registered sequence id alongside the frame. Multiplexed requests
+/// may specify the unprefixed response name used by TMultiplexedProtocol peers.
+pub fn Client::call_with_id(
+  self : Client,
+  name : String,
+  body : Value,
+  oneway? : Bool = false,
+  response_name? : String? = None,
+) -> (Int, Bytes) raise CodecError {
   if self.failed {
     raise Invalid("RPC client requires reconnect")
   }
@@ -60,9 +73,9 @@ pub fn Client::call(
   )
   self.next_sequence += 1U
   if !oneway {
-    self.pending[seq] = name
+    self.pending[seq] = response_name.unwrap_or(name)
   }
-  wire
+  (seq, wire)
 }
 
 ///|

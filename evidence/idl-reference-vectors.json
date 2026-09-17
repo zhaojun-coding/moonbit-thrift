@@ -1,0 +1,3702 @@
+{
+  "cases": [
+    {
+      "id": "idl-0",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": ""
+      }
+    },
+    {
+      "id": "idl-1",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "namespace py demo\nnamespace * common\ncpp_include \"example.hpp\"\nstruct Empty {}"
+      }
+    },
+    {
+      "id": "idl-2",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "typedef i64 Id\nenum E{ZERO,ONE,TEN=10,NEG=-3,AFTER} struct X {1:required Id id;2:optional string label=\"sample\";3:list<E> values;i32 automatic}"
+      }
+    },
+    {
+      "id": "idl-3",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "exception Bad {1:string message} service Base {i32 add(1:i32 x,2:i32 y) throws(1:Bad error); oneway void log(1:string text)} service Child extends Base {void ping()}"
+      }
+    },
+    {
+      "id": "idl-4",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "struct Node{1:optional Node next,2:optional list<Node> children}"
+      }
+    },
+    {
+      "id": "idl-5",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "typedef Later Early\nstruct First {1:Early value}\nstruct Later {1:i32 id}"
+      }
+    },
+    {
+      "id": "idl-6",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "include \"base.thrift\"\nstruct X{1:base.Item item;2:base.Id id=base.BIG;3:base.E e=base.E.B} service S extends base.Parent {void ping()}",
+        "base.thrift": "typedef i64 Id\nconst Id BIG=9223372036854775807\nenum E{A,B}\nstruct Item{1:string name}\nservice Parent{bool check()}"
+      }
+    },
+    {
+      "id": "idl-7",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "typedef bool T\nstruct X{1:required T a;2:optional bool b;3:bool c}"
+      }
+    },
+    {
+      "id": "idl-8",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "typedef byte T\nstruct X{1:required T a;2:optional byte b;3:byte c}"
+      }
+    },
+    {
+      "id": "idl-9",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "typedef i8 T\nstruct X{1:required T a;2:optional i8 b;3:i8 c}"
+      }
+    },
+    {
+      "id": "idl-10",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "typedef i16 T\nstruct X{1:required T a;2:optional i16 b;3:i16 c}"
+      }
+    },
+    {
+      "id": "idl-11",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "typedef i32 T\nstruct X{1:required T a;2:optional i32 b;3:i32 c}"
+      }
+    },
+    {
+      "id": "idl-12",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "typedef i64 T\nstruct X{1:required T a;2:optional i64 b;3:i64 c}"
+      }
+    },
+    {
+      "id": "idl-13",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "typedef double T\nstruct X{1:required T a;2:optional double b;3:double c}"
+      }
+    },
+    {
+      "id": "idl-14",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "typedef string T\nstruct X{1:required T a;2:optional string b;3:string c}"
+      }
+    },
+    {
+      "id": "idl-15",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "typedef binary T\nstruct X{1:required T a;2:optional binary b;3:binary c}"
+      }
+    },
+    {
+      "id": "idl-16",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "typedef uuid T\nstruct X{1:required T a;2:optional uuid b;3:uuid c}"
+      }
+    },
+    {
+      "id": "idl-17",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "typedef list<i32> T\nstruct X{1:required T a;2:optional list<i32> b;3:list<i32> c}"
+      }
+    },
+    {
+      "id": "idl-18",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "typedef set<string> T\nstruct X{1:required T a;2:optional set<string> b;3:set<string> c}"
+      }
+    },
+    {
+      "id": "idl-19",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "typedef map<string,list<i64>> T\nstruct X{1:required T a;2:optional map<string,list<i64>> b;3:map<string,list<i64>> c}"
+      }
+    },
+    {
+      "id": "idl-20",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const bool C=true\nstruct X {1:optional bool value=C}"
+      }
+    },
+    {
+      "id": "idl-21",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const bool C=false\nstruct X {1:optional bool value=C}"
+      }
+    },
+    {
+      "id": "idl-22",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const bool C=0\nstruct X {1:optional bool value=C}"
+      }
+    },
+    {
+      "id": "idl-23",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const bool C=1\nstruct X {1:optional bool value=C}"
+      }
+    },
+    {
+      "id": "idl-24",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const bool C=2\nstruct X {1:optional bool value=C}"
+      }
+    },
+    {
+      "id": "idl-25",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const bool C=-1\nstruct X {1:optional bool value=C}"
+      }
+    },
+    {
+      "id": "idl-26",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const byte C=-128\nstruct X {1:optional byte value=C}"
+      }
+    },
+    {
+      "id": "idl-27",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const byte C=127\nstruct X {1:optional byte value=C}"
+      }
+    },
+    {
+      "id": "idl-28",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const byte C=128\nstruct X {1:optional byte value=C}"
+      }
+    },
+    {
+      "id": "idl-29",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const byte C=-129\nstruct X {1:optional byte value=C}"
+      }
+    },
+    {
+      "id": "idl-30",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const i16 C=-32768\nstruct X {1:optional i16 value=C}"
+      }
+    },
+    {
+      "id": "idl-31",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const i16 C=32767\nstruct X {1:optional i16 value=C}"
+      }
+    },
+    {
+      "id": "idl-32",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const i16 C=32768\nstruct X {1:optional i16 value=C}"
+      }
+    },
+    {
+      "id": "idl-33",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const i32 C=-2147483648\nstruct X {1:optional i32 value=C}"
+      }
+    },
+    {
+      "id": "idl-34",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const i32 C=2147483647\nstruct X {1:optional i32 value=C}"
+      }
+    },
+    {
+      "id": "idl-35",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const i32 C=2147483648\nstruct X {1:optional i32 value=C}"
+      }
+    },
+    {
+      "id": "idl-36",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const i64 C=-9223372036854775808\nstruct X {1:optional i64 value=C}"
+      }
+    },
+    {
+      "id": "idl-37",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const i64 C=9223372036854775807\nstruct X {1:optional i64 value=C}"
+      }
+    },
+    {
+      "id": "idl-38",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const i64 C=9223372036854775808\nstruct X {1:optional i64 value=C}"
+      }
+    },
+    {
+      "id": "idl-39",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const i64 C=0xff\nstruct X {1:optional i64 value=C}"
+      }
+    },
+    {
+      "id": "idl-40",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const i64 C=077\nstruct X {1:optional i64 value=C}"
+      }
+    },
+    {
+      "id": "idl-41",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const i64 C=+42\nstruct X {1:optional i64 value=C}"
+      }
+    },
+    {
+      "id": "idl-42",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const double C=1\nstruct X {1:optional double value=C}"
+      }
+    },
+    {
+      "id": "idl-43",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const double C=-1.25\nstruct X {1:optional double value=C}"
+      }
+    },
+    {
+      "id": "idl-44",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const double C=.5\nstruct X {1:optional double value=C}"
+      }
+    },
+    {
+      "id": "idl-45",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const double C=1e3\nstruct X {1:optional double value=C}"
+      }
+    },
+    {
+      "id": "idl-46",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const double C=-2e-2\nstruct X {1:optional double value=C}"
+      }
+    },
+    {
+      "id": "idl-47",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const double C=1e400\nstruct X {1:optional double value=C}"
+      }
+    },
+    {
+      "id": "idl-48",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const string C=\"abc\"\nstruct X {1:optional string value=C}"
+      }
+    },
+    {
+      "id": "idl-49",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const string C='one'\nstruct X {1:optional string value=C}"
+      }
+    },
+    {
+      "id": "idl-50",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const string C=\"a\\nb\\tc\\\\d\\\"e\"\nstruct X {1:optional string value=C}"
+      }
+    },
+    {
+      "id": "idl-51",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const string C=\"\\x41\\u0042\\q\"\nstruct X {1:optional string value=C}"
+      }
+    },
+    {
+      "id": "idl-52",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const string C=\"象棋🙂\"\nstruct X {1:optional string value=C}"
+      }
+    },
+    {
+      "id": "idl-53",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const binary C=\"abc\"\nstruct X {1:optional binary value=C}"
+      }
+    },
+    {
+      "id": "idl-54",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const uuid C=\"00112233-4455-6677-8899-aabbccddeeff\"\nstruct X {1:optional uuid value=C}"
+      }
+    },
+    {
+      "id": "idl-55",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const uuid C=\"bad\"\nstruct X {1:optional uuid value=C}"
+      }
+    },
+    {
+      "id": "idl-56",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const list<i16> C=[]\nstruct X {1:optional list<i16> value=C}"
+      }
+    },
+    {
+      "id": "idl-57",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const list<i16> C=[1,2;3]\nstruct X {1:optional list<i16> value=C}"
+      }
+    },
+    {
+      "id": "idl-58",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const list<i16> C=[\"a\"]\nstruct X {1:optional list<i16> value=C}"
+      }
+    },
+    {
+      "id": "idl-59",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const map<string,i32> C={}\nstruct X {1:optional map<string,i32> value=C}"
+      }
+    },
+    {
+      "id": "idl-60",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const map<string,i32> C={\"a\":1,\"b\":2}\nstruct X {1:optional map<string,i32> value=C}"
+      }
+    },
+    {
+      "id": "idl-61",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const map<string,i32> C={\"b\":2,\"a\":1}\nstruct X {1:optional map<string,i32> value=C}"
+      }
+    },
+    {
+      "id": "idl-62",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const map<string,i32> C={1:2}\nstruct X {1:optional map<string,i32> value=C}"
+      }
+    },
+    {
+      "id": "idl-63",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const i32 A=1 const i64 B=A struct X {1:i64 x=B}"
+      }
+    },
+    {
+      "id": "idl-64",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "enum E{A=3,B} const E C=E.B struct X{1:E e=C}"
+      }
+    },
+    {
+      "id": "idl-65",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "enum E{A=3,B} const i32 C=E.B"
+      }
+    },
+    {
+      "id": "idl-66",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "enum E{A=3,B} struct X{1:E e=B}"
+      }
+    },
+    {
+      "id": "idl-67",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "struct P{1:i32 x;2:string y} const P A={\"x\":3,\"y\":\"a\"} struct X{1:P p=A}"
+      }
+    },
+    {
+      "id": "idl-68",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "struct P{1:required i32 x} const P A={}"
+      }
+    },
+    {
+      "id": "idl-69",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "union U{1:required string a,2:optional i32 b}"
+      }
+    },
+    {
+      "id": "idl-70",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "union U{1:string a=\"x\",2:i32 b=2}"
+      }
+    },
+    {
+      "id": "idl-71",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "struct X{string a,i32 b,7:string c,string d}"
+      }
+    },
+    {
+      "id": "idl-72",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "struct X{-9:string a;0:i32 b;-2:string c;1:string d}"
+      }
+    },
+    {
+      "id": "idl-73",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "struct X{1:i32 a;1:string b}"
+      }
+    },
+    {
+      "id": "idl-74",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "struct X{1:i32 a;2:string a}"
+      }
+    },
+    {
+      "id": "idl-75",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "enum E{A,A}"
+      }
+    },
+    {
+      "id": "idl-76",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "enum E{A=1,B=1}"
+      }
+    },
+    {
+      "id": "idl-77",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "struct X{32768:i32 a}"
+      }
+    },
+    {
+      "id": "idl-78",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "struct X{-32769:i32 a}"
+      }
+    },
+    {
+      "id": "idl-79",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "struct X{1:void a}"
+      }
+    },
+    {
+      "id": "idl-80",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "typedef void X"
+      }
+    },
+    {
+      "id": "idl-81",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "struct X{1:Missing a}"
+      }
+    },
+    {
+      "id": "idl-82",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "service S{oneway i32 wrong()}"
+      }
+    },
+    {
+      "id": "idl-83",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "exception E{} service S{oneway void wrong() throws(1:E error)}"
+      }
+    },
+    {
+      "id": "idl-84",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "service S{i32 a() throws(1:i32 bad)}"
+      }
+    },
+    {
+      "id": "idl-85",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "service S{void a();void a()}"
+      }
+    },
+    {
+      "id": "idl-86",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "service Base{void a()} service Child extends Base{void a()}"
+      }
+    },
+    {
+      "id": "idl-87",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "struct Base{} service Child extends Base{}"
+      }
+    },
+    {
+      "id": "idl-88",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "struct X{} struct X{}"
+      }
+    },
+    {
+      "id": "idl-89",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const i32 A=\"x\""
+      }
+    },
+    {
+      "id": "idl-90",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const string A=1"
+      }
+    },
+    {
+      "id": "idl-91",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "const i32 A=unknown"
+      }
+    },
+    {
+      "id": "idl-92",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "struct X{1:map<void,i32> a}"
+      }
+    },
+    {
+      "id": "idl-93",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "struct X{1:list<void> a}"
+      }
+    },
+    {
+      "id": "idl-94",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "struct class{}"
+      }
+    },
+    {
+      "id": "idl-95",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "struct X{1:i32 class}"
+      }
+    },
+    {
+      "id": "idl-96",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "struct struct{}"
+      }
+    },
+    {
+      "id": "idl-97",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "struct X{1:i32 string}"
+      }
+    },
+    {
+      "id": "idl-98",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "struct X{} namespace py after"
+      }
+    },
+    {
+      "id": "idl-99",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "/* block */ # line\n// next\nstruct X{1:string x=\"ok\"} // trailing"
+      }
+    },
+    {
+      "id": "idl-100",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "struct X{1:string x=\"unterminated}"
+      }
+    },
+    {
+      "id": "idl-101",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "/* unterminated"
+      }
+    },
+    {
+      "id": "idl-102",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "struct X{1:i32 x} (a=\"b\")"
+      }
+    },
+    {
+      "id": "idl-103",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "typedef list<i32> Numbers (a=\"b\")\nstruct X{1:Numbers n (field=\"yes\")}"
+      }
+    },
+    {
+      "id": "idl-104",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "service S {void ping() (flag=\"ok\")} (owner=\"test\")"
+      }
+    },
+    {
+      "id": "idl-105",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "struct X{1:list cpp_type \"Vec\" <i32> v;2:map cpp_type \"Map\" <string,i32> m}"
+      }
+    },
+    {
+      "id": "idl-106",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "struct X{1:i32 a=0x10,2:i32 b=077}"
+      }
+    },
+    {
+      "id": "idl-107",
+      "root": "main.thrift",
+      "sources": {
+        "main.thrift": "include \"missing.thrift\"\nstruct X{}"
+      }
+    }
+  ],
+  "reference": {
+    "version": "Thrift version 0.24.0",
+    "binarySha256": "1663a374ba2960151445811b30273cd75c574108c12c2ea55bc7fbce6d77e5ed",
+    "results": [
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [],
+          "constants": [],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {
+            "*": "common",
+            "py": "demo"
+          },
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "Empty",
+              "isException": false,
+              "isUnion": false,
+              "fields": []
+            }
+          ],
+          "constants": [],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [
+            {
+              "name": "E",
+              "members": [
+                {
+                  "name": "ZERO",
+                  "value": 0
+                },
+                {
+                  "name": "ONE",
+                  "value": 1
+                },
+                {
+                  "name": "TEN",
+                  "value": 10
+                },
+                {
+                  "name": "NEG",
+                  "value": -3
+                },
+                {
+                  "name": "AFTER",
+                  "value": -2
+                }
+              ]
+            }
+          ],
+          "typedefs": [
+            {
+              "name": "Id",
+              "typeId": "i64"
+            }
+          ],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "id",
+                  "typeId": "i64",
+                  "required": "required"
+                },
+                {
+                  "key": 2,
+                  "name": "label",
+                  "typeId": "string",
+                  "required": "optional",
+                  "default": "sample"
+                },
+                {
+                  "key": 3,
+                  "name": "values",
+                  "typeId": "list",
+                  "type": {
+                    "typeId": "list",
+                    "elemTypeId": "enum",
+                    "elemType": {
+                      "typeId": "enum",
+                      "class": "E"
+                    }
+                  },
+                  "required": "req_out"
+                },
+                {
+                  "key": -1,
+                  "name": "automatic",
+                  "typeId": "i32",
+                  "required": "req_out"
+                }
+              ]
+            }
+          ],
+          "constants": [],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "Bad",
+              "isException": true,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "message",
+                  "typeId": "string",
+                  "required": "req_out"
+                }
+              ]
+            }
+          ],
+          "constants": [],
+          "services": [
+            {
+              "name": "Base",
+              "functions": [
+                {
+                  "name": "add",
+                  "returnTypeId": "i32",
+                  "oneway": false,
+                  "arguments": [
+                    {
+                      "key": 1,
+                      "name": "x",
+                      "typeId": "i32",
+                      "required": "req_out"
+                    },
+                    {
+                      "key": 2,
+                      "name": "y",
+                      "typeId": "i32",
+                      "required": "req_out"
+                    }
+                  ],
+                  "exceptions": [
+                    {
+                      "key": 1,
+                      "name": "error",
+                      "typeId": "exception",
+                      "type": {
+                        "typeId": "exception",
+                        "class": "Bad"
+                      },
+                      "required": "req_out"
+                    }
+                  ]
+                },
+                {
+                  "name": "log",
+                  "returnTypeId": "void",
+                  "oneway": true,
+                  "arguments": [
+                    {
+                      "key": 1,
+                      "name": "text",
+                      "typeId": "string",
+                      "required": "req_out"
+                    }
+                  ],
+                  "exceptions": []
+                }
+              ]
+            },
+            {
+              "name": "Child",
+              "extends": "Base",
+              "functions": [
+                {
+                  "name": "ping",
+                  "returnTypeId": "void",
+                  "oneway": false,
+                  "arguments": [],
+                  "exceptions": []
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "Node",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "next",
+                  "typeId": "struct",
+                  "type": {
+                    "typeId": "struct",
+                    "class": "Node"
+                  },
+                  "required": "optional"
+                },
+                {
+                  "key": 2,
+                  "name": "children",
+                  "typeId": "list",
+                  "type": {
+                    "typeId": "list",
+                    "elemTypeId": "struct",
+                    "elemType": {
+                      "typeId": "struct",
+                      "class": "Node"
+                    }
+                  },
+                  "required": "optional"
+                }
+              ]
+            }
+          ],
+          "constants": [],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [
+            {
+              "name": "Early",
+              "typeId": "struct",
+              "type": {
+                "typeId": "struct",
+                "class": "Later"
+              }
+            }
+          ],
+          "structs": [
+            {
+              "name": "First",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "value",
+                  "typeId": "struct",
+                  "type": {
+                    "typeId": "struct",
+                    "class": "Later"
+                  },
+                  "required": "req_out"
+                }
+              ]
+            },
+            {
+              "name": "Later",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "id",
+                  "typeId": "i32",
+                  "required": "req_out"
+                }
+              ]
+            }
+          ],
+          "constants": [],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [
+            "base"
+          ],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "item",
+                  "typeId": "struct",
+                  "type": {
+                    "typeId": "struct",
+                    "class": "base.Item"
+                  },
+                  "required": "req_out"
+                },
+                {
+                  "key": 2,
+                  "name": "id",
+                  "typeId": "i64",
+                  "required": "req_out",
+                  "default": "9223372036854775807"
+                },
+                {
+                  "key": 3,
+                  "name": "e",
+                  "typeId": "enum",
+                  "type": {
+                    "typeId": "enum",
+                    "class": "base.E"
+                  },
+                  "required": "req_out",
+                  "default": 1
+                }
+              ]
+            }
+          ],
+          "constants": [],
+          "services": [
+            {
+              "name": "S",
+              "extends": "base.Parent",
+              "functions": [
+                {
+                  "name": "ping",
+                  "returnTypeId": "void",
+                  "oneway": false,
+                  "arguments": [],
+                  "exceptions": []
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [
+            {
+              "name": "T",
+              "typeId": "bool"
+            }
+          ],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "a",
+                  "typeId": "bool",
+                  "required": "required"
+                },
+                {
+                  "key": 2,
+                  "name": "b",
+                  "typeId": "bool",
+                  "required": "optional"
+                },
+                {
+                  "key": 3,
+                  "name": "c",
+                  "typeId": "bool",
+                  "required": "req_out"
+                }
+              ]
+            }
+          ],
+          "constants": [],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [
+            {
+              "name": "T",
+              "typeId": "i8"
+            }
+          ],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "a",
+                  "typeId": "i8",
+                  "required": "required"
+                },
+                {
+                  "key": 2,
+                  "name": "b",
+                  "typeId": "i8",
+                  "required": "optional"
+                },
+                {
+                  "key": 3,
+                  "name": "c",
+                  "typeId": "i8",
+                  "required": "req_out"
+                }
+              ]
+            }
+          ],
+          "constants": [],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [
+            {
+              "name": "T",
+              "typeId": "i8"
+            }
+          ],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "a",
+                  "typeId": "i8",
+                  "required": "required"
+                },
+                {
+                  "key": 2,
+                  "name": "b",
+                  "typeId": "i8",
+                  "required": "optional"
+                },
+                {
+                  "key": 3,
+                  "name": "c",
+                  "typeId": "i8",
+                  "required": "req_out"
+                }
+              ]
+            }
+          ],
+          "constants": [],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [
+            {
+              "name": "T",
+              "typeId": "i16"
+            }
+          ],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "a",
+                  "typeId": "i16",
+                  "required": "required"
+                },
+                {
+                  "key": 2,
+                  "name": "b",
+                  "typeId": "i16",
+                  "required": "optional"
+                },
+                {
+                  "key": 3,
+                  "name": "c",
+                  "typeId": "i16",
+                  "required": "req_out"
+                }
+              ]
+            }
+          ],
+          "constants": [],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [
+            {
+              "name": "T",
+              "typeId": "i32"
+            }
+          ],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "a",
+                  "typeId": "i32",
+                  "required": "required"
+                },
+                {
+                  "key": 2,
+                  "name": "b",
+                  "typeId": "i32",
+                  "required": "optional"
+                },
+                {
+                  "key": 3,
+                  "name": "c",
+                  "typeId": "i32",
+                  "required": "req_out"
+                }
+              ]
+            }
+          ],
+          "constants": [],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [
+            {
+              "name": "T",
+              "typeId": "i64"
+            }
+          ],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "a",
+                  "typeId": "i64",
+                  "required": "required"
+                },
+                {
+                  "key": 2,
+                  "name": "b",
+                  "typeId": "i64",
+                  "required": "optional"
+                },
+                {
+                  "key": 3,
+                  "name": "c",
+                  "typeId": "i64",
+                  "required": "req_out"
+                }
+              ]
+            }
+          ],
+          "constants": [],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [
+            {
+              "name": "T",
+              "typeId": "double"
+            }
+          ],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "a",
+                  "typeId": "double",
+                  "required": "required"
+                },
+                {
+                  "key": 2,
+                  "name": "b",
+                  "typeId": "double",
+                  "required": "optional"
+                },
+                {
+                  "key": 3,
+                  "name": "c",
+                  "typeId": "double",
+                  "required": "req_out"
+                }
+              ]
+            }
+          ],
+          "constants": [],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [
+            {
+              "name": "T",
+              "typeId": "string"
+            }
+          ],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "a",
+                  "typeId": "string",
+                  "required": "required"
+                },
+                {
+                  "key": 2,
+                  "name": "b",
+                  "typeId": "string",
+                  "required": "optional"
+                },
+                {
+                  "key": 3,
+                  "name": "c",
+                  "typeId": "string",
+                  "required": "req_out"
+                }
+              ]
+            }
+          ],
+          "constants": [],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [
+            {
+              "name": "T",
+              "typeId": "binary"
+            }
+          ],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "a",
+                  "typeId": "binary",
+                  "required": "required"
+                },
+                {
+                  "key": 2,
+                  "name": "b",
+                  "typeId": "binary",
+                  "required": "optional"
+                },
+                {
+                  "key": 3,
+                  "name": "c",
+                  "typeId": "binary",
+                  "required": "req_out"
+                }
+              ]
+            }
+          ],
+          "constants": [],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [
+            {
+              "name": "T",
+              "typeId": "uuid"
+            }
+          ],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "a",
+                  "typeId": "uuid",
+                  "required": "required"
+                },
+                {
+                  "key": 2,
+                  "name": "b",
+                  "typeId": "uuid",
+                  "required": "optional"
+                },
+                {
+                  "key": 3,
+                  "name": "c",
+                  "typeId": "uuid",
+                  "required": "req_out"
+                }
+              ]
+            }
+          ],
+          "constants": [],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [
+            {
+              "name": "T",
+              "typeId": "list",
+              "type": {
+                "typeId": "list",
+                "elemTypeId": "i32"
+              }
+            }
+          ],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "a",
+                  "typeId": "list",
+                  "type": {
+                    "typeId": "list",
+                    "elemTypeId": "i32"
+                  },
+                  "required": "required"
+                },
+                {
+                  "key": 2,
+                  "name": "b",
+                  "typeId": "list",
+                  "type": {
+                    "typeId": "list",
+                    "elemTypeId": "i32"
+                  },
+                  "required": "optional"
+                },
+                {
+                  "key": 3,
+                  "name": "c",
+                  "typeId": "list",
+                  "type": {
+                    "typeId": "list",
+                    "elemTypeId": "i32"
+                  },
+                  "required": "req_out"
+                }
+              ]
+            }
+          ],
+          "constants": [],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [
+            {
+              "name": "T",
+              "typeId": "set",
+              "type": {
+                "typeId": "set",
+                "elemTypeId": "string"
+              }
+            }
+          ],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "a",
+                  "typeId": "set",
+                  "type": {
+                    "typeId": "set",
+                    "elemTypeId": "string"
+                  },
+                  "required": "required"
+                },
+                {
+                  "key": 2,
+                  "name": "b",
+                  "typeId": "set",
+                  "type": {
+                    "typeId": "set",
+                    "elemTypeId": "string"
+                  },
+                  "required": "optional"
+                },
+                {
+                  "key": 3,
+                  "name": "c",
+                  "typeId": "set",
+                  "type": {
+                    "typeId": "set",
+                    "elemTypeId": "string"
+                  },
+                  "required": "req_out"
+                }
+              ]
+            }
+          ],
+          "constants": [],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [
+            {
+              "name": "T",
+              "typeId": "map",
+              "type": {
+                "typeId": "map",
+                "keyTypeId": "string",
+                "valueTypeId": "list",
+                "valueType": {
+                  "typeId": "list",
+                  "elemTypeId": "i64"
+                }
+              }
+            }
+          ],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "a",
+                  "typeId": "map",
+                  "type": {
+                    "typeId": "map",
+                    "keyTypeId": "string",
+                    "valueTypeId": "list",
+                    "valueType": {
+                      "typeId": "list",
+                      "elemTypeId": "i64"
+                    }
+                  },
+                  "required": "required"
+                },
+                {
+                  "key": 2,
+                  "name": "b",
+                  "typeId": "map",
+                  "type": {
+                    "typeId": "map",
+                    "keyTypeId": "string",
+                    "valueTypeId": "list",
+                    "valueType": {
+                      "typeId": "list",
+                      "elemTypeId": "i64"
+                    }
+                  },
+                  "required": "optional"
+                },
+                {
+                  "key": 3,
+                  "name": "c",
+                  "typeId": "map",
+                  "type": {
+                    "typeId": "map",
+                    "keyTypeId": "string",
+                    "valueTypeId": "list",
+                    "valueType": {
+                      "typeId": "list",
+                      "elemTypeId": "i64"
+                    }
+                  },
+                  "required": "req_out"
+                }
+              ]
+            }
+          ],
+          "constants": [],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "value",
+                  "typeId": "bool",
+                  "required": "optional",
+                  "default": true
+                }
+              ]
+            }
+          ],
+          "constants": [
+            {
+              "name": "C",
+              "typeId": "bool",
+              "value": true
+            }
+          ],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "value",
+                  "typeId": "bool",
+                  "required": "optional",
+                  "default": false
+                }
+              ]
+            }
+          ],
+          "constants": [
+            {
+              "name": "C",
+              "typeId": "bool",
+              "value": false
+            }
+          ],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "value",
+                  "typeId": "bool",
+                  "required": "optional",
+                  "default": false
+                }
+              ]
+            }
+          ],
+          "constants": [
+            {
+              "name": "C",
+              "typeId": "bool",
+              "value": false
+            }
+          ],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "value",
+                  "typeId": "bool",
+                  "required": "optional",
+                  "default": true
+                }
+              ]
+            }
+          ],
+          "constants": [
+            {
+              "name": "C",
+              "typeId": "bool",
+              "value": true
+            }
+          ],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "value",
+                  "typeId": "bool",
+                  "required": "optional",
+                  "default": true
+                }
+              ]
+            }
+          ],
+          "constants": [
+            {
+              "name": "C",
+              "typeId": "bool",
+              "value": true
+            }
+          ],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "value",
+                  "typeId": "bool",
+                  "required": "optional",
+                  "default": true
+                }
+              ]
+            }
+          ],
+          "constants": [
+            {
+              "name": "C",
+              "typeId": "bool",
+              "value": true
+            }
+          ],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "value",
+                  "typeId": "i8",
+                  "required": "optional",
+                  "default": -128
+                }
+              ]
+            }
+          ],
+          "constants": [
+            {
+              "name": "C",
+              "typeId": "i8",
+              "value": -128
+            }
+          ],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "value",
+                  "typeId": "i8",
+                  "required": "optional",
+                  "default": 127
+                }
+              ]
+            }
+          ],
+          "constants": [
+            {
+              "name": "C",
+              "typeId": "i8",
+              "value": 127
+            }
+          ],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "value",
+                  "typeId": "i8",
+                  "required": "optional",
+                  "default": 128
+                }
+              ]
+            }
+          ],
+          "constants": [
+            {
+              "name": "C",
+              "typeId": "i8",
+              "value": 128
+            }
+          ],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "value",
+                  "typeId": "i8",
+                  "required": "optional",
+                  "default": -129
+                }
+              ]
+            }
+          ],
+          "constants": [
+            {
+              "name": "C",
+              "typeId": "i8",
+              "value": -129
+            }
+          ],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "value",
+                  "typeId": "i16",
+                  "required": "optional",
+                  "default": -32768
+                }
+              ]
+            }
+          ],
+          "constants": [
+            {
+              "name": "C",
+              "typeId": "i16",
+              "value": -32768
+            }
+          ],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "value",
+                  "typeId": "i16",
+                  "required": "optional",
+                  "default": 32767
+                }
+              ]
+            }
+          ],
+          "constants": [
+            {
+              "name": "C",
+              "typeId": "i16",
+              "value": 32767
+            }
+          ],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "value",
+                  "typeId": "i16",
+                  "required": "optional",
+                  "default": 32768
+                }
+              ]
+            }
+          ],
+          "constants": [
+            {
+              "name": "C",
+              "typeId": "i16",
+              "value": 32768
+            }
+          ],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "value",
+                  "typeId": "i32",
+                  "required": "optional",
+                  "default": -2147483648
+                }
+              ]
+            }
+          ],
+          "constants": [
+            {
+              "name": "C",
+              "typeId": "i32",
+              "value": -2147483648
+            }
+          ],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "value",
+                  "typeId": "i32",
+                  "required": "optional",
+                  "default": 2147483647
+                }
+              ]
+            }
+          ],
+          "constants": [
+            {
+              "name": "C",
+              "typeId": "i32",
+              "value": 2147483647
+            }
+          ],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "value",
+                  "typeId": "i32",
+                  "required": "optional",
+                  "default": 2147483648
+                }
+              ]
+            }
+          ],
+          "constants": [
+            {
+              "name": "C",
+              "typeId": "i32",
+              "value": 2147483648
+            }
+          ],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "value",
+                  "typeId": "i64",
+                  "required": "optional",
+                  "default": "-9223372036854775808"
+                }
+              ]
+            }
+          ],
+          "constants": [
+            {
+              "name": "C",
+              "typeId": "i64",
+              "value": "-9223372036854775808"
+            }
+          ],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "value",
+                  "typeId": "i64",
+                  "required": "optional",
+                  "default": "9223372036854775807"
+                }
+              ]
+            }
+          ],
+          "constants": [
+            {
+              "name": "C",
+              "typeId": "i64",
+              "value": "9223372036854775807"
+            }
+          ],
+          "services": []
+        }
+      },
+      {
+        "ok": false,
+        "diagnostic": "[ERROR:$FIXTURE/main.thrift:1] (last token was '9223372036854775808')\nThis integer is too big: \"9223372036854775808\"\n\n"
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "value",
+                  "typeId": "i64",
+                  "required": "optional",
+                  "default": "255"
+                }
+              ]
+            }
+          ],
+          "constants": [
+            {
+              "name": "C",
+              "typeId": "i64",
+              "value": "255"
+            }
+          ],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "value",
+                  "typeId": "i64",
+                  "required": "optional",
+                  "default": "77"
+                }
+              ]
+            }
+          ],
+          "constants": [
+            {
+              "name": "C",
+              "typeId": "i64",
+              "value": "77"
+            }
+          ],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "value",
+                  "typeId": "i64",
+                  "required": "optional",
+                  "default": "42"
+                }
+              ]
+            }
+          ],
+          "constants": [
+            {
+              "name": "C",
+              "typeId": "i64",
+              "value": "42"
+            }
+          ],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "value",
+                  "typeId": "double",
+                  "required": "optional",
+                  "default": 0
+                }
+              ]
+            }
+          ],
+          "constants": [
+            {
+              "name": "C",
+              "typeId": "double",
+              "value": 1
+            }
+          ],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "value",
+                  "typeId": "double",
+                  "required": "optional",
+                  "default": -1.25
+                }
+              ]
+            }
+          ],
+          "constants": [
+            {
+              "name": "C",
+              "typeId": "double",
+              "value": -1.25
+            }
+          ],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "value",
+                  "typeId": "double",
+                  "required": "optional",
+                  "default": 0.5
+                }
+              ]
+            }
+          ],
+          "constants": [
+            {
+              "name": "C",
+              "typeId": "double",
+              "value": 0.5
+            }
+          ],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "value",
+                  "typeId": "double",
+                  "required": "optional",
+                  "default": 1000
+                }
+              ]
+            }
+          ],
+          "constants": [
+            {
+              "name": "C",
+              "typeId": "double",
+              "value": 1000
+            }
+          ],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "value",
+                  "typeId": "double",
+                  "required": "optional",
+                  "default": -0.02
+                }
+              ]
+            }
+          ],
+          "constants": [
+            {
+              "name": "C",
+              "typeId": "double",
+              "value": -0.02
+            }
+          ],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "value",
+                  "typeId": "double",
+                  "required": "optional",
+                  "default": "Infinity"
+                }
+              ]
+            }
+          ],
+          "constants": [
+            {
+              "name": "C",
+              "typeId": "double",
+              "value": "Infinity"
+            }
+          ],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "value",
+                  "typeId": "string",
+                  "required": "optional",
+                  "default": "abc"
+                }
+              ]
+            }
+          ],
+          "constants": [
+            {
+              "name": "C",
+              "typeId": "string",
+              "value": "abc"
+            }
+          ],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "value",
+                  "typeId": "string",
+                  "required": "optional",
+                  "default": "one"
+                }
+              ]
+            }
+          ],
+          "constants": [
+            {
+              "name": "C",
+              "typeId": "string",
+              "value": "one"
+            }
+          ],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "value",
+                  "typeId": "string",
+                  "required": "optional",
+                  "default": "a\nb\tc\\d\"e"
+                }
+              ]
+            }
+          ],
+          "constants": [
+            {
+              "name": "C",
+              "typeId": "string",
+              "value": "a\nb\tc\\d\"e"
+            }
+          ],
+          "services": []
+        }
+      },
+      {
+        "ok": false,
+        "diagnostic": "\n[ERROR:$FIXTURE/main.thrift:1] (last token was '\"')\nBad escape character\n\n[ERROR:$FIXTURE/main.thrift:1] (last token was '\"')\nsyntax error\n[FAILURE:$FIXTURE/main.thrift:1] Parser error during include pass."
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "value",
+                  "typeId": "string",
+                  "required": "optional",
+                  "default": "象棋🙂"
+                }
+              ]
+            }
+          ],
+          "constants": [
+            {
+              "name": "C",
+              "typeId": "string",
+              "value": "象棋🙂"
+            }
+          ],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "value",
+                  "typeId": "binary",
+                  "required": "optional",
+                  "default": {
+                    "$binary": "616263"
+                  }
+                }
+              ]
+            }
+          ],
+          "constants": [
+            {
+              "name": "C",
+              "typeId": "binary",
+              "value": {
+                "$binary": "616263"
+              }
+            }
+          ],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "value",
+                  "typeId": "uuid",
+                  "required": "optional",
+                  "default": "00112233-4455-6677-8899-aabbccddeeff"
+                }
+              ]
+            }
+          ],
+          "constants": [
+            {
+              "name": "C",
+              "typeId": "uuid",
+              "value": "00112233-4455-6677-8899-aabbccddeeff"
+            }
+          ],
+          "services": []
+        }
+      },
+      {
+        "ok": false,
+        "diagnostic": "\n[FAILURE:$FIXTURE/main.thrift:2] invalid uuid bad"
+      },
+      {
+        "ok": true,
+        "descriptionAvailable": false,
+        "jsonGeneratorFailure": "\n[FAILURE:generation:1] Error: have identifier \"C\", but unset enum on line!\n",
+        "acceptanceOracle": "Apache py generator"
+      },
+      {
+        "ok": true,
+        "descriptionAvailable": false,
+        "jsonGeneratorFailure": "\n[FAILURE:generation:1] Error: have identifier \"C\", but unset enum on line!\n",
+        "acceptanceOracle": "Apache py generator"
+      },
+      {
+        "ok": false,
+        "diagnostic": "\n[FAILURE:$FIXTURE/main.thrift:2] type error: const \"C<elem>\" was declared as i16"
+      },
+      {
+        "ok": true,
+        "descriptionAvailable": false,
+        "jsonGeneratorFailure": "\n[FAILURE:generation:1] Error: have identifier \"C\", but unset enum on line!\n",
+        "acceptanceOracle": "Apache py generator"
+      },
+      {
+        "ok": true,
+        "descriptionAvailable": false,
+        "jsonGeneratorFailure": "\n[FAILURE:generation:1] Error: have identifier \"C\", but unset enum on line!\n",
+        "acceptanceOracle": "Apache py generator"
+      },
+      {
+        "ok": true,
+        "descriptionAvailable": false,
+        "jsonGeneratorFailure": "\n[FAILURE:generation:1] Error: have identifier \"C\", but unset enum on line!\n",
+        "acceptanceOracle": "Apache py generator"
+      },
+      {
+        "ok": false,
+        "diagnostic": "\n[FAILURE:$FIXTURE/main.thrift:2] type error: const \"C<key>\" was declared as string"
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "x",
+                  "typeId": "i64",
+                  "required": "req_out",
+                  "default": "1"
+                }
+              ]
+            }
+          ],
+          "constants": [
+            {
+              "name": "A",
+              "typeId": "i32",
+              "value": 1
+            },
+            {
+              "name": "B",
+              "typeId": "i64",
+              "value": "1"
+            }
+          ],
+          "services": []
+        }
+      },
+      {
+        "ok": false,
+        "diagnostic": "\n[FAILURE:$FIXTURE/main.thrift:1] error: identifier C is unqualified!"
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [
+            {
+              "name": "E",
+              "members": [
+                {
+                  "name": "A",
+                  "value": 3
+                },
+                {
+                  "name": "B",
+                  "value": 4
+                }
+              ]
+            }
+          ],
+          "typedefs": [],
+          "structs": [],
+          "constants": [
+            {
+              "name": "C",
+              "typeId": "i32",
+              "value": 4
+            }
+          ],
+          "services": []
+        }
+      },
+      {
+        "ok": false,
+        "diagnostic": "\n[FAILURE:$FIXTURE/main.thrift:1] error: identifier B is unqualified!"
+      },
+      {
+        "ok": false,
+        "diagnostic": "\n[FAILURE:$FIXTURE/main.thrift:1] type error: const \"p\" was declared as struct/xception"
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "P",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "x",
+                  "typeId": "i32",
+                  "required": "required"
+                }
+              ]
+            }
+          ],
+          "constants": [
+            {
+              "name": "A",
+              "typeId": "struct",
+              "type": {
+                "typeId": "struct",
+                "class": "P"
+              },
+              "value": {}
+            }
+          ],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "U",
+              "isException": false,
+              "isUnion": true,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "a",
+                  "typeId": "string",
+                  "required": "optional"
+                },
+                {
+                  "key": 2,
+                  "name": "b",
+                  "typeId": "i32",
+                  "required": "optional"
+                }
+              ]
+            }
+          ],
+          "constants": [],
+          "services": []
+        }
+      },
+      {
+        "ok": false,
+        "diagnostic": "\n[FAILURE:$FIXTURE/main.thrift:1] Error: Field b provides another default value for union U"
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": -1,
+                  "name": "a",
+                  "typeId": "string",
+                  "required": "req_out"
+                },
+                {
+                  "key": -2,
+                  "name": "b",
+                  "typeId": "i32",
+                  "required": "req_out"
+                },
+                {
+                  "key": 7,
+                  "name": "c",
+                  "typeId": "string",
+                  "required": "req_out"
+                },
+                {
+                  "key": -3,
+                  "name": "d",
+                  "typeId": "string",
+                  "required": "req_out"
+                }
+              ]
+            }
+          ],
+          "constants": [],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": -1,
+                  "name": "a",
+                  "typeId": "string",
+                  "required": "req_out"
+                },
+                {
+                  "key": -2,
+                  "name": "b",
+                  "typeId": "i32",
+                  "required": "req_out"
+                },
+                {
+                  "key": -3,
+                  "name": "c",
+                  "typeId": "string",
+                  "required": "req_out"
+                },
+                {
+                  "key": 1,
+                  "name": "d",
+                  "typeId": "string",
+                  "required": "req_out"
+                }
+              ]
+            }
+          ],
+          "constants": [],
+          "services": []
+        }
+      },
+      {
+        "ok": false,
+        "diagnostic": "[ERROR:$FIXTURE/main.thrift:1] (last token was '}')\n\"1: b\" - field identifier/name has already been used\n"
+      },
+      {
+        "ok": false,
+        "diagnostic": "[ERROR:$FIXTURE/main.thrift:1] (last token was '}')\n\"2: a\" - field identifier/name has already been used\n"
+      },
+      {
+        "ok": false,
+        "diagnostic": "\n[FAILURE:$FIXTURE/main.thrift:1] Enum E.A is already defined!"
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [
+            {
+              "name": "E",
+              "members": [
+                {
+                  "name": "A",
+                  "value": 1
+                },
+                {
+                  "name": "B",
+                  "value": 1
+                }
+              ]
+            }
+          ],
+          "typedefs": [],
+          "structs": [],
+          "constants": [],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 32768,
+                  "name": "a",
+                  "typeId": "i32",
+                  "required": "req_out"
+                }
+              ]
+            }
+          ],
+          "constants": [],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": -1,
+                  "name": "a",
+                  "typeId": "i32",
+                  "required": "req_out"
+                }
+              ]
+            }
+          ],
+          "constants": [],
+          "services": []
+        }
+      },
+      {
+        "ok": false,
+        "diagnostic": "\n[ERROR:$FIXTURE/main.thrift:1] (last token was 'void')\nsyntax error\n[FAILURE:$FIXTURE/main.thrift:1] Parser error during include pass."
+      },
+      {
+        "ok": false,
+        "diagnostic": "\n[ERROR:$FIXTURE/main.thrift:1] (last token was 'void')\nsyntax error\n[FAILURE:$FIXTURE/main.thrift:1] Parser error during include pass."
+      },
+      {
+        "ok": false,
+        "diagnostic": "Type \"Missing\" not defined\n"
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [],
+          "constants": [],
+          "services": [
+            {
+              "name": "S",
+              "functions": [
+                {
+                  "name": "wrong",
+                  "returnTypeId": "i32",
+                  "oneway": true,
+                  "arguments": [],
+                  "exceptions": []
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "ok": false,
+        "diagnostic": "\n[FAILURE:$FIXTURE/main.thrift:1] Oneway methods can't throw exceptions."
+      },
+      {
+        "ok": false,
+        "diagnostic": "[ERROR:$FIXTURE/main.thrift:1] (last token was ')')\nThrows clause may not contain non-exception types\n"
+      },
+      {
+        "ok": false,
+        "diagnostic": "\n[FAILURE:$FIXTURE/main.thrift:1] Function a is already defined"
+      },
+      {
+        "ok": false,
+        "diagnostic": "\n[FAILURE:$FIXTURE/main.thrift:1] Function a is already defined in service Child"
+      },
+      {
+        "ok": false,
+        "diagnostic": "[ERROR:$FIXTURE/main.thrift:1] (last token was 'Base')\nService \"Base\" has not been defined.\n"
+      },
+      {
+        "ok": false,
+        "diagnostic": "[WARNING:$FIXTURE/main.thrift:1] Duplicate typename X found in main\n[ERROR:$FIXTURE/main.thrift:1] (last token was '')\nType \"X\" is already defined.\n"
+      },
+      {
+        "ok": false,
+        "diagnostic": "\n[FAILURE:$FIXTURE/main.thrift:1] type error: const \"A\" was declared as i32"
+      },
+      {
+        "ok": false,
+        "diagnostic": "\n[FAILURE:$FIXTURE/main.thrift:1] type error: const \"A\" was declared as string"
+      },
+      {
+        "ok": false,
+        "diagnostic": "\n[FAILURE:$FIXTURE/main.thrift:1] No enum value or constant found named \"unknown\"!"
+      },
+      {
+        "ok": false,
+        "diagnostic": "\n[ERROR:$FIXTURE/main.thrift:1] (last token was 'void')\nsyntax error\n[FAILURE:$FIXTURE/main.thrift:1] Parser error during include pass."
+      },
+      {
+        "ok": false,
+        "diagnostic": "\n[ERROR:$FIXTURE/main.thrift:1] (last token was 'void')\nsyntax error\n[FAILURE:$FIXTURE/main.thrift:1] Parser error during include pass."
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "class",
+              "isException": false,
+              "isUnion": false,
+              "fields": []
+            }
+          ],
+          "constants": [],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "class",
+                  "typeId": "i32",
+                  "required": "req_out"
+                }
+              ]
+            }
+          ],
+          "constants": [],
+          "services": []
+        }
+      },
+      {
+        "ok": false,
+        "diagnostic": "\n[ERROR:$FIXTURE/main.thrift:1] (last token was 'struct')\nsyntax error\n[FAILURE:$FIXTURE/main.thrift:1] Parser error during include pass."
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "string",
+                  "typeId": "i32",
+                  "required": "req_out"
+                }
+              ]
+            }
+          ],
+          "constants": [],
+          "services": []
+        }
+      },
+      {
+        "ok": false,
+        "diagnostic": "\n[ERROR:$FIXTURE/main.thrift:1] (last token was 'namespace')\nsyntax error\n[FAILURE:$FIXTURE/main.thrift:1] Parser error during include pass."
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "x",
+                  "typeId": "string",
+                  "required": "req_out",
+                  "default": "ok"
+                }
+              ]
+            }
+          ],
+          "constants": [],
+          "services": []
+        }
+      },
+      {
+        "unavailable": "official compiler exceeded 8 seconds; process terminated by subprocess.run"
+      },
+      {
+        "unavailable": "official compiler exceeded 8 seconds; process terminated by subprocess.run"
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "annotations": {
+                "a": "b"
+              },
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "x",
+                  "typeId": "i32",
+                  "required": "req_out"
+                }
+              ]
+            }
+          ],
+          "constants": [],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [
+            {
+              "name": "Numbers",
+              "typeId": "list",
+              "type": {
+                "typeId": "list",
+                "elemTypeId": "i32"
+              },
+              "annotations": {
+                "a": "b"
+              }
+            }
+          ],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "n",
+                  "typeId": "list",
+                  "type": {
+                    "typeId": "list",
+                    "elemTypeId": "i32"
+                  },
+                  "annotations": {
+                    "field": "yes"
+                  },
+                  "required": "req_out"
+                }
+              ]
+            }
+          ],
+          "constants": [],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [],
+          "constants": [],
+          "services": [
+            {
+              "name": "S",
+              "annotations": {
+                "owner": "test"
+              },
+              "functions": [
+                {
+                  "name": "ping",
+                  "returnTypeId": "void",
+                  "oneway": false,
+                  "annotations": {
+                    "flag": "ok"
+                  },
+                  "arguments": [],
+                  "exceptions": []
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "v",
+                  "typeId": "list",
+                  "type": {
+                    "typeId": "list",
+                    "elemTypeId": "i32"
+                  },
+                  "required": "req_out"
+                },
+                {
+                  "key": 2,
+                  "name": "m",
+                  "typeId": "map",
+                  "type": {
+                    "typeId": "map",
+                    "keyTypeId": "string",
+                    "valueTypeId": "i32"
+                  },
+                  "required": "req_out"
+                }
+              ]
+            }
+          ],
+          "constants": [],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": [
+                {
+                  "key": 1,
+                  "name": "a",
+                  "typeId": "i32",
+                  "required": "req_out",
+                  "default": 16
+                },
+                {
+                  "key": 2,
+                  "name": "b",
+                  "typeId": "i32",
+                  "required": "req_out",
+                  "default": 77
+                }
+              ]
+            }
+          ],
+          "constants": [],
+          "services": []
+        }
+      },
+      {
+        "ok": true,
+        "description": {
+          "name": "main",
+          "namespaces": {},
+          "includes": [],
+          "enums": [],
+          "typedefs": [],
+          "structs": [
+            {
+              "name": "X",
+              "isException": false,
+              "isUnion": false,
+              "fields": []
+            }
+          ],
+          "constants": [],
+          "services": []
+        }
+      }
+    ]
+  }
+}

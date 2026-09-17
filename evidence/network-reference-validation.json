@@ -1,0 +1,164 @@
+{
+  "utc": "2026-09-17T11:42:38.467Z",
+  "reference": {
+    "runtime": "Apache Thrift Python 0.24.0",
+    "compiler": "Thrift version 0.24.0",
+    "compilerSha256": "1663a374ba2960151445811b30273cd75c574108c12c2ea55bc7fbce6d77e5ed"
+  },
+  "networkModes": 12,
+  "directions": 2,
+  "independentRpcChecks": 192,
+  "hostChecks": 13,
+  "passed": 37,
+  "results": [
+    {
+      "name": "MoonBit/Node client -> Apache generated Python server: binary/TCP/plain (8 checks)",
+      "passed": true
+    },
+    {
+      "name": "Apache generated Python client -> MoonBit/Node server: binary/TCP/plain (8 checks)",
+      "passed": true
+    },
+    {
+      "name": "MoonBit/Node client -> Apache generated Python server: binary/TCP/multiplex (8 checks)",
+      "passed": true
+    },
+    {
+      "name": "Apache generated Python client -> MoonBit/Node server: binary/TCP/multiplex (8 checks)",
+      "passed": true
+    },
+    {
+      "name": "MoonBit/Node client -> Apache generated Python server: binary/TLS/plain (8 checks)",
+      "passed": true
+    },
+    {
+      "name": "Apache generated Python client -> MoonBit/Node server: binary/TLS/plain (8 checks)",
+      "passed": true
+    },
+    {
+      "name": "MoonBit/Node client -> Apache generated Python server: binary/mTLS/multiplex (8 checks)",
+      "passed": true
+    },
+    {
+      "name": "Apache generated Python client -> MoonBit/Node server: binary/mTLS/multiplex (8 checks)",
+      "passed": true
+    },
+    {
+      "name": "MoonBit/Node client -> Apache generated Python server: compact/TCP/plain (8 checks)",
+      "passed": true
+    },
+    {
+      "name": "Apache generated Python client -> MoonBit/Node server: compact/TCP/plain (8 checks)",
+      "passed": true
+    },
+    {
+      "name": "MoonBit/Node client -> Apache generated Python server: compact/TCP/multiplex (8 checks)",
+      "passed": true
+    },
+    {
+      "name": "Apache generated Python client -> MoonBit/Node server: compact/TCP/multiplex (8 checks)",
+      "passed": true
+    },
+    {
+      "name": "MoonBit/Node client -> Apache generated Python server: compact/TLS/plain (8 checks)",
+      "passed": true
+    },
+    {
+      "name": "Apache generated Python client -> MoonBit/Node server: compact/TLS/plain (8 checks)",
+      "passed": true
+    },
+    {
+      "name": "MoonBit/Node client -> Apache generated Python server: compact/mTLS/multiplex (8 checks)",
+      "passed": true
+    },
+    {
+      "name": "Apache generated Python client -> MoonBit/Node server: compact/mTLS/multiplex (8 checks)",
+      "passed": true
+    },
+    {
+      "name": "MoonBit/Node client -> Apache generated Python server: legacy/TCP/plain (8 checks)",
+      "passed": true
+    },
+    {
+      "name": "Apache generated Python client -> MoonBit/Node server: legacy/TCP/plain (8 checks)",
+      "passed": true
+    },
+    {
+      "name": "MoonBit/Node client -> Apache generated Python server: legacy/TCP/multiplex (8 checks)",
+      "passed": true
+    },
+    {
+      "name": "Apache generated Python client -> MoonBit/Node server: legacy/TCP/multiplex (8 checks)",
+      "passed": true
+    },
+    {
+      "name": "MoonBit/Node client -> Apache generated Python server: legacy/TLS/plain (8 checks)",
+      "passed": true
+    },
+    {
+      "name": "Apache generated Python client -> MoonBit/Node server: legacy/TLS/plain (8 checks)",
+      "passed": true
+    },
+    {
+      "name": "MoonBit/Node client -> Apache generated Python server: legacy/mTLS/multiplex (8 checks)",
+      "passed": true
+    },
+    {
+      "name": "Apache generated Python client -> MoonBit/Node server: legacy/mTLS/multiplex (8 checks)",
+      "passed": true
+    },
+    {
+      "name": "Node client rejects wrong hostname and untrusted CA",
+      "passed": true
+    },
+    {
+      "name": "Independent Python TLS client rejects wrong hostname and untrusted CA",
+      "passed": true
+    },
+    {
+      "name": "mTLS server rejects client without certificate",
+      "passed": true
+    },
+    {
+      "name": "Concurrent out-of-order replies correlate by sequence ID",
+      "passed": true
+    },
+    {
+      "name": "Argument validation leaves connection usable",
+      "passed": true
+    },
+    {
+      "name": "Pending limit rejects excess calls and releases completed entries",
+      "passed": true
+    },
+    {
+      "name": "RPC timeout closes channel and clears pending state",
+      "passed": true
+    },
+    {
+      "name": "Cancellation closes channel and clears pending state",
+      "passed": true
+    },
+    {
+      "name": "Encoded request cannot exceed bounded write queue",
+      "passed": true
+    },
+    {
+      "name": "Oversized and truncated network frames close the connection",
+      "passed": true
+    },
+    {
+      "name": "Graceful client shutdown drains an active call",
+      "passed": true
+    },
+    {
+      "name": "Wrong reply sequence fails the connection",
+      "passed": true
+    },
+    {
+      "name": "Wrong reply method fails the connection",
+      "passed": true
+    }
+  ],
+  "scope": "Loopback TCP/TLS/mTLS, generated Apache Python Client/Processor and real MoonBit/Node host; no external deployment or throughput claim"
+}

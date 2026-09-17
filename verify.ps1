@@ -1,4 +1,4 @@
-param([string]$MoonPath, [switch]$WithInterop)
+param([string]$MoonPath, [switch]$WithInterop, [switch]$WithReference)
 $ErrorActionPreference='Stop'
 if (-not $MoonPath) {
   $available=Get-Command moon -ErrorAction SilentlyContinue
@@ -30,6 +30,23 @@ try {
   if ($LASTEXITCODE -ne 0) {throw 'browser engine test failed'}
   node tools/test-cli.mjs
   if ($LASTEXITCODE -ne 0) {throw 'CLI test failed'}
+  node tools/test-schema-cli.mjs
+  if ($LASTEXITCODE -ne 0) {throw 'Schema CLI test failed'}
+  node tools/test-generated.mjs
+  if ($LASTEXITCODE -ne 0) {throw 'Generated MoonBit binding tests failed'}
+  if ($WithReference) {
+    node tools/test-idl-reference.mjs
+    if ($LASTEXITCODE -ne 0) {throw 'Apache IDL reference failed'}
+    node tools/test-schema-reference.mjs
+    if ($LASTEXITCODE -ne 0) {throw 'Apache generated schema reference failed'}
+    node tools/test-network-reference.mjs
+    if ($LASTEXITCODE -ne 0) {throw 'Apache generated network reference failed'}
+  } else {
+    node tools/test-idl-reference.mjs --golden
+    if ($LASTEXITCODE -ne 0) {throw 'IDL reference replay failed'}
+    node tools/test-schema-reference.mjs --golden
+    if ($LASTEXITCODE -ne 0) {throw 'Schema reference replay failed'}
+  }
   node tools/robustness.mjs
   if ($LASTEXITCODE -ne 0) {throw 'robustness failed'}
   node tools/benchmark.mjs

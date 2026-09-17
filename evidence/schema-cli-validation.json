@@ -1,0 +1,12 @@
+{
+  "utc": "2026-09-17T11:41:50.144Z",
+  "passed": 6,
+  "checks": [
+    "real includes, search path, Unicode and spaces in paths",
+    "binary JSON file/inline -> binary stdout/file -> binary stdin decode",
+    "compact JSON file/inline -> binary stdout/file -> binary stdin decode",
+    "generation and explicit overwrite protection",
+    "schema and option failures return nonzero structured errors",
+    "actual CLI server/client multiplex RPC, stdin, exact i64 and declared exception"
+  ]
+}

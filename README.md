@@ -1,59 +1,82 @@
 # MoonBit Thrift
 
-Binary/Compact 序列化与分帧 RPC 核心，0.4.0。本地独立仓库，无 remote，未上传或发布。
+Thrift IDL、类型绑定、Binary/Compact 编解码与分帧 RPC，0.5.0。实现位于独立的 MoonBit 仓库；Node.js 提供文件、TCP 和 TLS I/O。本地交付，无 remote，未上传或发布。完整 Apache Thrift 兼容仍未完成。
 
-## 已实现
+## 能力
 
-- 所有传统 Thrift 标量、UUID、Struct、List、Set、Map；Binary 和 Compact v1。
-- 严格 Binary、可选旧式 Binary 消息头，4 种 RPC 消息类型、完整有符号序列号范围。
-- TFramedTransport 增量分帧：任意分片、多个连续帧、空帧、长度限制、截断检测和失败后重置。
-- Client 负责序列号、待响应请求、乱序回复、异常响应与单向调用；主机负责 socket I/O。
-- decode_prefix / skip_prefix 返回消费字节数；decode_selected 跳过未知或类型不匹配字段，不构造被跳过的容器树。
+- MoonBit IDL 词法/语法树、位置诊断、include 搜索路径、typedef、enum、const、struct/union/exception、服务继承、oneway、throws、字段与定义注解。
+- Schema 类型解析、递归结构、required/default/optional、整数宽度、UUID、未知字段和错误线路类型跳过；类型化 RPC 成功、声明异常与应用异常。
+- 所有传统标量和 UUID、Struct/List/Set/Map；Binary/Compact v1，严格或旧式 Binary 消息头。
+- 增量分帧、乱序响应关联、multiplex 服务路由；Node TCP/TLS/mTLS 客户端与并发服务端、超时、取消、队列/连接上限、关闭清理。
+- 生成可编译的 MoonBit 类型、JSON/Value/线路转换以及类型化 RPC 请求、响应函数。生成器由 Node 驱动，解析和验证仍由编译后的 MoonBit 实现执行。
 
-## 快速运行
+## 直接使用
 
-已附真实 MoonBit 编译的浏览器引擎，需要 Python 3 与 Node.js：
+附带已编译的 `web/engine.mjs`，运行以下命令只需要 Node.js 24：
 
 ```powershell
-./start-review.ps1
-node tools/cli.mjs --file sample.txt --json
+node tools/thrift-cli.mjs inspect examples/demo.thrift
+node tools/thrift-cli.mjs encode examples/demo.thrift --type common.Record --json '{"id":"9223372036854775807"}' --protocol compact --out record.bin
+node tools/thrift-cli.mjs decode examples/demo.thrift --type common.Record --protocol compact --input record.bin
+node tools/thrift-cli.mjs gen examples/demo.thrift --out generated
+node tools/thrift-cli.mjs serve examples/demo.thrift --service Records --handlers examples/handlers.mjs --port 9090
+# 另一个终端
+node tools/thrift-cli.mjs call examples/demo.thrift --service Records --method add --port 9090 --json '{"a":"9223372036854775807","b":"-1"}'
 ```
 
-网页也支持 `framed-compact:`、`framed-binary:` 加十六进制连续 RPC 帧，以及原有 `rpc-compact:` / `rpc-binary:`、裸 Struct `compact:` / `binary:`。
+`--include DIR` 可重复；encode/call 支持 JSON stdin、`--json`、`--input`，decode 读取二进制。输出文件用 `--out`。生成目录中的已有文件只有明确传入 `--force` 才会覆盖。`--help` 列出全部选项。旧网页和原始值树 CLI 保留：`./start-review.ps1`、`node tools/cli.mjs --file sample.txt --json`。
 
-## 从源码验证
+```javascript
+import {loadSchema, connect, serve, DeclaredException} from './tools/thrift.mjs';
+const schema = await loadSchema('examples/demo.thrift');
+const client = await connect({schema, service: 'Records', port: 9090, protocol: 'compact'});
+try {
+  console.log(await client.call('add', {a: '9223372036854775807', b: '-1'}));
+} finally {
+  await client.close();
+  schema.close();
+}
+```
 
-安装 MoonBit 后运行：
+服务端 `serve({schema, service, handlers})` 的 handler 收到 `(arguments, context)`，可返回 Promise。声明异常用 `throw new DeclaredException('problem', {code: 42, message: 'failed'})`。multiplex 服务端传 `services: {records: 'Records'}` 和 `handlers: {records: handlerObject}`，客户端传 `multiplex: 'records'`；CLI 对应用 `--route records=Records` 和 `--multiplex records`。Schema 应保持打开，直到客户端和服务端全部关闭。
+
+TLS 客户端传 `tls: {ca, servername}`，默认验证信任链和主机名；服务端传 `{cert,key}`，mTLS 再传 `{ca,requestCert:true,rejectUnauthorized:true}`。这些值为 Node TLS 选项与证书字节。CLI 使用 `--tls --ca ca.pem --servername localhost`、服务端 `--cert server.pem --key server.key`，mTLS 服务端再加 `--require-client-cert --ca ca.pem`，客户端加自己的 `--cert/--key`。
+
+## JSON 与生成绑定
+
+| Thrift 类型 | JSON / MoonBit 绑定 |
+|---|---|
+| i64 | 十进制字符串 / Int64；Node 输入也接受 BigInt |
+| binary | `{"$binary":"00ff"}` / Bytes |
+| uuid | 带连字符 UUID 字符串 / String |
+| enum | 数值或成员名输入 / 保留未知数值的 `{value:Int}` 包装类型 |
+| struct / exception | 字段名对象 / 类型化 struct |
+| union | 最多一个字段 / Unset 或字段构造器 |
+| list / set | 数组 / Array |
+| map | `[ [key,value], ... ]` / Array[(K,V)]，支持非字符串键 |
+| double 特殊值 | `"NaN"`、`"Infinity"`、`"-Infinity"` / Double |
+
+缺省字段应用 IDL 显式默认值；`null` 表示明确不设置非 required 字段。required 字段输入缺失且没有默认值时拒绝，在线路解码时必须实际出现，不能由默认值掩盖。未知 JSON 字段拒绝；未知线路字段或线路类型不匹配的字段跳过。重复已识别线路字段取最后一个。Set/Map 的原始序列保留输入顺序及重复项；不同语言的集合会去重，独立比较对此按集合/映射语义归一化，不将其当作字节顺序一致。
+
+生成器输出 `bindings.mbt`、`moon.pkg`、`bindings.symbols.json`，放入依赖 `localreview/thrift` 的 MoonBit 项目包目录，再运行 `moon fmt` 和 `moon check`。模块序号按逻辑文件路径排序，字段名形如 `f_1_id`；符号映射文件记录 IDL 名与生成名。非 required 字段是 Option，typedef 为显式包装结构。类型提供 `from_json/to_json/from_value/to_value/encode/decode`；RPC 提供类型化 args/result 和 call/read_call/reply/read_reply 函数，socket I/O 仍由宿主承担。常量 getter 返回规范 Json，以保留编译器允许但超出线路整数宽度的常量。嵌入的 IDL 与逻辑路径用于内存编译，运行时不再读取原文件。
+
+生成器不承诺 Apache 其他语言生成器的 API 外形；存在无法唯一解析的 include 同名文件 stem 时明确拒绝。类型/枚举成员注解、文档注释和 XSD 元数据尚未完整保留。生成器与 schema 不是完整上游编译器替代。
+
+## 验证
 
 ```powershell
-./verify.ps1
-# 编译器未加入 PATH 时
 ./verify.ps1 -MoonPath C:/path/to/moon/bin/moon.exe
+# 默认执行 MoonBit 两个后端、真实 CLI、生成绑定和已保存独立向量重放。
 ```
 
-脚本实际测试 Wasm-GC 和 JS，运行示例、CLI、边界检查与基准。公开 API 见 pkg.generated.mbti；[可执行例子](README.mbt.md)随测试运行。
+新参考使用未修改的 Apache Thrift **0.24.0** 官方编译器与 Python 运行时：IDL 108 项中 106 项可比较并一致，2 项官方进程超时单独记录；106 项中 5 项因官方 JSON 生成器失败，只以 Python 生成器比较接受/拒绝。26 项类型编解码双向比较包含 UUID。真实网络涵盖 12 种协议/连接/路由组合、两个方向的 192 项 RPC 检查，另有主机生命周期与错误路径检查。原有 368 组 Python 0.22.0 核心向量仍保留，版本不混用。
 
-## Apache Thrift 独立对照和真实互通
+完整环境、独立性边界与命令见 [TESTING.md](TESTING.md)。当前源码/API/引擎指纹见 [evidence/schema-upgrade.json](evidence/schema-upgrade.json)。CI 配置已更新，但远端 CI 未运行。
 
-```powershell
-python -m pip install -r tools/oracle-requirements.txt
-python tools/generate_oracles.py
-moon fmt
-./verify.ps1 -WithInterop
-```
+## 限制与后续
 
-原始种子输入由本项目编写，Apache Thrift Python 0.22.0 独立计算 320 组嵌套结构/分帧向量和 48 组 RPC 消息向量。固定种子可再生，覆盖整数边界、Unicode、空容器、多层 Map/List/Set、非递增字段编号和 4 种消息类型。已有手写/独立容器向量继续保留。UUID 按当前公开 Binary/Compact 规格验证固定 16 字节和类型标签；Python 0.22.0 不支持 UUID，未将它计入 Apache 运行时对照。
+核心默认消息 1 MiB、值深度 64、节点 100000，最多 1024 个待响应 RPC。IDL 单文件 1000000 UTF-16 单元、合计 4000000、最多 128 模块；语法类型、常量和 XSD 字段嵌套受限。Node 默认最多 128 个待响应调用、每连接 64 个并发 handler、64 个连接、4 MiB 写队列，RPC/连接超时 5 秒，服务空闲超时 30 秒。取消或 RPC 超时关闭整个连接并拒绝所有待响应调用；这保证不会把迟到响应误配给后续调用。资源上限不等于吞吐量或长期运行验证。
 
-互通脚本只连接临时 127.0.0.1 端口，以 Apache 的 TSocket/TFramedTransport/TBinaryProtocol/TCompactProtocol 接收实际 MoonBit 客户端字节，返回乱序成功与应用异常响应，并验证单向调用和逐字节接收。原始证据见 evidence/interop.json。不是 TLS、公网或其他 Thrift 语言实现的互通证明。
+仍缺 JSON/Header 等协议、unframed/HTTP transport、SASL、其他生成语言、完整上游套件、所有编译器诊断/元数据和代表性性能对照。详见 [FEATURES.md](FEATURES.md) 与 [ROADMAP.md](ROADMAP.md)。
 
-## 兼容性与资源边界
-
-Compact 空 Map 的线路不携带键值类型，解码为 MapValue(None,None,[])。泛型值树保留字段顺序与重复字段；选择解码同样保留已选字段的线路顺序。默认最大消息 1 MiB，嵌套深度 64、节点 100000，最多 1024 个待响应 RPC；单帧上限可配置至 16 MiB，单次 feed 最大 16 MiB 加头部。帧错误或非法 RPC 回复后实例进入失败状态，避免继续使用已丢失同步的连接。
-
-当前未实现 IDL 编译器、schema required/default 校验、TLS/认证和通用 socket 适配器；仍不能称为完整 Apache Thrift 替代。详见 [FEATURES.md](FEATURES.md)。
-
-## 来源与开发
-
-按 [Apache Binary 规格](https://github.com/apache/thrift/blob/master/doc/specs/thrift-binary-protocol.md)、[Compact 规格](https://github.com/apache/thrift/blob/master/doc/specs/thrift-compact-protocol.md) 和 [Python TFramedTransport](https://github.com/apache/thrift/blob/master/lib/py/src/transport/TTransport.py) 行为重新实现。没有复制上游源码；本项目原创代码为 MIT。Apache Thrift 仅作为固定版本的开发测试依赖，不打包它的源码。
-
-独立 Git 历史和构建目录；不依赖其他候选项目。CI 配置已包含独立向量再生与本地互通，但远端 CI 尚未运行。历史证据保留原日期，最新结果见 evidence/current-validation.json 与 evidence/quality-review.json。查重见 DUPLICATION.md，后续发布仍需重新核实生态和许可证。
+按 [Apache IDL](https://thrift.apache.org/docs/idl)、[Binary](https://github.com/apache/thrift/blob/master/doc/specs/thrift-binary-protocol.md) 和 [Compact](https://github.com/apache/thrift/blob/master/doc/specs/thrift-compact-protocol.md) 规格及独立执行结果重新实现，未复制参考实现源码。官方生成的 Python 代码仅在临时测试目录使用，不随产物打包。原创代码 MIT；生产运行不依赖 Apache 编译器或 Python。
