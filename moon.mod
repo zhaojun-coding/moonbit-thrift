@@ -1,4 +1,4 @@
-name = "localreview/thrift"
+name = "zhaojun-coding/thrift"
 
 version = "0.5.0"
 
