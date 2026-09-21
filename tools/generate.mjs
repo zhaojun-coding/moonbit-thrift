@@ -8,7 +8,7 @@ const typeAt=(v,id='typeId',detail='type')=>v[detail]??{typeId:v[id]};
 const fieldName=f=>`f_${f.key<0?'n'+(-f.key):f.key}_${ident(f.name).toLowerCase()}`;
 const branch=f=>`Field_${f.key<0?'n'+(-f.key):f.key}`;
 
-export function generateMoonBit(schema,{library='localreview/thrift'}={}){
+export function generateMoonBit(schema,{library='zhaojun-coding/thrift'}={}){
   if(!(schema instanceof Schema))throw new TypeError('schema must be a Schema');
   if(!/^[A-Za-z0-9_/-]+$/.test(library))throw new TypeError('invalid library package name');
   const modules=Object.keys(schema.sources).sort().map((source,i)=>{

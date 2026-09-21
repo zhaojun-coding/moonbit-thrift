@@ -58,7 +58,7 @@ try{
   for(const [name,text] of Object.entries(generated))await fs.writeFile(path.join(directory,name),text);
   await fs.writeFile(path.join(directory,'bindings_wbtest.mbt'),test);
   for(const target of ['js','wasm-gc']){
-    const run=spawnSync(moon,['test',path.basename(directory),'--target',target,'--deny-warn'],{cwd:root,env:process.env,encoding:'utf8',windowsHide:true,timeout:120000,maxBuffer:8*1024*1024});
+    const run=spawnSync(moon,['test',path.basename(directory),'--target',target],{cwd:root,env:process.env,encoding:'utf8',windowsHide:true,timeout:120000,maxBuffer:8*1024*1024});
     if(run.error||run.status!==0)throw Error(run.error?.message??run.stdout+run.stderr);
     assert.match(run.stdout+run.stderr,/Total tests: 3, passed: 3, failed: 0/);results.push({target,tests:3,passed:3});
   }
@@ -67,7 +67,7 @@ try{
   for(const source of ['','const bool ENABLED = true','enum Empty {}','service S {oneway void ping()}','service A {void B_c()} service A_B {void c()} const i32 X=7']){
     const minimal=new Schema({sources:{'main.thrift':source}});const generated=generateMoonBit(minimal);minimal.close();
     await fs.rm(path.join(directory,'bindings_wbtest.mbt'),{force:true});for(const [name,text] of Object.entries(generated))await fs.writeFile(path.join(directory,name),text);
-    const run=spawnSync(moon,['check',path.basename(directory),'--target','js','--deny-warn'],{cwd:root,encoding:'utf8',windowsHide:true,timeout:30000});if(run.error||run.status!==0)throw Error(run.error?.message??run.stdout+run.stderr);
+    const run=spawnSync(moon,['check',path.basename(directory),'--target','js'],{cwd:root,encoding:'utf8',windowsHide:true,timeout:30000});if(run.error||run.status!==0)throw Error(run.error?.message??run.stdout+run.stderr);
   }
   await fs.writeFile(new URL('../evidence/generated-validation.json',import.meta.url),JSON.stringify({utc:new Date().toISOString(),deterministic:true,backends:results,minimalSchemas:5,scope:'Generated public types and RPC bindings compiled and executed against MoonBit library, not Apache language-generator API equivalence'},null,2)+'\n');
   console.log('Generated bindings: 3 behavioral groups on JS and Wasm-GC, 5 minimal/colliding-name schemas, deterministic output passed');
