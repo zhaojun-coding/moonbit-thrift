@@ -18,7 +18,7 @@ test "documented map container" {
 }
 ```
 
-限制：无 IDL 编译器、schema 校验与通用 socket/TLS 适配器；Compact 空 Map 无法从线路恢复类型，解码为 None/None。
+另有 MoonBit IDL 解析、schema 校验和类型绑定生成，以及 Node TCP/TLS/mTLS 宿主，见 [README.md](README.md)。仍不声称完整 Apache Thrift 兼容；本例所用通用值 API 解码 Compact 空 Map 时，线路不含键值类型信息，类型字段为 `None/None`。
 
 ## 分帧 RPC 客户端
 
