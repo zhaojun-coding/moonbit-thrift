@@ -1,5 +1,5 @@
 import {
-  "localreview/thrift" @lib,
+  "zhaojun-coding/thrift" @lib,
 }
 
 supported_targets = "js"
