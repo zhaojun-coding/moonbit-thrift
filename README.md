@@ -1,6 +1,14 @@
 # MoonBit Thrift
 
-Thrift IDL、类型绑定、Binary/Compact 编解码与分帧 RPC，0.5.0。实现位于独立的 MoonBit 仓库；Node.js 提供文件、TCP 和 TLS I/O。本地交付，无 remote，未上传或发布。完整 Apache Thrift 兼容仍未完成。
+## 获取与验证入口
+
+公开源码：[github.com/zhaojun-coding/moonbit-thrift](https://github.com/zhaojun-coding/moonbit-thrift)；MoonBit 模块名为 `zhaojun-coding/thrift`。
+
+从源码运行：`git clone https://github.com/zhaojun-coding/moonbit-thrift.git` 后进入该目录，按下文和 [TESTING.md](TESTING.md) 安装所需工具。仓库公开不等于已在 Mooncakes 发布，不承诺 `moon add` 当前可用。
+
+查看 [GitHub Actions](https://github.com/zhaojun-coding/moonbit-thrift/actions) 时请核对 run 的 commit SHA；历史 evidence、旧 ZIP 与本地测试不能替代当前提交的 CI 结果。下文保留各版本的验证范围和兼容性限制。
+
+> 历史开发记录（以下发布/归档状态不代表当前仓库；当前入口见文首）：Thrift IDL、类型绑定、Binary/Compact 编解码与分帧 RPC，0.5.0。实现位于独立的 MoonBit 仓库；Node.js 提供文件、TCP 和 TLS I/O。本地交付，无 remote，未上传或发布。完整 Apache Thrift 兼容仍未完成。
 
 ## 能力
 
@@ -58,7 +66,7 @@ TLS 客户端传 `tls: {ca, servername}`，默认验证信任链和主机名；�
 
 缺省字段应用 IDL 显式默认值；`null` 表示明确不设置非 required 字段。required 字段输入缺失且没有默认值时拒绝，在线路解码时必须实际出现，不能由默认值掩盖。未知 JSON 字段拒绝；未知线路字段或线路类型不匹配的字段跳过。重复已识别线路字段取最后一个。Set/Map 的原始序列保留输入顺序及重复项；不同语言的集合会去重，独立比较对此按集合/映射语义归一化，不将其当作字节顺序一致。
 
-生成器输出 `bindings.mbt`、`moon.pkg`、`bindings.symbols.json`，放入依赖 `localreview/thrift` 的 MoonBit 项目包目录，再运行 `moon fmt` 和 `moon check`。模块序号按逻辑文件路径排序，字段名形如 `f_1_id`；符号映射文件记录 IDL 名与生成名。非 required 字段是 Option，typedef 为显式包装结构。类型提供 `from_json/to_json/from_value/to_value/encode/decode`；RPC 提供类型化 args/result 和 call/read_call/reply/read_reply 函数，socket I/O 仍由宿主承担。常量 getter 返回规范 Json，以保留编译器允许但超出线路整数宽度的常量。嵌入的 IDL 与逻辑路径用于内存编译，运行时不再读取原文件。
+生成器输出 `bindings.mbt`、`moon.pkg`、`bindings.symbols.json`，放入依赖 `zhaojun-coding/thrift` 的 MoonBit 项目包目录，再运行 `moon fmt` 和 `moon check`。模块序号按逻辑文件路径排序，字段名形如 `f_1_id`；符号映射文件记录 IDL 名与生成名。非 required 字段是 Option，typedef 为显式包装结构。类型提供 `from_json/to_json/from_value/to_value/encode/decode`；RPC 提供类型化 args/result 和 call/read_call/reply/read_reply 函数，socket I/O 仍由宿主承担。常量 getter 返回规范 Json，以保留编译器允许但超出线路整数宽度的常量。嵌入的 IDL 与逻辑路径用于内存编译，运行时不再读取原文件。
 
 生成器不承诺 Apache 其他语言生成器的 API 外形；存在无法唯一解析的 include 同名文件 stem 时明确拒绝。类型/枚举成员注解、文档注释和 XSD 元数据尚未完整保留。生成器与 schema 不是完整上游编译器替代。
 
@@ -71,7 +79,7 @@ TLS 客户端传 `tls: {ca, servername}`，默认验证信任链和主机名；�
 
 新参考使用未修改的 Apache Thrift **0.24.0** 官方编译器与 Python 运行时：IDL 108 项中 106 项可比较并一致，2 项官方进程超时单独记录；106 项中 5 项因官方 JSON 生成器失败，只以 Python 生成器比较接受/拒绝。26 项类型编解码双向比较包含 UUID。真实网络涵盖 12 种协议/连接/路由组合、两个方向的 192 项 RPC 检查，另有主机生命周期与错误路径检查。原有 368 组 Python 0.22.0 核心向量仍保留，版本不混用。
 
-完整环境、独立性边界与命令见 [TESTING.md](TESTING.md)。当前源码/API/引擎指纹见 [evidence/schema-upgrade.json](evidence/schema-upgrade.json)。CI 配置已更新，但远端 CI 未运行。
+> 历史开发记录（以下发布/归档状态不代表当前仓库；当前入口见文首）：完整环境、独立性边界与命令见 [TESTING.md](TESTING.md)。当前源码/API/引擎指纹见 [evidence/schema-upgrade.json](evidence/schema-upgrade.json)。CI 配置已更新，但远端 CI 未运行。
 
 ## 限制与后续
 
