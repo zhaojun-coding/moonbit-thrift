@@ -1,0 +1,56 @@
+{
+  "date": "2026-09-22",
+  "project": "thrift",
+  "package": "zhaojun-coding/thrift",
+  "version": "0.5.0",
+  "code_base_commit_before_materials": "78347dcdf4d0281e50e9bc6fdd016cb0fd0f207a",
+  "core_checks": [
+    {
+      "command": [
+        "moon",
+        "test",
+        "--target",
+        "js"
+      ],
+      "exit": 0,
+      "seconds": 4.08,
+      "log": "thrift-test---target-js.log"
+    },
+    {
+      "command": [
+        "moon",
+        "test",
+        "--target",
+        "wasm-gc"
+      ],
+      "exit": 0,
+      "seconds": 3.13,
+      "log": "thrift-test---target-wasm-gc.log"
+    },
+    {
+      "command": [
+        "moon",
+        "build",
+        "--target",
+        "js"
+      ],
+      "exit": 0,
+      "seconds": 1.75,
+      "log": "thrift-build---target-js.log"
+    }
+  ],
+  "workflow_checks": [
+    {
+      "command": [
+        "node",
+        "tools/test-network-reference.mjs"
+      ],
+      "exit": 0,
+      "seconds": 32.87,
+      "log": "thrift-workflow-0.log"
+    }
+  ],
+  "interpretation": "本轮实际 Apache Thrift0.24.0 双向网络互通通过：12 个协议/连接/路由组合、192 项 RPC、37 组网络/生命周期检查。参考编译器、Python依赖路径见 TESTING.md。",
+  "limit": "无 HTTP/unframed/Header/JSON transport、SASL 或所有生成语言；取消/超时会关闭整条连接。独立网络检查不等于生产规模压测。",
+  "remote_push_performed": false
+}

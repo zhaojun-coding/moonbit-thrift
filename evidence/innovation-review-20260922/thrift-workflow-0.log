@@ -1,0 +1,13 @@
+Bidirectional binary/TCP/plain passed
+Bidirectional binary/TCP/multiplex passed
+Bidirectional binary/TLS/plain passed
+Bidirectional binary/mTLS/multiplex passed
+Bidirectional compact/TCP/plain passed
+Bidirectional compact/TCP/multiplex passed
+Bidirectional compact/TLS/plain passed
+Bidirectional compact/mTLS/multiplex passed
+Bidirectional legacy/TCP/plain passed
+Bidirectional legacy/TCP/multiplex passed
+Bidirectional legacy/TLS/plain passed
+Bidirectional legacy/mTLS/multiplex passed
+37 network groups passed; 192 independent RPC checks

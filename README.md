@@ -1,3 +1,5 @@
+> 2026-09-22 当前本地版 0.5.0：申报定位为“Thrift 类型化 RPC 与 TCP/TLS 运行时”。已更新[现有项目对照](DUPLICATION.md)、[申报草稿](PROPOSAL.md)及[本轮验证](evidence/innovation-review-20260922/results.json)。下面带日期的旧轮次描述保留历史范围；团队已有公开仓库，本次本地修订尚未由本任务推送。
+
 # MoonBit Thrift
 
 > 2026-09-21 本地构建修复：命令包 import 已同步到当前 moon.mod 模块名；moon info/check、JS 构建、MoonBit 示例和 Node 引擎示例通过。算法未改，本轮未重跑历史全部行为/性能套件。当前提交指纹见 evidence/module-import-fix.json。
@@ -60,7 +62,7 @@ TLS 客户端传 `tls: {ca, servername}`，默认验证信任链和主机名；�
 
 缺省字段应用 IDL 显式默认值；`null` 表示明确不设置非 required 字段。required 字段输入缺失且没有默认值时拒绝，在线路解码时必须实际出现，不能由默认值掩盖。未知 JSON 字段拒绝；未知线路字段或线路类型不匹配的字段跳过。重复已识别线路字段取最后一个。Set/Map 的原始序列保留输入顺序及重复项；不同语言的集合会去重，独立比较对此按集合/映射语义归一化，不将其当作字节顺序一致。
 
-生成器输出 `bindings.mbt`、`moon.pkg`、`bindings.symbols.json`，放入依赖 `localreview/thrift` 的 MoonBit 项目包目录，再运行 `moon fmt` 和 `moon check`。模块序号按逻辑文件路径排序，字段名形如 `f_1_id`；符号映射文件记录 IDL 名与生成名。非 required 字段是 Option，typedef 为显式包装结构。类型提供 `from_json/to_json/from_value/to_value/encode/decode`；RPC 提供类型化 args/result 和 call/read_call/reply/read_reply 函数，socket I/O 仍由宿主承担。常量 getter 返回规范 Json，以保留编译器允许但超出线路整数宽度的常量。嵌入的 IDL 与逻辑路径用于内存编译，运行时不再读取原文件。
+生成器输出 `bindings.mbt`、`moon.pkg`、`bindings.symbols.json`，放入依赖 `zhaojun-coding/thrift` 的 MoonBit 项目包目录，再运行 `moon fmt` 和 `moon check`。模块序号按逻辑文件路径排序，字段名形如 `f_1_id`；符号映射文件记录 IDL 名与生成名。非 required 字段是 Option，typedef 为显式包装结构。类型提供 `from_json/to_json/from_value/to_value/encode/decode`；RPC 提供类型化 args/result 和 call/read_call/reply/read_reply 函数，socket I/O 仍由宿主承担。常量 getter 返回规范 Json，以保留编译器允许但超出线路整数宽度的常量。嵌入的 IDL 与逻辑路径用于内存编译，运行时不再读取原文件。
 
 生成器不承诺 Apache 其他语言生成器的 API 外形；存在无法唯一解析的 include 同名文件 stem 时明确拒绝。类型/枚举成员注解、文档注释和 XSD 元数据尚未完整保留。生成器与 schema 不是完整上游编译器替代。
 
