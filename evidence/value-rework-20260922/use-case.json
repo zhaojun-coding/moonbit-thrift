@@ -1,0 +1,116 @@
+{
+  "date": "2026-09-22",
+  "command": "node examples/run-use-case.mjs",
+  "passed": true,
+  "scope": "原创 JSON 记录；本例是 Compact 数据交换，网络双向互通另有 Apache Thrift 参考报告。",
+  "actualUsersProven": false,
+  "externalServicesContacted": false,
+  "sourceSha256": {
+    "apache_oracle_test.mbt": "6d02f27b01665c1da228c12c3c17c16aadc3d2be98187258d93298b3dcc6d778",
+    "apache_vectors_test.mbt": "af72a6467f430e966ca78529e402b9328bd663cc85f05f8769d8e988470aed37",
+    "client.mbt": "a92fabd57e78753b30ca18d1d7f288f0caee0eb73360d879c4ca1141a8ff005b",
+    "client_test.mbt": "fd9391947f670863617f771926fb38430213c7737346533dce7c634a0aa0b0ea",
+    "codec_test.mbt": "e282294c6ad72fdbd23770ed272bfd9a3f490b61e1a4284dc441b76afa1eda9b",
+    "containers_test.mbt": "424193de7ac36e5c4a80a32eb4e27cfc625961ef1aabbc6c55ca17ed816ac9ad",
+    "decode.mbt": "dfa32852fc4b7a5fb9c8763c2f8cc986b9207a3d76ccd20b7a8c71d3c8e62841",
+    "encode.mbt": "50abd9902b8e04ba12e06db00137450c8f9058e453744436babce043d7684a19",
+    "idl.mbt": "da7ca9e52692aa993351829aaf97d7c6a9d761f2980151440921ab7f42fad3be",
+    "map_errors_test.mbt": "ec502418e0b0b8d0c8a620c518e81faf90306184e7559197a6a3acf233837f6b",
+    "message.mbt": "6064d6d5e99a07502ad7e41a2c6c378e27fbf191481384e758c0bc7b2feac359",
+    "message_python_test.mbt": "a82a3e5d52b41ea03affc0346d3275008e5aff030e6fb4312a09c9c83bf31293",
+    "message_test.mbt": "35692aa3b58ad05b34ecae7b28e4147f4ae51a39b8687f8f0b9afeaba4ef97ec",
+    "moon.mod": "7c7591cebfa7d5efa15b997f7322e0658ea36b60e21cf0d37a93cba35597ab85",
+    "moon.pkg": "051bb31fdb255c098cec2ed9d89c599bde20d91d14664626f9be2bb94b50a0a4",
+    "pkg.generated.mbti": "2a947fcb069c91669b761d185f38474e2f882617aa39de5cf074d08041c9a8f9",
+    "schema.mbt": "6554f9fc6dfd14563c9e4523fbd1146b6241415a491ef7ca43eedc856b94214b",
+    "schema_constants.mbt": "a6ba07f4e0afe20322f71bb585cb98fbb7e4822ff2097a1ab1a74a1aeb188c62",
+    "schema_description.mbt": "40bb212ad6cce82d527a6d8459eaff735397dd17a8e0ab8e9c5a9dd9d001562b",
+    "schema_rpc.mbt": "be6881912e28d6292b5c9695f19108b945019fbfde8d848eb60962002fbf8979",
+    "schema_test.mbt": "48aa37344edc23507dcd2d53b14696d29d7c746725da99e52bb5536e92842197",
+    "schema_values.mbt": "909151b071a414e1ce6672d62bdddab419437c4f22c5b00ef4f13dcdddeb3a80",
+    "selection.mbt": "d5ef560e4d717ca5fd4b2d70b901f9c2e26d0e848dfb4afd378e2ea5b154dfa5",
+    "transport.mbt": "50556f1d598400f4f334b9cbf7c03609fd0a63be400798d0460c9ed467ea1533",
+    "transport_test.mbt": "47ad41570fe77fb212653f476abe3e96fb654b4f0f551004b4eef820cbe1f871",
+    "uuid_test.mbt": "4eb9de007c4f9543f07adbf91be652a6b40cc173ca003216091ed3ff76bc5941",
+    "value.mbt": "da7fe7852e720d15bb51ec2495059c447a8e241a0934ea6c4d5dc1974edc96d3",
+    "examples/common.thrift": "a3904e8c354f12eaca083da27a94724e2e4531ff1e7286b20a0031fff939c028",
+    "examples/demo.thrift": "78d8328d8c4d4821c0cbf9e500f8bdd433ad4621d2a0c12f03a721240c068025",
+    "examples/handlers.mjs": "bf610885a661a70b6b1d3a9cf767cff9b458e9fa0a3e5e7d6ea80a3549a48413",
+    "examples/run-use-case.mjs": "359ea34b13ee185b6cae0536da5e25bb56bfc51d2e5dd166c304b1684003a3bb",
+    "examples/use-case.json": "df64e365c427900c2758637915d0bf3b27abec49c7eb821df92736d2e7036560",
+    "tools/benchmark.mjs": "53ac611536ba7cb3732017d22976ff8f38dbd9e7aa579c2469eab75b0cdc7216",
+    "tools/cli.mjs": "f98839799f2896c92a75e6565add432efe166f00bc3fed89e03d6d59eca688d4",
+    "tools/generate.mjs": "40a285a87cae3b248fb782668f0fd9838c2eba64fe8fcb4972478d45a629631a",
+    "tools/robustness.mjs": "24964a078897dccc448ba3d5db4c08f6446d38008424987bf26b4b6f042a21d6",
+    "tools/test-cli.mjs": "b1acaf8992e16d37e1527fd60beeea275ce0df574a9622ab3b44d86dcaf08b03",
+    "tools/test-demo.mjs": "12d680bc8416cf48b68e5ae457cd8dfa770642f783a257e5548ea0fa4ff001e6",
+    "tools/test-generated.mjs": "9869b9146f0b7a8f9e9b5685b7588ba5029649b7f39d61b6467b122c5fd2b842",
+    "tools/test-idl-reference.mjs": "18c844a3a6d114586552cb3040acb7d6284437ddd68be578bbeda8554d8229da",
+    "tools/test-interop.mjs": "63bc347b0acea9e22edce60960f3b8336782c5b939effd976a1c7cd20d11c1df",
+    "tools/test-network-reference.mjs": "b161d733910148832f2ea43655ee5804e3f989f117d4d0ee574d19b7b1e7849f",
+    "tools/test-output-file.mjs": "dada1fe832c8491ca4d0445ca95e4b74b7d31739ad5a2a74a9d6151a6530ae08",
+    "tools/test-schema-cli.mjs": "74a339e7cac595fd0d9121a13f7f4a32f5e7aaa0b0d58b10592fbef3d86a7fe1",
+    "tools/test-schema-reference.mjs": "2b65bf6d46c97112e7563ddfe3e6c12a414ac5c81bce32dc9461bc9c5046ecd5",
+    "tools/thrift-cli.mjs": "ad5459b5e763690c9e8c0a7a13350cf017d06651cba50f57616bcb31e11aa266",
+    "tools/thrift.mjs": "38b8ce4f8fe2056cc669dd2a6bd611a479222dd4526e8ef069111af489a01474",
+    "web/app.mjs": "48776698d3dc63fe6ccd5f91be18ccb0a8ac21825eec7427eb5c3c4c8d9069f0",
+    "web/config.mjs": "27a956f780cd9441ca6a74a1e45399b757cf5679da52eaafb6f8c82a09d404ce",
+    "web/engine.mjs": "6f0cad35eb736914ead66a0c521bf37e963a5f1e22ccf8c15ebfc5c2b7d04ee1",
+    "examples/use-case/record.json": "0d439fb52cd38842653d5e322d166951c03b4f958d06907fa6b7e2c2d1c2ef61",
+    "cmd/interop/main.mbt": "e9d3095eb2cc07a24b99c8fb15523a205e5fa5ef365f2894a9a7141d31cd2c57",
+    "cmd/interop/moon.pkg": "8dd8c3d13e19517daa5866f403df5ef19d456468c952d180cdb332646e97e586",
+    "cmd/main/main.mbt": "dde3ef3ca255a0a64d9a6840dbda76d8d63c9c38ce95ffe9081e0afa4e75c0fb",
+    "cmd/main/moon.pkg": "e7fd580af1abfe282b49499c0cd3fc21871c306442b84e62a539d370f7b322ef",
+    "cmd/main/pkg.generated.mbti": "cf7a5e6bb7c5ca0360234aa1ca3cbf24d335b22cae8f4f03ee07f9a64ccc049d",
+    "cmd/web/main.mbt": "fe08998b4df0fca2bc3a712bba0adcc3ad1cf286624a292106efe8a33e234a1f",
+    "cmd/web/moon.pkg": "7fafd1bb6520f032f39ddc7e3f923bf63a5e922749cfe10ab62654f9aa1bc08e",
+    "cmd/web/schema.mbt": "d559621b775cf584284fd72fef504a0fb9c25714f42322b4e2c885920764d483",
+    "cmd/web/transport.mbt": "0e6802486da5b9fd45d61be32c6f025020f06bd03c23122effc9cba16754cc24"
+  },
+  "outputs": [
+    {
+      "file": "record.bin",
+      "bytes": 32,
+      "sha256": "cfb495159fd6f2202989d4a7d488d130f6c7658cbacc2e9d7d946cd5d401bd23"
+    },
+    {
+      "file": "record.json",
+      "bytes": 79,
+      "sha256": "56b76554690b87455082680a2b076d2dd056aa578b4f6613d5ee8d0cac1471f2"
+    },
+    {
+      "file": "step-1.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "step-1.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "step-2.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "step-2.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "additionalChecks": {
+    "checks": [
+      "node tools/test-output-file.mjs",
+      "node tools/test-schema-cli.mjs"
+    ],
+    "output": [
+      "Thrift output: no overwrite by default, explicit force, exact i64 roundtrip passed",
+      "6 schema CLI integration groups passed"
+    ],
+    "coreChanged": false
+  },
+  "previousCoreValidation": "evidence/innovation-review-20260922/results.json",
+  "note": "New sample execution only; earlier core/reference checks retain their original scope. Command output logs replace the machine-specific temporary directory with {output}; output hashes refer to original bytes.",
+  "sourceHashBasis": "Git-normalized blobs in the delivered source archive. Protocol fixtures are explicitly -text to preserve CRLF; ordinary source line endings normalize to LF."
+}

@@ -24,7 +24,7 @@ const help=`Usage: node tools/thrift-cli.mjs COMMAND FILE.thrift [options]
   --route NAME=SERVICE           Server multiplex route (repeatable)
   --tls --ca FILE --cert FILE --key FILE --servername NAME
   --require-client-cert          Server TLS client certificate authentication
-  --force                       Replace existing generated files
+  --force                       Replace existing output/generated files
 All i64 JSON values use decimal strings; binary uses {"$binary":"hex"}.
 Server handlers receive (arguments, context); see examples/handlers.mjs.
 `;
@@ -52,7 +52,7 @@ async function main(){
   const schema=await loadSchema(filename,{includePaths:v.include??[]});
   try{
     const protocol=v.protocol??'binary';if(!['binary','compact','legacy'].includes(protocol))throw Error('Invalid protocol');
-    const output=async data=>{if(v.out)await fs.writeFile(v.out,data);else process.stdout.write(data);};
+    const output=async data=>{if(v.out)await fs.writeFile(v.out,data,{flag:v.force?'w':'wx'});else process.stdout.write(data);};
     if(command==='inspect'){await output(JSON.stringify({description:schema.description,warnings:schema.warnings},null,2)+'\n');return;}
     if(command==='gen'){
       const directory=path.resolve(required(v.out,'out')),files=generateMoonBit(schema,{library:v.library});

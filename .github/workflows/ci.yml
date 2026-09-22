@@ -30,6 +30,7 @@ jobs:
           cp "$engine" web/engine.mjs
       - run: node tools/test-demo.mjs
       - run: node tools/test-cli.mjs
+      - run: node tools/test-output-file.mjs
       - run: node tools/test-schema-cli.mjs
       - run: node tools/test-generated.mjs
       - run: node tools/test-idl-reference.mjs --golden

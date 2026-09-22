@@ -1,0 +1,37 @@
+{
+  "title": "交换超过 JS 精度范围的 IDL 记录",
+  "scope": "原创 JSON 记录；本例是 Compact 数据交换，网络双向互通另有 Apache Thrift 参考报告。",
+  "steps": [
+    {
+      "args": [
+        "tools/thrift-cli.mjs",
+        "encode",
+        "examples/demo.thrift",
+        "--type",
+        "common.Record",
+        "--protocol",
+        "compact",
+        "--input",
+        "examples/use-case/record.json",
+        "--out",
+        "{out}/record.bin"
+      ]
+    },
+    {
+      "args": [
+        "tools/thrift-cli.mjs",
+        "decode",
+        "examples/demo.thrift",
+        "--type",
+        "common.Record",
+        "--protocol",
+        "compact",
+        "--input",
+        "{out}/record.bin",
+        "--out",
+        "{out}/record.json"
+      ]
+    }
+  ],
+  "expected": "回读 id 字符串仍为 9007199254740993，不经 Number 丢失精度。"
+}
