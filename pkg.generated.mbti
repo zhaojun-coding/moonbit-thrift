@@ -31,7 +31,7 @@ pub fn parse_idl(String, source? : String) -> IdlModule raise SchemaError
 pub fn skip_prefix(Bytes, Kind, Protocol) -> Int raise CodecError
 
 // Errors
-pub suberror CodecError {
+pub(all) suberror CodecError {
   Invalid(String)
 } derive(@debug.Debug)
 
@@ -42,9 +42,7 @@ pub suberror SchemaError {
 
 // Types and methods
 pub struct Client {
-  protocol : Protocol
-  strict_read : Bool
-  strict_write : Bool
+  codec : MessageCodec
   decoder : FrameDecoder
   pending : Map[Int, String]
   mut next_sequence : UInt
@@ -54,7 +52,7 @@ pub fn Client::call(Self, String, Value, oneway? : Bool) -> Bytes raise CodecErr
 pub fn Client::call_with_id(Self, String, Value, oneway? : Bool, response_name? : String?) -> (Int, Bytes) raise CodecError
 pub fn Client::feed(Self, Bytes) -> Array[Message] raise CodecError
 pub fn Client::finish(Self) -> Unit raise CodecError
-pub fn Client::new(Protocol, strict_read? : Bool, strict_write? : Bool) -> Self raise CodecError
+pub fn Client::new(Protocol, strict_read? : Bool, strict_write? : Bool, codec? : MessageCodec?) -> Self raise CodecError
 pub fn Client::pending_count(Self) -> Int
 
 pub struct FrameDecoder {
@@ -151,6 +149,15 @@ pub(all) struct Message {
   sequence_id : Int
   body : Value
 } derive(Eq, @debug.Debug)
+
+pub struct MessageCodec {
+  encoder : (Message) -> Bytes raise CodecError
+  decoder : (Bytes) -> Message raise CodecError
+}
+pub fn MessageCodec::builtin(Protocol, strict_read? : Bool, strict_write? : Bool) -> Self
+pub fn MessageCodec::decode(Self, Bytes) -> Message raise CodecError
+pub fn MessageCodec::encode(Self, Message) -> Bytes raise CodecError
+pub fn MessageCodec::new(encode~ : (Message) -> Bytes raise CodecError, decode~ : (Bytes) -> Message raise CodecError) -> Self
 
 pub(all) enum Protocol {
   BinaryProtocol

@@ -11,8 +11,7 @@ priv struct BridgeServer {
   schema : @lib.Schema
   services : Map[String, String]
   default_service : String
-  protocol : @lib.Protocol
-  legacy : Bool
+  codec : @lib.MessageCodec
   decoder : @lib.FrameDecoder
 }
 
@@ -60,10 +59,10 @@ fn BridgeServer::exception(
   message : String,
 ) -> String raise {
   hex(
-    @lib.encode_framed_message(
-      @lib.application_exception(name, sequence, code, message),
-      self.protocol,
-      strict_write=!self.legacy,
+    @lib.frame(
+      self.codec.encode(
+        @lib.application_exception(name, sequence, code, message),
+      ),
     ),
   )
 }
@@ -97,6 +96,23 @@ pub fn transport_json(input : String) -> String {
       }
       let protocol = request_protocol(request)
       let legacy = request_text(request, "protocol") == "legacy"
+      let codec = match request_text(request, "codec") {
+        "" | "builtin" =>
+          @lib.MessageCodec::builtin(
+            protocol,
+            strict_read=!legacy,
+            strict_write=!legacy,
+          )
+        "moonthrift" => {
+          if legacy {
+            raise Failure(
+              "Xpeng/moonthrift adapter supports binary or compact, not legacy",
+            )
+          }
+          @upstream.message_codec(protocol)
+        }
+        _ => raise Failure("unknown message codec")
+      }
       let service = request_text(request, "service")
       transport_next.val += 1
       let id = transport_next.val
@@ -114,6 +130,7 @@ pub fn transport_json(input : String) -> String {
             protocol,
             strict_read=!legacy,
             strict_write=!legacy,
+            codec=Some(codec),
           ),
         }
       } else {
@@ -134,8 +151,7 @@ pub fn transport_json(input : String) -> String {
           schema,
           services,
           default_service: service,
-          protocol,
-          legacy,
+          codec,
           decoder: @lib.FrameDecoder::new(),
         }
       }
@@ -211,11 +227,7 @@ pub fn transport_json(input : String) -> String {
           payload in entry.decoder.feed(
             wire_unhex(request_text(request, "hex")),
           ) {
-          let message = @lib.decode_message(
-            payload,
-            entry.protocol,
-            strict_read=!entry.legacy,
-          )
+          let message = entry.codec.decode(payload)
           let parts = message.name.split(":").map(s => s.to_owned()).collect()
           let route = if parts.length() > 1 { parts[0] } else { "" }
           let name = if parts.length() > 1 {
@@ -280,15 +292,15 @@ pub fn transport_json(input : String) -> String {
       }
       "serverReply" =>
         hex(
-          @lib.encode_framed_message(
-            entry.schema.make_reply(
-              request_text(request, "service"),
-              request_text(request, "name"),
-              request_int(request, "sequence"),
-              request_outcome(request),
+          @lib.frame(
+            entry.codec.encode(
+              entry.schema.make_reply(
+                request_text(request, "service"),
+                request_text(request, "name"),
+                request_int(request, "sequence"),
+                request_outcome(request),
+              ),
             ),
-            entry.protocol,
-            strict_write=!entry.legacy,
           ),
         ).to_json()
       "serverException" =>

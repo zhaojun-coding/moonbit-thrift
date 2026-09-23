@@ -1,5 +1,6 @@
 import {
   "zhaojun-coding/thrift" @lib,
+  "zhaojun-coding/thrift/moonthrift" @upstream,
   "moonbitlang/core/json",
 }
 

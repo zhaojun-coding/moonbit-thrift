@@ -1,0 +1,159 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "zhaojun-coding/thrift/examples/moonthrift_model"
+
+import {
+  "Xpeng/moonthrift/protocol",
+  "moonbitlang/core/debug",
+}
+
+// Values
+
+// Errors
+
+// Types and methods
+pub(all) struct Problem {
+  message : String
+} derive(Eq, @debug.Debug)
+pub fn Problem::decode_binary(Bytes) -> Self raise @protocol.ProtocolError
+pub fn Problem::decode_compact(Bytes) -> Self raise @protocol.ProtocolError
+pub fn Problem::encode_binary(Self) -> Bytes raise @protocol.ProtocolError
+pub fn Problem::encode_compact(Self) -> Bytes raise @protocol.ProtocolError
+pub fn Problem::from_thrift_value(@protocol.Value) -> Self raise @protocol.ProtocolError
+pub fn Problem::to_thrift_value(Self) -> @protocol.Value
+
+pub(all) struct Record {
+  id : Int64
+  label : String?
+  series : Map[String, Array[Int64]]?
+} derive(Eq, @debug.Debug)
+pub fn Record::decode_binary(Bytes) -> Self raise @protocol.ProtocolError
+pub fn Record::decode_compact(Bytes) -> Self raise @protocol.ProtocolError
+pub fn Record::encode_binary(Self) -> Bytes raise @protocol.ProtocolError
+pub fn Record::encode_compact(Self) -> Bytes raise @protocol.ProtocolError
+pub fn Record::from_thrift_value(@protocol.Value) -> Self raise @protocol.ProtocolError
+pub fn Record::to_thrift_value(Self) -> @protocol.Value
+
+pub(all) struct SharedAddArgs {
+  a : Int64
+  b : Int64
+} derive(Eq, @debug.Debug)
+pub fn SharedAddArgs::decode_binary(Bytes) -> Self raise @protocol.ProtocolError
+pub fn SharedAddArgs::decode_compact(Bytes) -> Self raise @protocol.ProtocolError
+pub fn SharedAddArgs::encode_binary(Self) -> Bytes raise @protocol.ProtocolError
+pub fn SharedAddArgs::encode_compact(Self) -> Bytes raise @protocol.ProtocolError
+pub fn SharedAddArgs::from_thrift_value(@protocol.Value) -> Self raise @protocol.ProtocolError
+pub fn SharedAddArgs::to_thrift_value(Self) -> @protocol.Value
+
+pub(all) enum SharedAddResult {
+  Success(Int64)
+} derive(Eq, @debug.Debug)
+pub fn SharedAddResult::decode_binary(Bytes) -> Self raise @protocol.ProtocolError
+pub fn SharedAddResult::decode_compact(Bytes) -> Self raise @protocol.ProtocolError
+pub fn SharedAddResult::encode_binary(Self) -> Bytes raise @protocol.ProtocolError
+pub fn SharedAddResult::encode_compact(Self) -> Bytes raise @protocol.ProtocolError
+pub fn SharedAddResult::from_thrift_value(@protocol.Value) -> Self raise @protocol.ProtocolError
+pub fn SharedAddResult::to_thrift_value(Self) -> @protocol.Value
+
+pub(all) struct SharedBlobArgs {
+  data : Bytes
+} derive(Eq, @debug.Debug)
+pub fn SharedBlobArgs::decode_binary(Bytes) -> Self raise @protocol.ProtocolError
+pub fn SharedBlobArgs::decode_compact(Bytes) -> Self raise @protocol.ProtocolError
+pub fn SharedBlobArgs::encode_binary(Self) -> Bytes raise @protocol.ProtocolError
+pub fn SharedBlobArgs::encode_compact(Self) -> Bytes raise @protocol.ProtocolError
+pub fn SharedBlobArgs::from_thrift_value(@protocol.Value) -> Self raise @protocol.ProtocolError
+pub fn SharedBlobArgs::to_thrift_value(Self) -> @protocol.Value
+
+pub(all) enum SharedBlobResult {
+  Success(Bytes)
+} derive(Eq, @debug.Debug)
+pub fn SharedBlobResult::decode_binary(Bytes) -> Self raise @protocol.ProtocolError
+pub fn SharedBlobResult::decode_compact(Bytes) -> Self raise @protocol.ProtocolError
+pub fn SharedBlobResult::encode_binary(Self) -> Bytes raise @protocol.ProtocolError
+pub fn SharedBlobResult::encode_compact(Self) -> Bytes raise @protocol.ProtocolError
+pub fn SharedBlobResult::from_thrift_value(@protocol.Value) -> Self raise @protocol.ProtocolError
+pub fn SharedBlobResult::to_thrift_value(Self) -> @protocol.Value
+
+pub(all) struct SharedEchoArgs {
+  record : Record
+} derive(Eq, @debug.Debug)
+pub fn SharedEchoArgs::decode_binary(Bytes) -> Self raise @protocol.ProtocolError
+pub fn SharedEchoArgs::decode_compact(Bytes) -> Self raise @protocol.ProtocolError
+pub fn SharedEchoArgs::encode_binary(Self) -> Bytes raise @protocol.ProtocolError
+pub fn SharedEchoArgs::encode_compact(Self) -> Bytes raise @protocol.ProtocolError
+pub fn SharedEchoArgs::from_thrift_value(@protocol.Value) -> Self raise @protocol.ProtocolError
+pub fn SharedEchoArgs::to_thrift_value(Self) -> @protocol.Value
+
+pub(all) enum SharedEchoResult {
+  Success(Record)
+} derive(Eq, @debug.Debug)
+pub fn SharedEchoResult::decode_binary(Bytes) -> Self raise @protocol.ProtocolError
+pub fn SharedEchoResult::decode_compact(Bytes) -> Self raise @protocol.ProtocolError
+pub fn SharedEchoResult::encode_binary(Self) -> Bytes raise @protocol.ProtocolError
+pub fn SharedEchoResult::encode_compact(Self) -> Bytes raise @protocol.ProtocolError
+pub fn SharedEchoResult::from_thrift_value(@protocol.Value) -> Self raise @protocol.ProtocolError
+pub fn SharedEchoResult::to_thrift_value(Self) -> @protocol.Value
+
+pub(all) struct SharedFailArgs {
+}
+pub fn SharedFailArgs::decode_binary(Bytes) -> Self raise @protocol.ProtocolError
+pub fn SharedFailArgs::decode_compact(Bytes) -> Self raise @protocol.ProtocolError
+pub fn SharedFailArgs::encode_binary(Self) -> Bytes raise @protocol.ProtocolError
+pub fn SharedFailArgs::encode_compact(Self) -> Bytes raise @protocol.ProtocolError
+pub fn SharedFailArgs::from_thrift_value(@protocol.Value) -> Self raise @protocol.ProtocolError
+pub fn SharedFailArgs::to_thrift_value(Self) -> @protocol.Value
+
+pub(all) enum SharedFailResult {
+  Success
+  Problem(Problem)
+} derive(Eq, @debug.Debug)
+pub fn SharedFailResult::decode_binary(Bytes) -> Self raise @protocol.ProtocolError
+pub fn SharedFailResult::decode_compact(Bytes) -> Self raise @protocol.ProtocolError
+pub fn SharedFailResult::encode_binary(Self) -> Bytes raise @protocol.ProtocolError
+pub fn SharedFailResult::encode_compact(Self) -> Bytes raise @protocol.ProtocolError
+pub fn SharedFailResult::from_thrift_value(@protocol.Value) -> Self raise @protocol.ProtocolError
+pub fn SharedFailResult::to_thrift_value(Self) -> @protocol.Value
+
+pub(all) struct SharedNotifyArgs {
+  text : String
+} derive(Eq, @debug.Debug)
+pub fn SharedNotifyArgs::decode_binary(Bytes) -> Self raise @protocol.ProtocolError
+pub fn SharedNotifyArgs::decode_compact(Bytes) -> Self raise @protocol.ProtocolError
+pub fn SharedNotifyArgs::encode_binary(Self) -> Bytes raise @protocol.ProtocolError
+pub fn SharedNotifyArgs::encode_compact(Self) -> Bytes raise @protocol.ProtocolError
+pub fn SharedNotifyArgs::from_thrift_value(@protocol.Value) -> Self raise @protocol.ProtocolError
+pub fn SharedNotifyArgs::to_thrift_value(Self) -> @protocol.Value
+
+pub(all) enum SharedNotifyResult {
+  Success
+} derive(Eq, @debug.Debug)
+pub fn SharedNotifyResult::decode_binary(Bytes) -> Self raise @protocol.ProtocolError
+pub fn SharedNotifyResult::decode_compact(Bytes) -> Self raise @protocol.ProtocolError
+pub fn SharedNotifyResult::encode_binary(Self) -> Bytes raise @protocol.ProtocolError
+pub fn SharedNotifyResult::encode_compact(Self) -> Bytes raise @protocol.ProtocolError
+pub fn SharedNotifyResult::from_thrift_value(@protocol.Value) -> Self raise @protocol.ProtocolError
+pub fn SharedNotifyResult::to_thrift_value(Self) -> @protocol.Value
+
+pub(all) struct SharedSlowArgs {
+  delayMs : Int
+} derive(Eq, @debug.Debug)
+pub fn SharedSlowArgs::decode_binary(Bytes) -> Self raise @protocol.ProtocolError
+pub fn SharedSlowArgs::decode_compact(Bytes) -> Self raise @protocol.ProtocolError
+pub fn SharedSlowArgs::encode_binary(Self) -> Bytes raise @protocol.ProtocolError
+pub fn SharedSlowArgs::encode_compact(Self) -> Bytes raise @protocol.ProtocolError
+pub fn SharedSlowArgs::from_thrift_value(@protocol.Value) -> Self raise @protocol.ProtocolError
+pub fn SharedSlowArgs::to_thrift_value(Self) -> @protocol.Value
+
+pub(all) enum SharedSlowResult {
+  Success(String)
+} derive(Eq, @debug.Debug)
+pub fn SharedSlowResult::decode_binary(Bytes) -> Self raise @protocol.ProtocolError
+pub fn SharedSlowResult::decode_compact(Bytes) -> Self raise @protocol.ProtocolError
+pub fn SharedSlowResult::encode_binary(Self) -> Bytes raise @protocol.ProtocolError
+pub fn SharedSlowResult::encode_compact(Self) -> Bytes raise @protocol.ProtocolError
+pub fn SharedSlowResult::from_thrift_value(@protocol.Value) -> Self raise @protocol.ProtocolError
+pub fn SharedSlowResult::to_thrift_value(Self) -> @protocol.Value
+
+// Type aliases
+
+// Traits

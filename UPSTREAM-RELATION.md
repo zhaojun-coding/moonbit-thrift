@@ -1,9 +1,29 @@
-# 与 Xpeng/moonthrift 的扩展关系
+# 与 Xpeng/moonthrift 的代码扩展关系
 
-组委会指出核心功能重叠，这个判断成立。[Xpeng/moonthrift 0.2.0](https://github.com/pxgt/moonthrift) 已提供 IDL 解析、跨文件工作区、MoonBit 类型生成、Binary/Compact 协议和值/RPC 消息编解码，并与 Apache Thrift Python 比较。我们的 IDL、编解码、生成代码同样覆盖这些领域，不能作为独有贡献申报。
+2026-09-23，直接依赖 `Xpeng/moonthrift@0.2.0`，公开仓库 https://github.com/pxgt/moonthrift 。官方 registry 归档校验值 `3635c60f7f78fe0952b06f8455501900277b2aed44a9dcc58669a04e8ba11e5e`。检索后读取下载包的公开 API、`protocol/message.mbt`、生成器和许可证，再编写本适配。没有修改依赖包。
 
-对方当前公开说明把 socket transport、服务端调度、TLS、连接池列在未完成范围，并明确这些能力可由独立包在 AST、生成器和 codec 之上实现。本项目的候选增量正是可运行的 RPC 会话：MoonBit 负责分帧、调用/回复及序号关联，Node 宿主负责 TCP/TLS/mTLS、超时、队列限额和连接关闭。它不是对方仓库的代码分支，目前也没有把对方包作为依赖；“扩展”指功能层面的上层运行时补足，不是假称已经复用其内部 API。
+| 部分 | 实际负责者 | 本版做了什么 |
+|---|---|---|
+| IDL / 生成模型 | 上游 root/codegen 包 | `cmd/moonthrift_codegen` 直接调用 `compile_idl` / `generate_moonbit`，生成示例类型 |
+| Binary/Compact RPC 消息字节 | 上游 protocol 包 | `/moonthrift.message_codec` 直接调用四个 encode/decode message API |
+| 数据表示互转 | 本项目 `/moonthrift` | 保留 Int64、Bytes、字段/列表顺序；公开双向转换，限制深度/节点/大小 |
+| FramedTransport / 调用关联 | 本项目 MoonBit Client、FrameDecoder | 可注入 `MessageCodec`，保持 pending、oneway、乱序、EOF、异常后状态 |
+| TCP/TLS、Promise、取消、关闭 | 本项目 Node 宿主 | `connect` / `serve` 用 `codec:'moonthrift'` 选择上游 codec |
+| Node 动态 Schema / JSON 参数映射 | 本项目原实现 | 为已有 CLI/宿主保留，尚未替换为上游 Schema；不是新增独有能力 |
 
-可运行最小任务：先构建 JS 引擎，运行 `node examples/run-rpc-runtime.mjs`。它在 loopback TCP 上发起 Compact RPC，验证返回文字及超过 JS 精确整数上限的结果。`tools/test-network-reference.mjs` 的历史记录使用 Apache Thrift 0.24.0 生成的 Python 客户端/服务端做双向互通：12 种协议/连接/路由组合、192 个 RPC，以及证书、乱序、取消和背压。该证据是与 Apache 的互通，**不是**与 Xpeng/moonthrift 的直接组合测试。
+重叠确实存在。原有解析器、生成器与 codec 仍作为兼容路径保留；没有将删掉上游名称或更换宣传词当作解决方案。新增价值的候选范围是：已有上游数据模型与协议 API 可以参加本项目有状态的网络会话，无需改写上游生成代码。
 
-面向用户的合理分工是：已有 Xpeng/moonthrift 用于 IDL/静态数据模型的项目，若还需要可运行网络 RPC，可评估本项目提供的会话/宿主能力。不过目前两套 Schema/codec 独立，直接拿对方生成类型接入本运行时仍需适配工作；没有真实使用方，不能宣称无缝叠加或共同维护。若赛事要求必须直接依赖现有包，本项目当前代码尚不满足，应先完成真实适配再复申。
+## 验证路径
+
+1. 上游生成模型 `SharedAddArgs` → 上游 Value → 本项目 Value → 原 Client + 上游消息 codec → TCP → 上游 codec 服务端；回复进入 `SharedAddResult`，两种协议都检查超过 JS Number 精度的 i64。
+2. 新宿主测试：Binary/Compact × 三种 codec 配对（上游/上游、上游/builtin、builtin/上游）× TCP/TLS，共12组，均使用 multiplex；每组检查精确 i64、Unicode、嵌套 map/list、原始 bytes、声明/应用异常、oneway、乱序与错误后复用。另2组取消/超时，以及 legacy 选择拒绝。
+3. 原 Apache 0.24.0 Python 双向网络测试重新运行：37组、192项 RPC。它覆盖 builtin 的 legacy、UUID、mTLS 等旧能力；**不证明上游路径支持这些能力**。
+
+## 可见限制
+
+- 上游 0.2.0 Value 没有 UUID；Binary 消息接口只提供 strict version header。不回退。Node 选择 legacy+moonthrift 在打开连接前拒绝；MoonBit 指定自定义 codec 后，protocol/strict 参数只作为未提供 codec 时的默认值，不覆盖该 codec。
+- 适配转换限制深度64、节点100000、单 binary 1 MiB；MessageCodec 限制消息1 MiB及方法名1024 UTF-8字节。数字/field ID 越界拒绝，避免上游窄整数写入时截断。Compact 解码会丢失空 map 的类型标签，该 typeless 值不能直接用 Binary 重编码，须由应用补全类型。
+- `/moonthrift` 是值/消息适配，不是上游服务端 stub 生成器。通用 MoonBit Client 可用于宿主实现；仓库的生成模型 JS 桥是单会话示例，Node 的通用客户端仍使用本地动态 Schema。
+- 上游实现的协议细节和限制仍由上游决定。本轮为选定案例与边界验证，不能声称覆盖所有 Thrift 或所有上游 API。
+
+未联系上游、未声称背书，未发现或编造真实客户。重叠基础不计为首创，是否满足赛事扩展要求由组委会判断。上轮“未直接依赖”的历史材料见 UPSTREAM-RELATION-BEFORE-MOONTHRIFT.md。

@@ -1,0 +1,202 @@
+{
+  "date": "2026-09-23",
+  "checks": [
+    {
+      "check": "fmt",
+      "command": [
+        "C:\\Users\\uiwcv\\Documents\\Codex\\2026-09-10\\ban\\work\\moon\\bin\\moon.exe",
+        "fmt"
+      ],
+      "exit": 0,
+      "log": "fmt.log"
+    },
+    {
+      "check": "info",
+      "command": [
+        "C:\\Users\\uiwcv\\Documents\\Codex\\2026-09-10\\ban\\work\\moon\\bin\\moon.exe",
+        "info"
+      ],
+      "exit": 0,
+      "log": "info.log"
+    },
+    {
+      "check": "check-js",
+      "command": [
+        "C:\\Users\\uiwcv\\Documents\\Codex\\2026-09-10\\ban\\work\\moon\\bin\\moon.exe",
+        "check",
+        "--target",
+        "js"
+      ],
+      "exit": 0,
+      "log": "check-js.log"
+    },
+    {
+      "check": "test-js",
+      "command": [
+        "C:\\Users\\uiwcv\\Documents\\Codex\\2026-09-10\\ban\\work\\moon\\bin\\moon.exe",
+        "test",
+        "--target",
+        "js"
+      ],
+      "exit": 0,
+      "log": "test-js.log"
+    },
+    {
+      "check": "test-wasm-gc",
+      "command": [
+        "C:\\Users\\uiwcv\\Documents\\Codex\\2026-09-10\\ban\\work\\moon\\bin\\moon.exe",
+        "test",
+        "--target",
+        "wasm-gc"
+      ],
+      "exit": 0,
+      "log": "test-wasm-gc.log"
+    },
+    {
+      "check": "build-js",
+      "command": [
+        "C:\\Users\\uiwcv\\Documents\\Codex\\2026-09-10\\ban\\work\\moon\\bin\\moon.exe",
+        "build",
+        "--target",
+        "js"
+      ],
+      "exit": 0,
+      "log": "build-js.log"
+    },
+    {
+      "check": "refresh",
+      "command": [
+        "node",
+        "tools/refresh-engines.mjs"
+      ],
+      "exit": 0,
+      "log": "refresh.log"
+    },
+    {
+      "check": "upstream-generation",
+      "command": [
+        "node",
+        "tools/generate-upstream-model.mjs"
+      ],
+      "exit": 0,
+      "log": "upstream-generation.log"
+    },
+    {
+      "check": "generation-format",
+      "command": [
+        "C:\\Users\\uiwcv\\Documents\\Codex\\2026-09-10\\ban\\work\\moon\\bin\\moon.exe",
+        "fmt"
+      ],
+      "exit": 0,
+      "log": "generation-format.log"
+    },
+    {
+      "check": "typed-network-example",
+      "command": [
+        "node",
+        "examples/run-upstream-model.mjs"
+      ],
+      "exit": 0,
+      "log": "typed-network-example.log"
+    },
+    {
+      "check": "adapter-network",
+      "command": [
+        "node",
+        "tools/test-moonthrift.mjs",
+        "--output",
+        "evidence/moonthrift-integration-20260923/NETWORK.json"
+      ],
+      "exit": 0,
+      "log": "adapter-network.log"
+    },
+    {
+      "check": "builtin-network-reference",
+      "command": [
+        "node",
+        "tools/test-network-reference.mjs"
+      ],
+      "exit": 0,
+      "log": "builtin-network-reference.log"
+    },
+    {
+      "check": "old-example",
+      "command": [
+        "node",
+        "examples/run-rpc-runtime.mjs"
+      ],
+      "exit": 0,
+      "log": "old-example.log"
+    },
+    {
+      "check": "test-demo",
+      "command": [
+        "node",
+        "tools/test-demo.mjs"
+      ],
+      "exit": 0,
+      "log": "test-demo.log"
+    },
+    {
+      "check": "test-cli",
+      "command": [
+        "node",
+        "tools/test-cli.mjs"
+      ],
+      "exit": 0,
+      "log": "test-cli.log"
+    },
+    {
+      "check": "test-output-file",
+      "command": [
+        "node",
+        "tools/test-output-file.mjs"
+      ],
+      "exit": 0,
+      "log": "test-output-file.log"
+    },
+    {
+      "check": "test-schema-cli",
+      "command": [
+        "node",
+        "tools/test-schema-cli.mjs"
+      ],
+      "exit": 0,
+      "log": "test-schema-cli.log"
+    },
+    {
+      "check": "test-generated",
+      "command": [
+        "node",
+        "tools/test-generated.mjs"
+      ],
+      "exit": 0,
+      "log": "test-generated.log"
+    },
+    {
+      "check": "test-idl-reference",
+      "command": [
+        "node",
+        "tools/test-idl-reference.mjs",
+        "--golden"
+      ],
+      "exit": 0,
+      "log": "test-idl-reference.log"
+    },
+    {
+      "check": "test-schema-reference",
+      "command": [
+        "node",
+        "tools/test-schema-reference.mjs",
+        "--golden"
+      ],
+      "exit": 0,
+      "log": "test-schema-reference.log"
+    }
+  ],
+  "upstreamGenerationDeterministic": true,
+  "historicalEvidencePreserved": true,
+  "remoteCIExecuted": false,
+  "published": false,
+  "productionUsersClaimed": false
+}

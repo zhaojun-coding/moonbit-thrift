@@ -18,6 +18,7 @@ function bridge(fn,request){const result=JSON.parse(fn(json(request)));if(!resul
 const schemaCall=request=>bridge(schema_json,request);
 const transportCall=request=>bridge(transport_json,request);
 const protocolOf=value=>{const result=value??'binary';if(!['binary','compact','legacy'].includes(result))throw new TypeError('protocol must be binary, compact or legacy');return result;};
+function codecOf(value,protocol){const codec=value??'builtin';if(!['builtin','moonthrift'].includes(codec))throw new TypeError('codec must be builtin or moonthrift');if(codec==='moonthrift'&&protocol==='legacy')throw new TypeError('moonthrift codec supports binary or compact, not legacy');return codec;}
 function positive(value,fallback,name,max=2147483647){const n=value??fallback;if(!Number.isInteger(n)||n<1||n>max)throw new RangeError(`${name} must be an integer in 1..${max}`);return n;}
 const aborted=()=>new ThriftError('Operation aborted','ABORT_ERR');
 const slashes=name=>name.replaceAll('\\','/');
@@ -69,10 +70,11 @@ export class RpcClient {
   constructor(options){
     if(!(options.schema instanceof Schema))throw new TypeError('schema must be a Schema');
     this.protocol=protocolOf(options.protocol);this.service=options.service;this.error=undefined;
+    this.codec=codecOf(options.codec,this.protocol);
     this.timeoutMs=positive(options.timeoutMs,5000,'timeoutMs');this.maxPending=positive(options.maxPending,128,'maxPending',1024);this.maxQueuedBytes=positive(options.maxQueuedBytes,4*1024*1024,'maxQueuedBytes',64*1024*1024);
     const port=positive(options.port,undefined,'port',65535),host=options.host??'127.0.0.1';
     if(options.signal?.aborted)throw aborted();
-    this.#id=transportCall({action:'clientOpen',schema:options.schema.handle,service:this.service,protocol:this.protocol,multiplex:options.multiplex}).transport;
+    this.#id=transportCall({action:'clientOpen',schema:options.schema.handle,service:this.service,protocol:this.protocol,codec:this.codec,multiplex:options.multiplex}).transport;
     this.#ready=new Promise((resolve,reject)=>{this.#readyResolve=resolve;this.#readyReject=reject;});
     this.#closed=new Promise(resolve=>{this.#closedResolve=resolve;});
     try{
@@ -148,9 +150,10 @@ export async function connect(options){return RpcClient.connect(options);}
 export async function serve(options){
   if(!(options.schema instanceof Schema))throw new TypeError('schema must be a Schema');
   const protocol=protocolOf(options.protocol),maxConcurrency=positive(options.maxConcurrency,64,'maxConcurrency',1024),maxQueuedBytes=positive(options.maxQueuedBytes,4*1024*1024,'maxQueuedBytes',64*1024*1024),idleTimeoutMs=positive(options.idleTimeoutMs,30000,'idleTimeoutMs');
+  const codec=codecOf(options.codec,protocol);
   const service=options.service??'',services=options.services??{},connections=new Set(),rawSockets=new Set();let closing=false;
   // Validate the schema/service routes before opening a listening socket.
-  const preflight=transportCall({action:'serverOpen',schema:options.schema.handle,protocol,service,services}).transport;
+  const preflight=transportCall({action:'serverOpen',schema:options.schema.handle,protocol,codec,service,services}).transport;
   transportCall({action:'serverClose',transport:preflight});
   const notify=error=>{if(options.onError){try{options.onError(error);}catch{}}};
   function accept(socket){
@@ -159,7 +162,7 @@ export async function serve(options){
     const connection={socket,beginClose:()=>{ended=true;if(!active)socket.end();}};connections.add(connection);socket.setNoDelay(true);
     const release=()=>{if(released)return;released=true;controller.abort();connections.delete(connection);if(id!==undefined)transportCall({action:'serverClose',transport:id});};
     const fail=error=>{notify(error);socket.destroy();release();};
-    try{id=transportCall({action:'serverOpen',schema:options.schema.handle,protocol,service,services}).transport;}catch(error){fail(error);return;}
+    try{id=transportCall({action:'serverOpen',schema:options.schema.handle,protocol,codec,service,services}).transport;}catch(error){fail(error);return;}
     socket.setTimeout(idleTimeoutMs,()=>fail(new ThriftError('Server connection idle timeout','IDLE_TIMEOUT')));
     const write=hex=>{
       if(released||socket.destroyed)return;

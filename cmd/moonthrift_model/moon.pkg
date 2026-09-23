@@ -1,0 +1,14 @@
+import {
+  "zhaojun-coding/thrift" @runtime,
+  "zhaojun-coding/thrift/moonthrift" @adapter,
+  "zhaojun-coding/thrift/examples/moonthrift_model" @model,
+  "moonbitlang/core/json",
+}
+
+supported_targets = "js"
+
+pkgtype(kind: "executable")
+
+options(
+  link: { "js": { "exports": [ "start", "feed", "finish" ], "format": "esm" } },
+)

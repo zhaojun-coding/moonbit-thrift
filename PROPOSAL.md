@@ -1,15 +1,22 @@
-# Thrift RPC 会话与 TCP/TLS 宿主 · 复审草稿
+# 基于 Xpeng/moonthrift 的 RPC 会话与 Node TCP/TLS 适配
 
 本项目仓库：https://github.com/zhaojun-coding/moonbit-thrift
-模块 / 本地版本：`zhaojun-coding/thrift` / `0.5.1`；许可证：MIT。仅本地修订，尚未推送或提交表单。
+模块/本地版本：`zhaojun-coding/thrift` / `0.6.0`；交付许可证 MIT AND Apache-2.0。
+本地修订未推送、发布或提交表单；旧版独立核心表述已纠正。
 
-## 已有项目与扩展关系
-[Xpeng/moonthrift 0.2.0](https://github.com/pxgt/moonthrift) 已有 IDL、跨文件工作区、类型生成、Binary/Compact 与 RPC message 编解码及 Python 互通。本项目同类代码明显重叠，不能将这些作为新增价值。对方公开说明把 socket transport、服务端调度、TLS 与连接池留给可独立开发的上层包。
-本项目候选增量是 RPC 会话及网络运行时：MoonBit 提供分帧、请求/回复与序号关联；Node 提供 TCP/TLS/mTLS、队列上限、超时/取消和关闭。当前并未直接依赖 Xpeng/moonthrift，也不称已与其生成模型无缝叠加；功能分工、待适配处见 UPSTREAM-RELATION.md。
+## 已有项目与实际扩展
+[Xpeng/moonthrift 0.2.0](https://github.com/pxgt/moonthrift) 已有 IDL、跨文件工作区、生成模型与 Binary/Compact/RPC 编解码，不能将这些作为本项目新增贡献。
+本版直接依赖该包，`/moonthrift` 将其 Value/消息 codec 接入原有 Client/FrameDecoder，并演示未修改的上游生成类型参加网络 RPC。
+MoonBit 负责分帧、pending序号、oneway、乱序与失败状态；Node 负责 TCP/TLS、调度、队列、超时/取消和关闭。不是 MoonBit 原生网络 I/O。
+Node 动态 Schema 和旧 builtin codec 保留兼容，明确承认与上游重叠；不把已有解析/生成能力重复申报为创新。
 
-## 可运行任务与验证
-构建 JS 引擎后运行 `node examples/run-rpc-runtime.mjs`：本机 Compact TCP 客户端与服务端真实通信，文字回复和 `9007199254740994` 精确 i64 结果均断言，失败非零退出。此前独立 Apache Thrift 0.24.0 双向检查覆盖 12 组合、192 项 RPC 和生命周期负向路径，保持原日期；本例及历史报告都不是与 Xpeng 项目的直接依赖/互通验证。
+## 可运行任务
+`moon build --target js` → `node tools/refresh-engines.mjs` → `node examples/run-upstream-model.mjs`。
+上游从原创 IDL 生成 SharedAddArgs/SharedAddResult，通过本机真实 TCP 与两种上游协议返回精确 i64 文本 `9007199254740994`。
+需要上游模型参加有状态 framed RPC 的项目可评估此适配；只需 IDL/序列化应优先评估已有上游。当前没有确认使用方。
 
-## 使用条件与剩余边界
-已有 Thrift IDL、需要从 MoonBit 调用或提供可运行 RPC 时可评估；只需 IDL/编解码时应优先选择已维护的 Xpeng 包。本项目没有 HTTP/Header/JSON transport、SASL、生产压测或全部语言生成器；网络 I/O 位于 Node。无确认使用方。若赛事要求代码层直接扩展既有包，目前还需上游 codec/Schema 适配，不把计划写成完成。
-团队应核对真实公开源码与报名表后复审；不能保证组委会认可这个增量范围。
+## 验证与边界
+JS/Wasm-GC 核心、5组新适配测试、上游模型生成确定性与实际网络示例通过；14组上游/builtin TCP/TLS、取消/超时检查通过。
+共享运行时改动后重跑 Apache Thrift0.24.0 双向回归：37组、192项 RPC；该旧路径的 UUID/legacy/mTLS 不等于上游路径也支持。
+上游接入不支持 UUID/legacy Binary；取消或超时关闭整条连接，无连接池、HTTP/Header/JSON transport、SASL 或生产规模验证。
+完整证据、接口和限制见 UPSTREAM-RELATION.md、TESTING.md；请求依据代码扩展关系重新审核，不保证认定通过。

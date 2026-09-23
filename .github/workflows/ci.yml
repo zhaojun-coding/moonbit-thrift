@@ -12,6 +12,7 @@ jobs:
         with:
           python-version: '3.12'
       - run: python -m pip install -r tools/oracle-requirements.txt
+      - run: python -m pip install -r tools/adapter-requirements.txt
       - name: Install MoonBit
         run: |
           curl -fsSL https://cli.moonbitlang.com/install/unix.sh | bash
@@ -24,10 +25,11 @@ jobs:
       - run: moon test --target js
       - run: moon build --target js
       - name: Refresh actual browser engine
-        run: |
-          engine=$(find _build/js/debug/build/cmd/web -type f -name '*.js' | head -n 1)
-          test -n "$engine"
-          cp "$engine" web/engine.mjs
+        run: node tools/refresh-engines.mjs
+      - name: Check pinned upstream model generation
+        run: node tools/generate-upstream-model.mjs && moon fmt && git diff --exit-code -- examples/moonthrift_model/model.mbt
+      - run: node examples/run-upstream-model.mjs
+      - run: node tools/test-moonthrift.mjs
       - run: node tools/test-demo.mjs
       - run: node tools/test-cli.mjs
       - run: node tools/test-output-file.mjs

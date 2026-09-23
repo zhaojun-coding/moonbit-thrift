@@ -1,0 +1,3 @@
+Thrift output: no overwrite by default, explicit force, exact i64 roundtrip passed
+
+STDERR

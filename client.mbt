@@ -2,9 +2,7 @@
 /// Transport-independent framed RPC client state. The host supplies socket I/O.
 /// Protocol errors poison this instance; create a new client after reconnecting.
 pub struct Client {
-  protocol : Protocol
-  strict_read : Bool
-  strict_write : Bool
+  codec : MessageCodec
   decoder : FrameDecoder
   pending : Map[Int, String]
   mut next_sequence : UInt
@@ -12,15 +10,18 @@ pub struct Client {
 }
 
 ///|
+/// When supplied, codec owns wire format selection; protocol and strict flags
+/// apply only to the default builtin codec.
 pub fn Client::new(
   protocol : Protocol,
   strict_read? : Bool = true,
   strict_write? : Bool = true,
+  codec? : MessageCodec? = None,
 ) -> Client raise CodecError {
   {
-    protocol,
-    strict_read,
-    strict_write,
+    codec: codec.unwrap_or_else(() => {
+      MessageCodec::builtin(protocol, strict_read~, strict_write~)
+    }),
     decoder: FrameDecoder::new(),
     pending: Map([]),
     next_sequence: 0U,
@@ -66,10 +67,17 @@ pub fn Client::call_with_id(
     self.next_sequence += 1U
     seq = self.next_sequence.reinterpret_as_int()
   }
-  let wire = encode_framed_message(
-    { name, body, message_type: if oneway { 4 } else { 1 }, sequence_id: seq, },
-    self.protocol,
-    strict_write=self.strict_write,
+  let wire = frame(
+    self.codec.encode({
+      name,
+      body,
+      message_type: if oneway {
+        4
+      } else {
+        1
+      },
+      sequence_id: seq,
+    }),
   )
   self.next_sequence += 1U
   if !oneway {
@@ -93,11 +101,7 @@ pub fn Client::feed(
   }
   let out = []
   for payload in self.decoder.feed(chunk) {
-    let response = decode_message(
-      payload,
-      self.protocol,
-      strict_read=self.strict_read,
-    )
+    let response = self.codec.decode(payload)
     if response.message_type != 2 && response.message_type != 3 {
       raise Invalid("expected reply or application exception")
     }

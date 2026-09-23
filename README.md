@@ -1,64 +1,38 @@
-# Thrift RPC 会话与 TCP/TLS 宿主
+# 基于 Xpeng/moonthrift 的 RPC 会话与 Node TCP/TLS 适配
 
-**本项目仓库：[https://github.com/zhaojun-coding/moonbit-thrift](https://github.com/zhaojun-coding/moonbit-thrift)**
+本项目仓库：https://github.com/zhaojun-coding/moonbit-thrift
 
-模块 `zhaojun-coding/thrift`，本地版本 **0.5.1**，MIT。当前评审状态：**条件复审**。本文件是当前入口，旧轮次说明与详细用法保存在 [历史/完整使用说明](README-BEFORE-VALUE-REWORK.md)。
+模块 `zhaojun-coding/thrift`，本地版本 **0.6.0**。依赖 `Xpeng/moonthrift@0.2.0`；本项目代码 MIT，上游代码 Apache-2.0，包含上游的交付物标注 `MIT AND Apache-2.0`。尚未推送或发布。
 
-## 解决什么任务
+本版回应“核心能力与 Xpeng/moonthrift 重叠、未说明扩展关系”：承认 IDL、生成器、Binary/Compact 编解码重叠，新增真实上游接入。上游生成模型和协议包处理数据与消息序列化，本项目的 MoonBit `Client`/`FrameDecoder` 处理分帧、序号关联和失败状态；Node 宿主处理 TCP/TLS、调度、超时与关闭。
 
-将既有 Thrift IDL 接到可运行的跨语言 RPC 服务，处理 i64、二进制、异常、oneway、乱序响应、TLS/mTLS 与多服务路由。
+## 运行上游生成模型的真实网络调用
 
-已有 Thrift IDL 与跨语言 RPC 互操作时评估；网络生命周期能力是与 Xpeng/moonthrift 重叠基础之上的候选增量。
-
-## 直接复现
-
-安装 MoonBit 和 Node.js 24，在本仓库根目录运行：
+安装 MoonBit 与 Node.js 24，在仓库根目录执行：
 
 ```sh
 moon build --target js
-node -e "require('node:fs').copyFileSync('_build/js/debug/build/cmd/web/web.js','web/engine.mjs')"
-node examples/run-rpc-runtime.mjs
+node tools/refresh-engines.mjs
+node examples/run-upstream-model.mjs
 ```
 
-流程：**本机真实 TCP/Compact RPC**。同一进程启动临时服务端，再连接客户端；文字调用与精确 i64 结果断言通过后关闭连接。它只使用本机 loopback，不连接外部服务。
+示例的 `SharedAddArgs` 和 `SharedAddResult` 由**未修改的上游生成器**从 [IDL](examples/moonthrift.thrift) 生成。请求经过上游 Value → `/moonthrift` 适配 → 本项目 Client → 上游消息编解码 → 本机 TCP；回复按相反路径进入生成结果类型。Binary 和 Compact 分别返回精确文本 `9007199254740994`，失败非零退出。它使用临时 loopback 服务、原创 IDL 和合成请求，不代表实际生产用户。
 
-输入性质：仓库内原创 IDL/handler 与合成请求；独立 Apache Thrift 双向互通另有历史参考报告。
+重新生成模型：`node tools/generate-upstream-model.mjs && moon fmt`。示例桥 `cmd/moonthrift_model` 仅演示单会话，不宣称提供通用的生成 JavaScript 客户端 API。
 
-应观察：返回 `MoonBit RPC` 和精确整数文本 `9007199254740994`；失败时非零退出。原来的离线文件往返仍可运行 `node examples/run-use-case.mjs`。
+## 两种接入
 
-具体范围和既有项目分工见 [使用任务](USE-CASE.md) 与 [上游关系](UPSTREAM-RELATION.md)。
+- MoonBit 生成模型：调用 `/moonthrift.from_upstream(model.to_thrift_value())`，用 `Client::new(protocol, codec=Some(message_codec(protocol)))` 发送；回复通过 `to_upstream` 进入上游生成模型的 `from_thrift_value`。
+- 已有 Node RPC 宿主：`connect` 和 `serve` 增加 `codec: 'moonthrift'`，协议选择 `binary` 或 `compact`。`tools/thrift.mjs` 的动态 `Schema` 与 JSON 参数映射仍是本项目原实现；该路径只替换消息编解码，不冒充全面复用了上游 Schema。
 
-## 实现与已有项目的关系
+默认 `codec: 'builtin'` 保留已有行为，便于已有调用者迁移。选择上游后不会因不支持某项而偷偷切回 builtin。旧说明与完整宿主参数见 [历史完整文档](README-BEFORE-VALUE-REWORK.md)，当前差异与限制以 [接入关系](UPSTREAM-RELATION.md) 为准。
 
-MoonBit 提供 Schema.make_call/read_call/make_reply/read_reply、Client 的待响应 ID 关联与 FrameDecoder；Node 负责网络、证书、Promise、并发调度和超时关闭。
+## 检查与限制
 
-[Xpeng/moonthrift 0.2.0](https://github.com/pxgt/moonthrift) 已有 IDL、跨文件生成、Binary/Compact 与 Python 互通，均非本项目独有。它当前公开说明未包含 socket/server dispatch/TLS/pool；本项目交付可运行网络 RPC 及失败生命周期。两套核心目前独立，未直接依赖对方包，具体可组合之处和待适配处见 [上游关系](UPSTREAM-RELATION.md)。
+[本轮证据](evidence/moonthrift-integration-20260923/LOCAL-CHECKS.json) 记录 JS/Wasm-GC 核心、5组新适配边界测试、上游生成确定性、真实模型网络示例、14组上游/原编解码器 TCP/TLS 与取消/超时检查。共享运行时修改后重新运行 Apache Thrift 0.24.0 双向网络参考：37组、192项 RPC。新上游组合检查与 Apache builtin 回归分别记录，不混称为上游全规格认证。
 
-同类项目和检索边界见 [DUPLICATION](DUPLICATION.md)。查重用于避免错误的首创表述；关键词零结果不能证明生态空白，Node 宿主能力也不计为 MoonBit 原生 I/O。
+上游 0.2.0 接入支持 strict Binary 与 Compact；**不支持 UUID 和 legacy Binary**。拒绝超范围 byte/i16/field ID；有转换节点/深度、二进制与消息大小限制。取消或超时关闭整条连接。无 HTTP/Header/JSON transport、SASL、连接池、MoonBit 原生网络 I/O 或生产规模验证。
 
-库使用从 [公共 API](pkg.generated.mbti) 和根包源码开始；可在本 checkout 的消费包中导入 `"zhaojun-coding/thrift"`。源码中的网络/文件宿主入口及完整参数仍见 [完整使用说明](README-BEFORE-VALUE-REWORK.md)。是否已发布到 Mooncakes 需另核实，本文不把 `moon add` 的下载成功作为已完成事项。
+只需要 IDL/编解码时，优先评估 [Xpeng/moonthrift](https://github.com/pxgt/moonthrift)。需要其生成模型参加 framed RPC、处理会话和宿主失败生命周期时，才有评估本扩展的理由。没有确认使用方，也没有上游认可或共同维护的证明。
 
-## 验证与边界
-
-本轮新增本机 TCP RPC 示例，验证文字与精确 i64 响应。CLI 文件保护和 Apache Thrift0.24 双向网络互通报告保留原日期；没有把对方包作为本次直接互通参考。
-
-[上一轮工程验证](evidence/innovation-review-20260922/results.json) 与 [本轮最小任务回执](evidence/value-rework-20260922/use-case.json) 分开。历史参考版本、golden 重放、本机 peer、真实第三方服务端和本次样例是不同证据，不能合并成“全部生产验证”。
-
-常规核心检查可运行 `moon check --target js`、`moon test --target js`、`moon test --target wasm-gc`。专项命令：
-
-```sh
-node tools/test-output-file.mjs
-node tools/test-network-reference.mjs
-```
-
-专项所需的参考环境和历史版本见原使用说明及 TESTING 文档；本轮回执只记录实际执行项，不声称上面所有参考服务在任意环境即装即跑。
-
-无 HTTP/unframed/Header/JSON transport、SASL 或所有生成语言；取消/超时会关闭整条连接。独立网络检查不等于生产规模压测。
-
-## 复审材料状态
-
-主要 I/O 差异在 Node，不能将其写成 MoonBit 原生 TLS；生产规模未验证。
-
-2026-09-22 匿名新克隆成功；默认分支 `main`，核验公开提交 `0483fd7e78e0fd6094db13e4a4b9848bc00d2a8b`。本轮源码修订仅在本地，尚未推送；此记录不证明当时报名表中的地址正确，也不证明新修订已上线。
-
-[申报草稿](PROPOSAL.md) 已压缩为 30 行以内，并单独标明本项目仓库；[复核说明](REVIEW-RESPONSE.md) 区分材料错误、功能变化及尚未解决的问题。没有编造用户、设备接入、生产部署或评审认可。
+本地材料：[申报书](PROPOSAL.md)、[复核说明](REVIEW-RESPONSE.md)、[使用任务](USE-CASE.md)、[查重与关系](DUPLICATION.md)、[测试方法](TESTING.md)、[许可证说明](THIRD-PARTY-NOTICES.md)。最终报名表与公开代码需由对接团队同步，本地完成不等于通过初审。

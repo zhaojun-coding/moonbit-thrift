@@ -1,5 +1,5 @@
 ///|
-pub suberror CodecError {
+pub(all) suberror CodecError {
   Invalid(String)
 } derive(Debug)
 

@@ -1,0 +1,2 @@
+# Test-only temporary TLS certificates. No Apache compiler is needed.
+cryptography==49.0.0
