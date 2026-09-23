@@ -15,9 +15,10 @@ jobs:
       - run: python -m pip install -r tools/adapter-requirements.txt
       - name: Install MoonBit
         run: |
-          curl -fsSL https://cli.moonbitlang.com/install/unix.sh | bash
+          curl -fsSL https://cli.moonbitlang.com/install/unix.sh | bash -s -- "$(cat .moonbit-version)"
           echo "$HOME/.moon/bin" >> "$GITHUB_PATH"
       - run: moon version --all
+      - run: moon update
       - run: moon fmt && moon info && git diff --exit-code
       - run: python tools/generate_oracles.py && moon fmt && git diff --exit-code
       - run: moon check

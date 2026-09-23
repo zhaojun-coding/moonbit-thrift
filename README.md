@@ -36,3 +36,5 @@ node examples/run-upstream-model.mjs
 只需要 IDL/编解码时，优先评估 [Xpeng/moonthrift](https://github.com/pxgt/moonthrift)。需要其生成模型参加 framed RPC、处理会话和宿主失败生命周期时，才有评估本扩展的理由。没有确认使用方，也没有上游认可或共同维护的证明。
 
 本地材料：[申报书](PROPOSAL.md)、[复核说明](REVIEW-RESPONSE.md)、[使用任务](USE-CASE.md)、[查重与关系](DUPLICATION.md)、[测试方法](TESTING.md)、[许可证说明](THIRD-PARTY-NOTICES.md)。最终报名表与公开代码需由对接团队同步，本地完成不等于通过初审。
+
+CI固定的编译器与标准库版本见 [TOOLCHAIN.md](TOOLCHAIN.md)；升级时需同时核对生成产物。
