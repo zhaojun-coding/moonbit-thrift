@@ -1,6 +1,6 @@
 {
   "project": "thrift",
-  "title": "Thrift 类型化 RPC 与 TCP/TLS 运行时",
+  "title": "Thrift RPC 会话与 TCP/TLS 宿主",
   "module": "zhaojun-coding/thrift",
   "version": "0.5.1",
   "repository": "https://github.com/zhaojun-coding/moonbit-thrift",
@@ -11,7 +11,7 @@
   "publicHead": "0483fd7e78e0fd6094db13e4a4b9848bc00d2a8b",
   "defaultBranch": "origin/main",
   "localChangesPublished": false,
-  "proposalLines": 25,
-  "useCase": "交换超过 JS 精度范围的 IDL 记录",
-  "diff": "Xpeng/moonthrift 已有 IDL、生成器、Binary/Compact 与 Python 互通；这些不是独有。对照固定提交的说明，它未提供 socket/server dispatch/TLS/pool。本项目主张可运行网络 RPC 和失败生命周期的组合贡献，同时明确编解码/IDL 重叠。没有声称目前已复用对方实现。"
+  "proposalLines": 15,
+  "useCase": "本机 Compact RPC 的精确 i64 结果与失败生命周期",
+  "diff": "Xpeng/moonthrift 0.2.0 已有 IDL、生成器和 Binary/Compact 编解码。本项目提供会话关联和 TCP/TLS 宿主；目前两套核心独立，尚未直接依赖或适配上游生成模型。"
 }

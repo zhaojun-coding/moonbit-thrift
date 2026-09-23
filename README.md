@@ -1,4 +1,4 @@
-# Thrift 类型化 RPC 与 TCP/TLS 运行时
+# Thrift RPC 会话与 TCP/TLS 宿主
 
 **本项目仓库：[https://github.com/zhaojun-coding/moonbit-thrift](https://github.com/zhaojun-coding/moonbit-thrift)**
 
@@ -17,22 +17,22 @@
 ```sh
 moon build --target js
 node -e "require('node:fs').copyFileSync('_build/js/debug/build/cmd/web/web.js','web/engine.mjs')"
-node examples/run-use-case.mjs
+node examples/run-rpc-runtime.mjs
 ```
 
-流程：**交换超过 JS 精度范围的 IDL 记录**。运行器创建新的系统临时目录，保留每一步的 stdout/stderr、产物及 `report.json`，打印实际目录；重复运行不会覆盖之前产物。它只执行仓库内的本地样例，不连接公网或发送消息。`report.json` 的 `expected` 是应观察的结果，实际结果在各步输出中；成功退出不替代内容核对。
+流程：**本机真实 TCP/Compact RPC**。同一进程启动临时服务端，再连接客户端；文字调用与精确 i64 结果断言通过后关闭连接。它只使用本机 loopback，不连接外部服务。
 
-输入性质：原创 JSON 记录；本例是 Compact 数据交换，网络双向互通另有 Apache Thrift 参考报告。
+输入性质：仓库内原创 IDL/handler 与合成请求；独立 Apache Thrift 双向互通另有历史参考报告。
 
-应观察：回读 id 字符串仍为 9007199254740993，不经 Number 丢失精度。
+应观察：返回 `MoonBit RPC` 和精确整数文本 `9007199254740994`；失败时非零退出。原来的离线文件往返仍可运行 `node examples/run-use-case.mjs`。
 
-具体命令和输入路径见 [使用任务](USE-CASE.md) 与 [机器可读流程](examples/use-case.json)。只把这个脚本当复现入口，不把通用运行器计作核心技术贡献。
+具体范围和既有项目分工见 [使用任务](USE-CASE.md) 与 [上游关系](UPSTREAM-RELATION.md)。
 
 ## 实现与已有项目的关系
 
 MoonBit 提供 Schema.make_call/read_call/make_reply/read_reply、Client 的待响应 ID 关联与 FrameDecoder；Node 负责网络、证书、Promise、并发调度和超时关闭。
 
-Xpeng/moonthrift 已有 IDL、生成器、Binary/Compact 与 Python 互通；这些不是独有。对照固定提交的说明，它未提供 socket/server dispatch/TLS/pool。本项目主张可运行网络 RPC 和失败生命周期的组合贡献，同时明确编解码/IDL 重叠。没有声称目前已复用对方实现。
+[Xpeng/moonthrift 0.2.0](https://github.com/pxgt/moonthrift) 已有 IDL、跨文件生成、Binary/Compact 与 Python 互通，均非本项目独有。它当前公开说明未包含 socket/server dispatch/TLS/pool；本项目交付可运行网络 RPC 及失败生命周期。两套核心目前独立，未直接依赖对方包，具体可组合之处和待适配处见 [上游关系](UPSTREAM-RELATION.md)。
 
 同类项目和检索边界见 [DUPLICATION](DUPLICATION.md)。查重用于避免错误的首创表述；关键词零结果不能证明生态空白，Node 宿主能力也不计为 MoonBit 原生 I/O。
 
@@ -40,7 +40,7 @@ Xpeng/moonthrift 已有 IDL、生成器、Binary/Compact 与 Python 互通；这
 
 ## 验证与边界
 
-本轮修复 CLI 默认覆盖文件，检查显式 --force 和 Compact i64 交换。先前 Apache Thrift0.24 双向网络互通报告保留；本轮未重跑该完整服务器矩阵。
+本轮新增本机 TCP RPC 示例，验证文字与精确 i64 响应。CLI 文件保护和 Apache Thrift0.24 双向网络互通报告保留原日期；没有把对方包作为本次直接互通参考。
 
 [上一轮工程验证](evidence/innovation-review-20260922/results.json) 与 [本轮最小任务回执](evidence/value-rework-20260922/use-case.json) 分开。历史参考版本、golden 重放、本机 peer、真实第三方服务端和本次样例是不同证据，不能合并成“全部生产验证”。
 

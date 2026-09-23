@@ -1,8 +1,12 @@
-# 交换超过 JS 精度范围的 IDL 记录
+# 本机 RPC 会话及精确 i64 结果
 
 将既有 Thrift IDL 接到可运行的跨语言 RPC 服务，处理 i64、二进制、异常、oneway、乱序响应、TLS/mTLS 与多服务路由。
 
-## 输入、操作、输出
+## 当前复审最小任务
+
+先按 README 构建，再运行 `node examples/run-rpc-runtime.mjs`。它以仓库原创 IDL 启动本机临时 TCP 服务端，用 Compact 协议发起文字与 i64 RPC，断言返回 `MoonBit RPC` 和 `9007199254740994` 后关闭连接；不是外网或客户部署。此流程针对 Xpeng/moonthrift 已有 IDL/编解码之外的会话与宿主能力。扩展关系与未完成适配见 [UPSTREAM-RELATION.md](UPSTREAM-RELATION.md)。
+
+## 既有离线数据任务
 
 原创 JSON 记录；本例是 Compact 数据交换，网络双向互通另有 Apache Thrift 参考报告。
 
@@ -21,7 +25,7 @@ node tools/thrift-cli.mjs decode examples/demo.thrift --type common.Record --pro
 
 已有 Thrift IDL 与跨语言 RPC 互操作时评估；网络生命周期能力是与 Xpeng/moonthrift 重叠基础之上的候选增量。
 
-Xpeng/moonthrift 已有 IDL、生成器、Binary/Compact 与 Python 互通；这些不是独有。对照固定提交的说明，它未提供 socket/server dispatch/TLS/pool。本项目主张可运行网络 RPC 和失败生命周期的组合贡献，同时明确编解码/IDL 重叠。没有声称目前已复用对方实现。
+Xpeng/moonthrift 0.2.0 已有 IDL、生成器、Binary/Compact 与 Python 互通；本项目的相应功能重叠。新示例实际验证网络 RPC；两者目前没有代码层依赖或直接模型适配。
 
 ## 不能由样例推出的结论
 

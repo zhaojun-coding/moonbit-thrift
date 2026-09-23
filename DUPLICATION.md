@@ -1,3 +1,7 @@
+# 当前判断
+
+2026-09-23 更新：Xpeng/moonthrift 0.2.0 已覆盖 IDL、生成器和协议编解码；当前本项目的候选增量是上层 RPC 会话与 TCP/TLS 宿主。最小真实本机 RPC 见 examples/run-rpc-runtime.mjs；与上游尚无直接代码依赖或模型适配，详见 UPSTREAM-RELATION.md。以下为旧轮次检索，不能代表已完成代码级扩展。
+
 > 2026-09-22 三份初审反馈后的当前判断：**条件复审**。主要 I/O 差异在 Node，不能将其写成 MoonBit 原生 TLS；生产规模未验证。 本次差异说明：Xpeng/moonthrift 已有 IDL、生成器、Binary/Compact 与 Python 互通；这些不是独有。对照固定提交的说明，它未提供 socket/server dispatch/TLS/pool。本项目主张可运行网络 RPC 和失败生命周期的组合贡献，同时明确编解码/IDL 重叠。没有声称目前已复用对方实现。 以下保留之前检索的固定提交与来源；此前“补足场景”不能理解为本次已解除价值异议。
 
 # thrift 查重与定位 · 2026-09-22
