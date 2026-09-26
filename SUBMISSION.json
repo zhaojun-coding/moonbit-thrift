@@ -5,13 +5,13 @@
   "version": "0.7.0",
   "repository": "https://github.com/zhaojun-coding/moonbit-thrift",
   "status": "原申报已驳回；本地修订待团队同步复审",
-  "remainingRisk": "无确认使用方；Node网络宿主不是MoonBit原生I/O；上游路径不支持UUID/legacy；是否认可扩展范围由组委会判断。",
+  "remainingRisk": "Node承担网络与调度；没有exactly-once/自动重试；上游路径不支持UUID/legacy",
   "actualUsersClaimed": false,
   "defaultBranch": "origin/main",
   "localChangesPublished": false,
   "proposalLines": 24,
-  "useCase": "上游生成模型通过实际TCP完成精确i64的Binary/Compact RPC",
-  "diff": "直接依赖上游0.3.0的生成器、消息和分帧；本地增量限定为多请求会话关联、整批交付、未决结果和失败生命周期。typed单次RPC归属上游。",
+  "useCase": "在同一连接管理多个在途请求、乱序回复和失败后未决结果",
+  "diff": "Xpeng/moonthrift0.3已提供typed单次RPC、编解码和分帧；全部明确归属上游并实际接入",
   "license": "MIT AND Apache-2.0",
   "dependency": "Xpeng/moonthrift@0.3.0",
   "historicalAnonymousClone": {
@@ -26,5 +26,6 @@
   "currentValidation": "evidence/session-20260927/LOCAL-CHECKS.json",
   "currentEvidence": "evidence/session-20260927/LOCAL-CHECKS.json",
   "metadataReviewedOn": "2026-09-27",
-  "currentEvidenceScope": "Direct moonthrift0.3 codec/framing; atomic multi-request correlation, unresolved IDs, sequence exhaustion and half-close;455 each backend,14 adapter/4 half-close/37 Apache groups"
+  "currentEvidenceScope": "Direct moonthrift0.3 codec/framing; atomic multi-request correlation, unresolved IDs, sequence exhaustion and half-close;455 each backend,14 adapter/4 half-close/37 Apache groups",
+  "reviewDecision": "升级并直接复用上游"
 }

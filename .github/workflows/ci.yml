@@ -41,6 +41,7 @@ jobs:
       - run: node tools/robustness.mjs
       - run: node tools/benchmark.mjs
       - run: python tools/test-interop.py
+      - run: node tools/test-half-close.mjs
       - uses: actions/upload-artifact@v4
         with:
           name: quality-evidence
