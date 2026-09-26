@@ -7,6 +7,8 @@ import {
 }
 
 // Values
+pub fn frame_stream() -> @thrift.FrameStream raise @thrift.CodecError
+
 pub fn from_upstream(@protocol.Value) -> @thrift.Value raise @thrift.CodecError
 
 pub fn message_codec(@thrift.Protocol) -> @thrift.MessageCodec

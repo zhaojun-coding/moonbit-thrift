@@ -1,0 +1,4 @@
+{"transport":"loopback TCP","protocol":"binary","codec":"Xpeng/moonthrift@0.3.0","requestModel":"SharedAddArgs","replyModel":"SharedAddResult","sum":"9007199254740994"}
+{"transport":"loopback TCP","protocol":"compact","codec":"Xpeng/moonthrift@0.3.0","requestModel":"SharedAddArgs","replyModel":"SharedAddResult","sum":"9007199254740994"}
+
+STDERR

@@ -5,4 +5,4 @@ const input=fs.readFileSync(new URL('../examples/moonthrift.thrift',import.meta.
 const result=JSON.parse(generate(input));
 assert.equal(result.ok,true,result.error);
 fs.writeFileSync(new URL('../examples/moonthrift_model/model.mbt',import.meta.url),result.content);
-console.log('Generated model with unmodified Xpeng/moonthrift 0.2.0; run moon fmt before comparing committed output');
+console.log('Generated model with unmodified Xpeng/moonthrift 0.3.0; run moon fmt before comparing committed output');

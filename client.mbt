@@ -3,10 +3,11 @@
 /// Protocol errors poison this instance; create a new client after reconnecting.
 pub struct Client {
   codec : MessageCodec
-  decoder : FrameDecoder
+  decoder : FrameStream
   pending : Map[Int, String]
   mut next_sequence : UInt
   mut failed : Bool
+  mut exhausted : Bool
 }
 
 ///|
@@ -17,15 +18,17 @@ pub fn Client::new(
   strict_read? : Bool = true,
   strict_write? : Bool = true,
   codec? : MessageCodec? = None,
+  frame_stream? : FrameStream? = None,
 ) -> Client raise CodecError {
   {
     codec: codec.unwrap_or_else(() => {
       MessageCodec::builtin(protocol, strict_read~, strict_write~)
     }),
-    decoder: FrameDecoder::new(),
+    decoder: frame_stream.unwrap_or_else(() => FrameStream::builtin()),
     pending: Map([]),
     next_sequence: 0U,
     failed: false,
+    exhausted: false,
   }
 }
 
@@ -59,6 +62,9 @@ pub fn Client::call_with_id(
   if self.failed {
     raise Invalid("RPC client requires reconnect")
   }
+  if self.exhausted {
+    raise Invalid("RPC sequence space exhausted; reconnect after draining")
+  }
   if self.pending.length() >= 1024 {
     raise Invalid("too many pending RPC calls")
   }
@@ -67,7 +73,7 @@ pub fn Client::call_with_id(
     self.next_sequence += 1U
     seq = self.next_sequence.reinterpret_as_int()
   }
-  let wire = frame(
+  let wire = self.decoder.encode(
     self.codec.encode({
       name,
       body,
@@ -80,6 +86,9 @@ pub fn Client::call_with_id(
     }),
   )
   self.next_sequence += 1U
+  if self.next_sequence == 0U {
+    self.exhausted = true
+  }
   if !oneway {
     self.pending[seq] = response_name.unwrap_or(name)
   }
@@ -100,10 +109,14 @@ pub fn Client::feed(
     self.failed = true
   }
   let out = []
+  let matched : Map[Int, Bool] = Map([])
   for payload in self.decoder.feed(chunk) {
     let response = self.codec.decode(payload)
     if response.message_type != 2 && response.message_type != 3 {
       raise Invalid("expected reply or application exception")
+    }
+    if matched.contains(response.sequence_id) {
+      raise Invalid("repeated RPC sequence in one response chunk")
     }
     match self.pending.get(response.sequence_id) {
       Some(name) =>
@@ -112,8 +125,12 @@ pub fn Client::feed(
         }
       None => raise Invalid("unknown or repeated RPC sequence id")
     }
-    self.pending.remove(response.sequence_id)
+    matched[response.sequence_id] = true
     out.push(response)
+  }
+  // Commit only after every reply in this chunk has been validated.
+  for id, _ in matched {
+    self.pending.remove(id)
   }
   out
 }
@@ -127,8 +144,34 @@ pub fn Client::finish(self : Client) -> Unit raise CodecError {
   errdefer {
     self.failed = true
   }
+  self.failed = true
   self.decoder.finish()
   if !self.pending.is_empty() {
     raise Invalid("connection closed with outstanding RPC calls")
   }
+}
+
+///|
+pub struct PendingCall {
+  sequence_id : Int
+  response_name : String
+} derive(Eq, @debug.Debug)
+
+///|
+/// Snapshot of requests not delivered by feed. After failure their remote
+/// execution outcome is unknown; this list is not permission to retry.
+pub fn Client::pending_calls(self : Client) -> Array[PendingCall] {
+  let ids = self.pending.keys().collect()
+  ids.sort()
+  ids.map(id => { sequence_id: id, response_name: self.pending[id], })
+}
+
+///|
+/// Seal the session and transfer its unresolved call identities to the host.
+/// This does not cancel work at the peer or make retry safe.
+pub fn Client::abort(self : Client) -> Array[PendingCall] {
+  self.failed = true
+  let unresolved = self.pending_calls()
+  self.pending.clear()
+  unresolved
 }

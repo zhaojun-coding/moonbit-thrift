@@ -16,6 +16,7 @@ pub fn start(protocol : String) -> String {
     let client = @runtime.Client::new(
       protocol,
       codec=Some(@adapter.message_codec(protocol)),
+      frame_stream=Some(@adapter.frame_stream()),
     )
     let args : @model.SharedAddArgs = { a: 9007199254740993L, b: 1L, }
     let frame = client.call(

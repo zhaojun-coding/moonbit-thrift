@@ -3,6 +3,7 @@ package "zhaojun-coding/thrift/examples/moonthrift_model"
 
 import {
   "Xpeng/moonthrift/protocol",
+  "Xpeng/moonthrift/rpc",
   "moonbitlang/core/debug",
 }
 
@@ -74,6 +75,19 @@ pub fn SharedBlobResult::encode_compact(Self) -> Bytes raise @protocol.ProtocolE
 pub fn SharedBlobResult::from_thrift_value(@protocol.Value) -> Self raise @protocol.ProtocolError
 pub fn SharedBlobResult::to_thrift_value(Self) -> @protocol.Value
 
+pub struct SharedClient {
+  wire : @rpc.RpcProtocol
+  exchange : (Bytes) -> Bytes? raise @protocol.ProtocolError
+  mut next_sequence_id : Int
+}
+pub fn SharedClient::add(Self, SharedAddArgs) -> SharedAddResult raise @protocol.ProtocolError
+pub fn SharedClient::blob(Self, SharedBlobArgs) -> SharedBlobResult raise @protocol.ProtocolError
+pub fn SharedClient::echo(Self, SharedEchoArgs) -> SharedEchoResult raise @protocol.ProtocolError
+pub fn SharedClient::fail(Self, SharedFailArgs) -> SharedFailResult raise @protocol.ProtocolError
+pub fn SharedClient::new(@rpc.RpcProtocol, (Bytes) -> Bytes? raise @protocol.ProtocolError) -> Self
+pub fn SharedClient::notify(Self, SharedNotifyArgs) -> Unit raise @protocol.ProtocolError
+pub fn SharedClient::slow(Self, SharedSlowArgs) -> SharedSlowResult raise @protocol.ProtocolError
+
 pub(all) struct SharedEchoArgs {
   record : Record
 } derive(Eq, @debug.Debug)
@@ -113,6 +127,17 @@ pub fn SharedFailResult::encode_binary(Self) -> Bytes raise @protocol.ProtocolEr
 pub fn SharedFailResult::encode_compact(Self) -> Bytes raise @protocol.ProtocolError
 pub fn SharedFailResult::from_thrift_value(@protocol.Value) -> Self raise @protocol.ProtocolError
 pub fn SharedFailResult::to_thrift_value(Self) -> @protocol.Value
+
+pub(all) struct SharedHandler {
+  add : (SharedAddArgs) -> SharedAddResult raise @protocol.ProtocolError
+  echo : (SharedEchoArgs) -> SharedEchoResult raise @protocol.ProtocolError
+  blob : (SharedBlobArgs) -> SharedBlobResult raise @protocol.ProtocolError
+  fail : (SharedFailArgs) -> SharedFailResult raise @protocol.ProtocolError
+  notify : (SharedNotifyArgs) -> Unit raise @protocol.ProtocolError
+  slow : (SharedSlowArgs) -> SharedSlowResult raise @protocol.ProtocolError
+}
+pub fn SharedHandler::process(Self, @protocol.Message) -> @protocol.Message? raise @protocol.ProtocolError
+pub fn SharedHandler::serve_once(Self, @rpc.RpcProtocol, Bytes) -> Bytes? raise @protocol.ProtocolError
 
 pub(all) struct SharedNotifyArgs {
   text : String

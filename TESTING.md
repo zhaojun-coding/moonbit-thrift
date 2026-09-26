@@ -1,4 +1,4 @@
-# 0.6.0 上游适配验证
+# 0.7.0 上游适配验证
 
 本轮证据入口：[LOCAL-CHECKS.json](evidence/moonthrift-integration-20260923/LOCAL-CHECKS.json)。保存命令、退出码和逐项日志。旧 evidence 文件保留原日期；[旧测试方法](TESTING-BEFORE-MOONTHRIFT.md) 不自动代表本轮重跑。
 

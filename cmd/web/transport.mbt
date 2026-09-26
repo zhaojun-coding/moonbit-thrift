@@ -12,7 +12,7 @@ priv struct BridgeServer {
   services : Map[String, String]
   default_service : String
   codec : @lib.MessageCodec
-  decoder : @lib.FrameDecoder
+  decoder : @lib.FrameStream
 }
 
 ///|
@@ -59,7 +59,7 @@ fn BridgeServer::exception(
   message : String,
 ) -> String raise {
   hex(
-    @lib.frame(
+    self.decoder.encode(
       self.codec.encode(
         @lib.application_exception(name, sequence, code, message),
       ),
@@ -113,6 +113,11 @@ pub fn transport_json(input : String) -> String {
         }
         _ => raise Failure("unknown message codec")
       }
+      let frame_stream = if request_text(request, "codec") == "moonthrift" {
+        @upstream.frame_stream()
+      } else {
+        @lib.FrameStream::builtin()
+      }
       let service = request_text(request, "service")
       transport_next.val += 1
       let id = transport_next.val
@@ -131,6 +136,7 @@ pub fn transport_json(input : String) -> String {
             strict_read=!legacy,
             strict_write=!legacy,
             codec=Some(codec),
+            frame_stream=Some(frame_stream),
           ),
         }
       } else {
@@ -152,7 +158,7 @@ pub fn transport_json(input : String) -> String {
           services,
           default_service: service,
           codec,
-          decoder: @lib.FrameDecoder::new(),
+          decoder: frame_stream,
         }
       }
       return Json::object({ "ok": true, "transport": id.to_json() }).stringify()
@@ -292,7 +298,7 @@ pub fn transport_json(input : String) -> String {
       }
       "serverReply" =>
         hex(
-          @lib.frame(
+          entry.decoder.encode(
             entry.codec.encode(
               entry.schema.make_reply(
                 request_text(request, "service"),

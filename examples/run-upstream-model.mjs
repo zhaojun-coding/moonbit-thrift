@@ -28,7 +28,7 @@ try {
       });
       assert.equal(sum,'9007199254740994');
       result(finish());
-      console.log(JSON.stringify({transport:'loopback TCP',protocol,codec:'Xpeng/moonthrift@0.2.0',requestModel:'SharedAddArgs',replyModel:'SharedAddResult',sum}));
+      console.log(JSON.stringify({transport:'loopback TCP',protocol,codec:'Xpeng/moonthrift@0.3.0',requestModel:'SharedAddArgs',replyModel:'SharedAddResult',sum}));
     } finally { socket?.destroy();finish();await server.close(); }
   }
 } finally {schema.close();}

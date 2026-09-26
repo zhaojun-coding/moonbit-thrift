@@ -57,7 +57,7 @@ try {
       results.push({boundary:mode,passed:true});
     }finally{await client?.close({force:true});await server.close();}
   }
-  const report={upstream:'Xpeng/moonthrift@0.2.0',runtime:process.version,groups:results.length,legacyRejected:true,results};
+  const report={upstream:'Xpeng/moonthrift@0.3.0',runtime:process.version,groups:results.length,legacyRejected:true,results};
   const flag=process.argv.indexOf('--output');if(flag>=0)await fs.writeFile(process.argv[flag+1],JSON.stringify(report,null,2)+'\n');
   console.log(JSON.stringify(report,null,2));
 } finally {

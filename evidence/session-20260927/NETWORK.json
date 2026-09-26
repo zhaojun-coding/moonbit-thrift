@@ -1,0 +1,112 @@
+{
+  "upstream": "Xpeng/moonthrift@0.3.0",
+  "runtime": "v24.11.0",
+  "groups": 14,
+  "legacyRejected": true,
+  "results": [
+    {
+      "protocol": "binary",
+      "clientCodec": "moonthrift",
+      "serverCodec": "moonthrift",
+      "transport": "TCP",
+      "multiplex": true,
+      "passed": true
+    },
+    {
+      "protocol": "binary",
+      "clientCodec": "moonthrift",
+      "serverCodec": "moonthrift",
+      "transport": "TLS",
+      "multiplex": true,
+      "passed": true
+    },
+    {
+      "protocol": "binary",
+      "clientCodec": "moonthrift",
+      "serverCodec": "builtin",
+      "transport": "TCP",
+      "multiplex": true,
+      "passed": true
+    },
+    {
+      "protocol": "binary",
+      "clientCodec": "moonthrift",
+      "serverCodec": "builtin",
+      "transport": "TLS",
+      "multiplex": true,
+      "passed": true
+    },
+    {
+      "protocol": "binary",
+      "clientCodec": "builtin",
+      "serverCodec": "moonthrift",
+      "transport": "TCP",
+      "multiplex": true,
+      "passed": true
+    },
+    {
+      "protocol": "binary",
+      "clientCodec": "builtin",
+      "serverCodec": "moonthrift",
+      "transport": "TLS",
+      "multiplex": true,
+      "passed": true
+    },
+    {
+      "protocol": "compact",
+      "clientCodec": "moonthrift",
+      "serverCodec": "moonthrift",
+      "transport": "TCP",
+      "multiplex": true,
+      "passed": true
+    },
+    {
+      "protocol": "compact",
+      "clientCodec": "moonthrift",
+      "serverCodec": "moonthrift",
+      "transport": "TLS",
+      "multiplex": true,
+      "passed": true
+    },
+    {
+      "protocol": "compact",
+      "clientCodec": "moonthrift",
+      "serverCodec": "builtin",
+      "transport": "TCP",
+      "multiplex": true,
+      "passed": true
+    },
+    {
+      "protocol": "compact",
+      "clientCodec": "moonthrift",
+      "serverCodec": "builtin",
+      "transport": "TLS",
+      "multiplex": true,
+      "passed": true
+    },
+    {
+      "protocol": "compact",
+      "clientCodec": "builtin",
+      "serverCodec": "moonthrift",
+      "transport": "TCP",
+      "multiplex": true,
+      "passed": true
+    },
+    {
+      "protocol": "compact",
+      "clientCodec": "builtin",
+      "serverCodec": "moonthrift",
+      "transport": "TLS",
+      "multiplex": true,
+      "passed": true
+    },
+    {
+      "boundary": "cancel",
+      "passed": true
+    },
+    {
+      "boundary": "timeout",
+      "passed": true
+    }
+  ]
+}

@@ -2349,6 +2349,24 @@ function _M0MPC15array9ArrayView3anyGRP25Xpeng10moonthrift10DiagnosticE(self, f)
   }
   return false;
 }
+function _M0MPC15array9ArrayView3anyGRP25Xpeng10moonthrift11FunctionDefE(self, f) {
+  const _bind = self.end - self.start | 0;
+  let _tmp = 0;
+  while (true) {
+    const _ = _tmp;
+    if (_ < _bind) {
+      const v = self.buf[self.start + _ | 0];
+      if (f(v)) {
+        return true;
+      }
+      _tmp = _ + 1 | 0;
+      continue;
+    } else {
+      break;
+    }
+  }
+  return false;
+}
 function _M0MPC15array9ArrayView3anyGsE(self, f) {
   const _bind = self.end - self.start | 0;
   let _tmp = 0;
@@ -2366,6 +2384,9 @@ function _M0MPC15array9ArrayView3anyGsE(self, f) {
     }
   }
   return false;
+}
+function _M0MPC15array9ArrayView9is__emptyGRP25Xpeng10moonthrift11FunctionDefE(self) {
+  return (self.end - self.start | 0) === 0;
 }
 function _M0MPC15array9ArrayView4joinGsE(self, separator) {
   if ((self.end - self.start | 0) === 0) {
@@ -6864,73 +6885,73 @@ function _M0IPC15int645Int64PC16string7FromStr9from__str(str) {
 function _M0IPC16double6DoublePC16string7FromStr9from__str(str) {
   return _M0FPC28internal7strconv13parse__double(str);
 }
-function _M0IP25Xpeng10moonthrift8BaseTypePB2Eq5equal(_x_746, _x_747) {
-  switch (_x_746) {
+function _M0IP25Xpeng10moonthrift8BaseTypePB2Eq5equal(_x_793, _x_794) {
+  switch (_x_793) {
     case 0: {
-      if (_x_747 === 0) {
+      if (_x_794 === 0) {
         return true;
       } else {
         return false;
       }
     }
     case 1: {
-      if (_x_747 === 1) {
+      if (_x_794 === 1) {
         return true;
       } else {
         return false;
       }
     }
     case 2: {
-      if (_x_747 === 2) {
+      if (_x_794 === 2) {
         return true;
       } else {
         return false;
       }
     }
     case 3: {
-      if (_x_747 === 3) {
+      if (_x_794 === 3) {
         return true;
       } else {
         return false;
       }
     }
     case 4: {
-      if (_x_747 === 4) {
+      if (_x_794 === 4) {
         return true;
       } else {
         return false;
       }
     }
     case 5: {
-      if (_x_747 === 5) {
+      if (_x_794 === 5) {
         return true;
       } else {
         return false;
       }
     }
     case 6: {
-      if (_x_747 === 6) {
+      if (_x_794 === 6) {
         return true;
       } else {
         return false;
       }
     }
     case 7: {
-      if (_x_747 === 7) {
+      if (_x_794 === 7) {
         return true;
       } else {
         return false;
       }
     }
     case 8: {
-      if (_x_747 === 8) {
+      if (_x_794 === 8) {
         return true;
       } else {
         return false;
       }
     }
     default: {
-      if (_x_747 === 9) {
+      if (_x_794 === 9) {
         return true;
       } else {
         return false;
@@ -6938,127 +6959,127 @@ function _M0IP25Xpeng10moonthrift8BaseTypePB2Eq5equal(_x_746, _x_747) {
     }
   }
 }
-function _M0IP25Xpeng10moonthrift8SeverityPC15debug5Debug8to__repr(_x_744) {
-  if (_x_744 === 0) {
+function _M0IP25Xpeng10moonthrift8SeverityPC15debug5Debug8to__repr(_x_791) {
+  if (_x_791 === 0) {
     return _M0MPC15debug4Repr4ctor("Error", []);
   } else {
     return _M0MPC15debug4Repr4ctor("Warning", []);
   }
 }
-function _M0IP25Xpeng10moonthrift10DiagnosticPC15debug5Debug8to__repr(_x_736) {
-  const _bind = [{ _0: "code", _1: _M0IPC16string6StringPC15debug5Debug8to__repr(_x_736.code) }, { _0: "severity", _1: _M0IP25Xpeng10moonthrift8SeverityPC15debug5Debug8to__repr(_x_736.severity) }, { _0: "message", _1: _M0IPC16string6StringPC15debug5Debug8to__repr(_x_736.message) }, { _0: "span", _1: _M0IP25Xpeng10moonthrift4SpanPC15debug5Debug8to__repr(_x_736.span) }];
+function _M0IP25Xpeng10moonthrift10DiagnosticPC15debug5Debug8to__repr(_x_783) {
+  const _bind = [{ _0: "code", _1: _M0IPC16string6StringPC15debug5Debug8to__repr(_x_783.code) }, { _0: "severity", _1: _M0IP25Xpeng10moonthrift8SeverityPC15debug5Debug8to__repr(_x_783.severity) }, { _0: "message", _1: _M0IPC16string6StringPC15debug5Debug8to__repr(_x_783.message) }, { _0: "span", _1: _M0IP25Xpeng10moonthrift4SpanPC15debug5Debug8to__repr(_x_783.span) }];
   return _M0MPC15debug4Repr6record(_M0MPB3Map3MapGsRPC15debug4ReprE(new _M0TPB9ArrayViewGUsRPC15debug4ReprEE(_bind, 0, 4), undefined));
 }
-function _M0IP25Xpeng10moonthrift7TypeRefPB2Eq5equal(_x_669, _x_670) {
-  let _tmp = _x_669;
-  let _tmp$2 = _x_670;
+function _M0IP25Xpeng10moonthrift7TypeRefPB2Eq5equal(_x_716, _x_717) {
+  let _tmp = _x_716;
+  let _tmp$2 = _x_717;
   _L: while (true) {
-    const _x_669$2 = _tmp;
-    const _x_670$2 = _tmp$2;
-    let _x1_684;
-    let _x0_683;
-    let _y0_685;
-    let _y1_686;
+    const _x_716$2 = _tmp;
+    const _x_717$2 = _tmp$2;
+    let _x1_731;
+    let _x0_730;
+    let _y0_732;
+    let _y1_733;
     _L$2: {
-      let _x1_680;
-      let _x0_679;
-      let _y0_681;
-      let _y1_682;
+      let _x1_727;
+      let _x0_726;
+      let _y0_728;
+      let _y1_729;
       _L$3: {
-        let _x0_677;
-        let _y0_678;
+        let _x0_724;
+        let _y0_725;
         _L$4: {
-          let _x0_675;
-          let _y0_676;
+          let _x0_722;
+          let _y0_723;
           _L$5: {
-            let _x0_673;
-            let _y0_674;
+            let _x0_720;
+            let _y0_721;
             _L$6: {
-              let _x0_671;
-              let _y0_672;
+              let _x0_718;
+              let _y0_719;
               _L$7: {
-                switch (_x_669$2.$tag) {
+                switch (_x_716$2.$tag) {
                   case 0: {
-                    const _Base = _x_669$2;
-                    const _$42$x0_671 = _Base._0;
-                    if (_x_670$2.$tag === 0) {
-                      const _Base$2 = _x_670$2;
-                      const _$42$y0_672 = _Base$2._0;
-                      _x0_671 = _$42$x0_671;
-                      _y0_672 = _$42$y0_672;
+                    const _Base = _x_716$2;
+                    const _$42$x0_718 = _Base._0;
+                    if (_x_717$2.$tag === 0) {
+                      const _Base$2 = _x_717$2;
+                      const _$42$y0_719 = _Base$2._0;
+                      _x0_718 = _$42$x0_718;
+                      _y0_719 = _$42$y0_719;
                       break _L$7;
                     } else {
                       return false;
                     }
                   }
                   case 1: {
-                    const _Named = _x_669$2;
-                    const _$42$x0_673 = _Named._0;
-                    if (_x_670$2.$tag === 1) {
-                      const _Named$2 = _x_670$2;
-                      const _$42$y0_674 = _Named$2._0;
-                      _x0_673 = _$42$x0_673;
-                      _y0_674 = _$42$y0_674;
+                    const _Named = _x_716$2;
+                    const _$42$x0_720 = _Named._0;
+                    if (_x_717$2.$tag === 1) {
+                      const _Named$2 = _x_717$2;
+                      const _$42$y0_721 = _Named$2._0;
+                      _x0_720 = _$42$x0_720;
+                      _y0_721 = _$42$y0_721;
                       break _L$6;
                     } else {
                       return false;
                     }
                   }
                   case 2: {
-                    const _List = _x_669$2;
-                    const _$42$x0_675 = _List._0;
-                    if (_x_670$2.$tag === 2) {
-                      const _List$2 = _x_670$2;
-                      const _$42$y0_676 = _List$2._0;
-                      _x0_675 = _$42$x0_675;
-                      _y0_676 = _$42$y0_676;
+                    const _List = _x_716$2;
+                    const _$42$x0_722 = _List._0;
+                    if (_x_717$2.$tag === 2) {
+                      const _List$2 = _x_717$2;
+                      const _$42$y0_723 = _List$2._0;
+                      _x0_722 = _$42$x0_722;
+                      _y0_723 = _$42$y0_723;
                       break _L$5;
                     } else {
                       return false;
                     }
                   }
                   case 3: {
-                    const _Set = _x_669$2;
-                    const _$42$x0_677 = _Set._0;
-                    if (_x_670$2.$tag === 3) {
-                      const _Set$2 = _x_670$2;
-                      const _$42$y0_678 = _Set$2._0;
-                      _x0_677 = _$42$x0_677;
-                      _y0_678 = _$42$y0_678;
+                    const _Set = _x_716$2;
+                    const _$42$x0_724 = _Set._0;
+                    if (_x_717$2.$tag === 3) {
+                      const _Set$2 = _x_717$2;
+                      const _$42$y0_725 = _Set$2._0;
+                      _x0_724 = _$42$x0_724;
+                      _y0_725 = _$42$y0_725;
                       break _L$4;
                     } else {
                       return false;
                     }
                   }
                   case 4: {
-                    const _Map = _x_669$2;
-                    const _$42$x0_679 = _Map._0;
-                    const _$42$x1_680 = _Map._1;
-                    if (_x_670$2.$tag === 4) {
-                      const _Map$2 = _x_670$2;
-                      const _$42$y0_681 = _Map$2._0;
-                      const _$42$y1_682 = _Map$2._1;
-                      _x1_680 = _$42$x1_680;
-                      _x0_679 = _$42$x0_679;
-                      _y0_681 = _$42$y0_681;
-                      _y1_682 = _$42$y1_682;
+                    const _Map = _x_716$2;
+                    const _$42$x0_726 = _Map._0;
+                    const _$42$x1_727 = _Map._1;
+                    if (_x_717$2.$tag === 4) {
+                      const _Map$2 = _x_717$2;
+                      const _$42$y0_728 = _Map$2._0;
+                      const _$42$y1_729 = _Map$2._1;
+                      _x1_727 = _$42$x1_727;
+                      _x0_726 = _$42$x0_726;
+                      _y0_728 = _$42$y0_728;
+                      _y1_729 = _$42$y1_729;
                       break _L$3;
                     } else {
                       return false;
                     }
                   }
                   default: {
-                    const _CppType = _x_669$2;
-                    const _$42$x0_683 = _CppType._0;
-                    const _$42$x1_684 = _CppType._1;
-                    if (_x_670$2.$tag === 5) {
-                      const _CppType$2 = _x_670$2;
-                      const _$42$y0_685 = _CppType$2._0;
-                      const _$42$y1_686 = _CppType$2._1;
-                      _x1_684 = _$42$x1_684;
-                      _x0_683 = _$42$x0_683;
-                      _y0_685 = _$42$y0_685;
-                      _y1_686 = _$42$y1_686;
+                    const _CppType = _x_716$2;
+                    const _$42$x0_730 = _CppType._0;
+                    const _$42$x1_731 = _CppType._1;
+                    if (_x_717$2.$tag === 5) {
+                      const _CppType$2 = _x_717$2;
+                      const _$42$y0_732 = _CppType$2._0;
+                      const _$42$y1_733 = _CppType$2._1;
+                      _x1_731 = _$42$x1_731;
+                      _x0_730 = _$42$x0_730;
+                      _y0_732 = _$42$y0_732;
+                      _y1_733 = _$42$y1_733;
                       break _L$2;
                     } else {
                       return false;
@@ -7066,118 +7087,118 @@ function _M0IP25Xpeng10moonthrift7TypeRefPB2Eq5equal(_x_669, _x_670) {
                   }
                 }
               }
-              return _M0IP25Xpeng10moonthrift8BaseTypePB2Eq5equal(_x0_671, _y0_672);
+              return _M0IP25Xpeng10moonthrift8BaseTypePB2Eq5equal(_x0_718, _y0_719);
             }
-            return _x0_673 === _y0_674;
+            return _x0_720 === _y0_721;
           }
-          _tmp = _x0_675;
-          _tmp$2 = _y0_676;
+          _tmp = _x0_722;
+          _tmp$2 = _y0_723;
           continue;
         }
-        _tmp = _x0_677;
-        _tmp$2 = _y0_678;
+        _tmp = _x0_724;
+        _tmp$2 = _y0_725;
         continue;
       }
-      if (_M0IP25Xpeng10moonthrift7TypeRefPB2Eq5equal(_x0_679, _y0_681)) {
-        _tmp = _x1_680;
-        _tmp$2 = _y1_682;
+      if (_M0IP25Xpeng10moonthrift7TypeRefPB2Eq5equal(_x0_726, _y0_728)) {
+        _tmp = _x1_727;
+        _tmp$2 = _y1_729;
         continue;
       } else {
         return false;
       }
     }
-    return _M0IP25Xpeng10moonthrift7TypeRefPB2Eq5equal(_x0_683, _y0_685) && _x1_684 === _y1_686;
+    return _M0IP25Xpeng10moonthrift7TypeRefPB2Eq5equal(_x0_730, _y0_732) && _x1_731 === _y1_733;
   }
 }
-function _M0IP25Xpeng10moonthrift4SpanPC15debug5Debug8to__repr(_x_653) {
-  const _bind = [{ _0: "source", _1: _M0IPC16string6StringPC15debug5Debug8to__repr(_x_653.source) }, { _0: "start", _1: _M0IPC13int3IntPC15debug5Debug8to__repr(_x_653.start) }, { _0: "end", _1: _M0IPC13int3IntPC15debug5Debug8to__repr(_x_653.end) }, { _0: "line", _1: _M0IPC13int3IntPC15debug5Debug8to__repr(_x_653.line) }, { _0: "column", _1: _M0IPC13int3IntPC15debug5Debug8to__repr(_x_653.column) }];
+function _M0IP25Xpeng10moonthrift4SpanPC15debug5Debug8to__repr(_x_700) {
+  const _bind = [{ _0: "source", _1: _M0IPC16string6StringPC15debug5Debug8to__repr(_x_700.source) }, { _0: "start", _1: _M0IPC13int3IntPC15debug5Debug8to__repr(_x_700.start) }, { _0: "end", _1: _M0IPC13int3IntPC15debug5Debug8to__repr(_x_700.end) }, { _0: "line", _1: _M0IPC13int3IntPC15debug5Debug8to__repr(_x_700.line) }, { _0: "column", _1: _M0IPC13int3IntPC15debug5Debug8to__repr(_x_700.column) }];
   return _M0MPC15debug4Repr6record(_M0MPB3Map3MapGsRPC15debug4ReprE(new _M0TPB9ArrayViewGUsRPC15debug4ReprEE(_bind, 0, 5), undefined));
 }
-function _M0IP25Xpeng10moonthrift8IdlErrorPC15debug5Debug8to__reprGRP25Xpeng10moonthrift8IdlErrorE(_x_604) {
-  let _arg_615;
+function _M0IP25Xpeng10moonthrift8IdlErrorPC15debug5Debug8to__reprGRP25Xpeng10moonthrift8IdlErrorE(_x_645) {
+  let _arg_656;
   _L: {
-    let _arg_613;
-    let _arg_614;
+    let _arg_654;
+    let _arg_655;
     _L$2: {
-      let _arg_611;
-      let _arg_612;
+      let _arg_652;
+      let _arg_653;
       _L$3: {
-        let _arg_609;
-        let _arg_610;
+        let _arg_650;
+        let _arg_651;
         _L$4: {
-          let _arg_608;
+          let _arg_649;
           _L$5: {
-            let _arg_607;
+            let _arg_648;
             _L$6: {
-              let _arg_605;
-              let _arg_606;
+              let _arg_646;
+              let _arg_647;
               _L$7: {
-                switch (_x_604.$tag) {
+                switch (_x_645.$tag) {
                   case 7: {
-                    const _UnexpectedCharacter = _x_604;
-                    const _$42$arg_605 = _UnexpectedCharacter._0;
-                    const _$42$arg_606 = _UnexpectedCharacter._1;
-                    _arg_605 = _$42$arg_605;
-                    _arg_606 = _$42$arg_606;
+                    const _UnexpectedCharacter = _x_645;
+                    const _$42$arg_646 = _UnexpectedCharacter._0;
+                    const _$42$arg_647 = _UnexpectedCharacter._1;
+                    _arg_646 = _$42$arg_646;
+                    _arg_647 = _$42$arg_647;
                     break _L$7;
                   }
                   case 6: {
-                    const _UnterminatedString = _x_604;
-                    const _$42$arg_607 = _UnterminatedString._0;
-                    _arg_607 = _$42$arg_607;
+                    const _UnterminatedString = _x_645;
+                    const _$42$arg_648 = _UnterminatedString._0;
+                    _arg_648 = _$42$arg_648;
                     break _L$6;
                   }
                   case 5: {
-                    const _UnterminatedComment = _x_604;
-                    const _$42$arg_608 = _UnterminatedComment._0;
-                    _arg_608 = _$42$arg_608;
+                    const _UnterminatedComment = _x_645;
+                    const _$42$arg_649 = _UnterminatedComment._0;
+                    _arg_649 = _$42$arg_649;
                     break _L$5;
                   }
                   case 4: {
-                    const _InvalidEscape = _x_604;
-                    const _$42$arg_609 = _InvalidEscape._0;
-                    const _$42$arg_610 = _InvalidEscape._1;
-                    _arg_609 = _$42$arg_609;
-                    _arg_610 = _$42$arg_610;
+                    const _InvalidEscape = _x_645;
+                    const _$42$arg_650 = _InvalidEscape._0;
+                    const _$42$arg_651 = _InvalidEscape._1;
+                    _arg_650 = _$42$arg_650;
+                    _arg_651 = _$42$arg_651;
                     break _L$4;
                   }
                   case 3: {
-                    const _InvalidInteger = _x_604;
-                    const _$42$arg_611 = _InvalidInteger._0;
-                    const _$42$arg_612 = _InvalidInteger._1;
-                    _arg_611 = _$42$arg_611;
-                    _arg_612 = _$42$arg_612;
+                    const _InvalidInteger = _x_645;
+                    const _$42$arg_652 = _InvalidInteger._0;
+                    const _$42$arg_653 = _InvalidInteger._1;
+                    _arg_652 = _$42$arg_652;
+                    _arg_653 = _$42$arg_653;
                     break _L$3;
                   }
                   case 2: {
-                    const _UnexpectedToken = _x_604;
-                    const _$42$arg_613 = _UnexpectedToken._0;
-                    const _$42$arg_614 = _UnexpectedToken._1;
-                    _arg_613 = _$42$arg_613;
-                    _arg_614 = _$42$arg_614;
+                    const _UnexpectedToken = _x_645;
+                    const _$42$arg_654 = _UnexpectedToken._0;
+                    const _$42$arg_655 = _UnexpectedToken._1;
+                    _arg_654 = _$42$arg_654;
+                    _arg_655 = _$42$arg_655;
                     break _L$2;
                   }
                   default: {
-                    const _UnexpectedEnd = _x_604;
-                    const _$42$arg_615 = _UnexpectedEnd._0;
-                    _arg_615 = _$42$arg_615;
+                    const _UnexpectedEnd = _x_645;
+                    const _$42$arg_656 = _UnexpectedEnd._0;
+                    _arg_656 = _$42$arg_656;
                     break _L;
                   }
                 }
               }
-              return _M0MPC15debug4Repr4ctor("UnexpectedCharacter", [{ _0: undefined, _1: _M0IPC14char4CharPC15debug5Debug8to__repr(_arg_605) }, { _0: undefined, _1: _M0IP25Xpeng10moonthrift4SpanPC15debug5Debug8to__repr(_arg_606) }]);
+              return _M0MPC15debug4Repr4ctor("UnexpectedCharacter", [{ _0: undefined, _1: _M0IPC14char4CharPC15debug5Debug8to__repr(_arg_646) }, { _0: undefined, _1: _M0IP25Xpeng10moonthrift4SpanPC15debug5Debug8to__repr(_arg_647) }]);
             }
-            return _M0MPC15debug4Repr4ctor("UnterminatedString", [{ _0: undefined, _1: _M0IP25Xpeng10moonthrift4SpanPC15debug5Debug8to__repr(_arg_607) }]);
+            return _M0MPC15debug4Repr4ctor("UnterminatedString", [{ _0: undefined, _1: _M0IP25Xpeng10moonthrift4SpanPC15debug5Debug8to__repr(_arg_648) }]);
           }
-          return _M0MPC15debug4Repr4ctor("UnterminatedComment", [{ _0: undefined, _1: _M0IP25Xpeng10moonthrift4SpanPC15debug5Debug8to__repr(_arg_608) }]);
+          return _M0MPC15debug4Repr4ctor("UnterminatedComment", [{ _0: undefined, _1: _M0IP25Xpeng10moonthrift4SpanPC15debug5Debug8to__repr(_arg_649) }]);
         }
-        return _M0MPC15debug4Repr4ctor("InvalidEscape", [{ _0: undefined, _1: _M0IPC14char4CharPC15debug5Debug8to__repr(_arg_609) }, { _0: undefined, _1: _M0IP25Xpeng10moonthrift4SpanPC15debug5Debug8to__repr(_arg_610) }]);
+        return _M0MPC15debug4Repr4ctor("InvalidEscape", [{ _0: undefined, _1: _M0IPC14char4CharPC15debug5Debug8to__repr(_arg_650) }, { _0: undefined, _1: _M0IP25Xpeng10moonthrift4SpanPC15debug5Debug8to__repr(_arg_651) }]);
       }
-      return _M0MPC15debug4Repr4ctor("InvalidInteger", [{ _0: undefined, _1: _M0IPC16string6StringPC15debug5Debug8to__repr(_arg_611) }, { _0: undefined, _1: _M0IP25Xpeng10moonthrift4SpanPC15debug5Debug8to__repr(_arg_612) }]);
+      return _M0MPC15debug4Repr4ctor("InvalidInteger", [{ _0: undefined, _1: _M0IPC16string6StringPC15debug5Debug8to__repr(_arg_652) }, { _0: undefined, _1: _M0IP25Xpeng10moonthrift4SpanPC15debug5Debug8to__repr(_arg_653) }]);
     }
-    return _M0MPC15debug4Repr4ctor("UnexpectedToken", [{ _0: undefined, _1: _M0IPC16string6StringPC15debug5Debug8to__repr(_arg_613) }, { _0: undefined, _1: _M0IP25Xpeng10moonthrift4SpanPC15debug5Debug8to__repr(_arg_614) }]);
+    return _M0MPC15debug4Repr4ctor("UnexpectedToken", [{ _0: undefined, _1: _M0IPC16string6StringPC15debug5Debug8to__repr(_arg_654) }, { _0: undefined, _1: _M0IP25Xpeng10moonthrift4SpanPC15debug5Debug8to__repr(_arg_655) }]);
   }
-  return _M0MPC15debug4Repr4ctor("UnexpectedEnd", [{ _0: undefined, _1: _M0IP25Xpeng10moonthrift4SpanPC15debug5Debug8to__repr(_arg_615) }]);
+  return _M0MPC15debug4Repr4ctor("UnexpectedEnd", [{ _0: undefined, _1: _M0IP25Xpeng10moonthrift4SpanPC15debug5Debug8to__repr(_arg_656) }]);
 }
 function _M0FP25Xpeng10moonthrift18diagnostic_2einner(code, message, span, severity) {
   return new _M0TP25Xpeng10moonthrift10Diagnostic(code, severity, message, span);
@@ -11211,6 +11232,9 @@ function _M0FP35Xpeng10moonthrift7codegen11is__keyword(name) {
     case "match": {
       return true;
     }
+    case "method": {
+      return true;
+    }
     case "mut": {
       return true;
     }
@@ -11710,6 +11734,239 @@ function _M0FP35Xpeng10moonthrift7codegen24render__function__models(output, sche
   _M0IPB13StringBuilderPB6Logger13write__string(output, "} derive(Debug, Eq)\n\n");
   _M0FP35Xpeng10moonthrift7codegen31render__function__result__codec(output, schema, prefix, function_);
 }
+function _M0FP35Xpeng10moonthrift7codegen29render__service__rpc__runtime(output, service_name, extends_, functions) {
+  _L: {
+    _L$2: {
+      if (extends_ === undefined) {
+        if (_M0MPC15array9ArrayView9is__emptyGRP25Xpeng10moonthrift11FunctionDefE(functions)) {
+          break _L$2;
+        }
+      } else {
+        break _L$2;
+      }
+      break _L;
+    }
+    return undefined;
+  }
+  const has_oneway = _M0MPC15array9ArrayView3anyGRP25Xpeng10moonthrift11FunctionDefE(functions, (function_) => function_.oneway);
+  const service = _M0FP35Xpeng10moonthrift7codegen10type__name(service_name);
+  const _string_builder = _M0MPB13StringBuilder21StringBuilder_2einner(6);
+  _M0MPB13StringBuilder13write__objectGsE(_string_builder, service);
+  _M0IPB13StringBuilderPB6Logger13write__string(_string_builder, "Client");
+  const client = _M0MPB13StringBuilder10to__string(_string_builder);
+  const _string_builder$2 = _M0MPB13StringBuilder21StringBuilder_2einner(7);
+  _M0MPB13StringBuilder13write__objectGsE(_string_builder$2, service);
+  _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$2, "Handler");
+  const handler = _M0MPB13StringBuilder10to__string(_string_builder$2);
+  const exchange_type = has_oneway ? "(Bytes) -> Bytes? raise @protocol.ProtocolError" : "(Bytes) -> Bytes raise @protocol.ProtocolError";
+  const _string_builder$3 = _M0MPB13StringBuilder21StringBuilder_2einner(129);
+  _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$3, "///|\n/// Typed client for Thrift service ");
+  _M0MPB13StringBuilder13write__objectGsE(_string_builder$3, service_name);
+  _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$3, ".\npub struct ");
+  _M0MPB13StringBuilder13write__objectGsE(_string_builder$3, client);
+  _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$3, " {\n  wire : @rpc.RpcProtocol\n  exchange : ");
+  _M0MPB13StringBuilder13write__objectGsE(_string_builder$3, exchange_type);
+  _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$3, "\n  mut next_sequence_id : Int\n}\n\n");
+  _M0IPB13StringBuilderPB6Logger13write__string(output, _M0MPB13StringBuilder10to__string(_string_builder$3));
+  const _string_builder$4 = _M0MPB13StringBuilder21StringBuilder_2einner(108);
+  _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$4, "///|\npub fn ");
+  _M0MPB13StringBuilder13write__objectGsE(_string_builder$4, client);
+  _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$4, "::new(wire : @rpc.RpcProtocol, exchange : ");
+  _M0MPB13StringBuilder13write__objectGsE(_string_builder$4, exchange_type);
+  _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$4, ") -> ");
+  _M0MPB13StringBuilder13write__objectGsE(_string_builder$4, client);
+  _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$4, " {\n  { wire, exchange, next_sequence_id: 1, }\n}\n\n");
+  _M0IPB13StringBuilderPB6Logger13write__string(output, _M0MPB13StringBuilder10to__string(_string_builder$4));
+  const _bind = functions.end - functions.start | 0;
+  let _tmp = 0;
+  while (true) {
+    const _ = _tmp;
+    if (_ < _bind) {
+      const function_ = functions.buf[functions.start + _ | 0];
+      const method_name = _M0FP35Xpeng10moonthrift7codegen11value__name(function_.name);
+      const _string_builder$5 = _M0MPB13StringBuilder21StringBuilder_2einner(0);
+      _M0MPB13StringBuilder13write__objectGsE(_string_builder$5, service);
+      _M0MPB13StringBuilder13write__objectGsE(_string_builder$5, _M0FP35Xpeng10moonthrift7codegen10type__name(function_.name));
+      const prefix = _M0MPB13StringBuilder10to__string(_string_builder$5);
+      if (function_.oneway) {
+        const _string_builder$6 = _M0MPB13StringBuilder21StringBuilder_2einner(328);
+        _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$6, "///|\npub fn ");
+        _M0MPB13StringBuilder13write__objectGsE(_string_builder$6, client);
+        _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$6, "::");
+        _M0MPB13StringBuilder13write__objectGsE(_string_builder$6, method_name);
+        _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$6, "(self : ");
+        _M0MPB13StringBuilder13write__objectGsE(_string_builder$6, client);
+        _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$6, ", args : ");
+        _M0MPB13StringBuilder13write__objectGsE(_string_builder$6, prefix);
+        _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$6, "Args) -> Unit raise @protocol.ProtocolError {\n  let sequence_id = self.next_sequence_id\n  self.next_sequence_id += 1\n  let request : @protocol.Message = {\n    name: ");
+        _M0MPB13StringBuilder13write__objectGsE(_string_builder$6, _M0FP35Xpeng10moonthrift7codegen14escape__string(function_.name));
+        _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$6, ",\n    kind: Oneway,\n    sequence_id,\n    body: args.to_thrift_value(),\n  }\n  @rpc.send_oneway(self.wire, request, self.exchange)\n}\n\n");
+        _M0IPB13StringBuilderPB6Logger13write__string(output, _M0MPB13StringBuilder10to__string(_string_builder$6));
+      } else {
+        const call_fn = has_oneway ? "call_once_optional" : "call_once";
+        const _string_builder$6 = _M0MPB13StringBuilder21StringBuilder_2einner(388);
+        _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$6, "///|\npub fn ");
+        _M0MPB13StringBuilder13write__objectGsE(_string_builder$6, client);
+        _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$6, "::");
+        _M0MPB13StringBuilder13write__objectGsE(_string_builder$6, method_name);
+        _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$6, "(self : ");
+        _M0MPB13StringBuilder13write__objectGsE(_string_builder$6, client);
+        _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$6, ", args : ");
+        _M0MPB13StringBuilder13write__objectGsE(_string_builder$6, prefix);
+        _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$6, "Args) -> ");
+        _M0MPB13StringBuilder13write__objectGsE(_string_builder$6, prefix);
+        _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$6, "Result raise @protocol.ProtocolError {\n  let sequence_id = self.next_sequence_id\n  self.next_sequence_id += 1\n  let request : @protocol.Message = {\n    name: ");
+        _M0MPB13StringBuilder13write__objectGsE(_string_builder$6, _M0FP35Xpeng10moonthrift7codegen14escape__string(function_.name));
+        _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$6, ",\n    kind: Call,\n    sequence_id,\n    body: args.to_thrift_value(),\n  }\n  let reply = @rpc.");
+        _M0MPB13StringBuilder13write__objectGsE(_string_builder$6, call_fn);
+        _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$6, "(self.wire, request, self.exchange)\n  ");
+        _M0MPB13StringBuilder13write__objectGsE(_string_builder$6, prefix);
+        _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$6, "Result::from_thrift_value(@rpc.reply_result_body(reply))\n}\n\n");
+        _M0IPB13StringBuilderPB6Logger13write__string(output, _M0MPB13StringBuilder10to__string(_string_builder$6));
+      }
+      _tmp = _ + 1 | 0;
+      continue;
+    } else {
+      break;
+    }
+  }
+  const _string_builder$5 = _M0MPB13StringBuilder21StringBuilder_2einner(65);
+  _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$5, "///|\n/// Typed callbacks for the methods of ");
+  _M0MPB13StringBuilder13write__objectGsE(_string_builder$5, service_name);
+  _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$5, ".\npub(all) struct ");
+  _M0MPB13StringBuilder13write__objectGsE(_string_builder$5, handler);
+  _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$5, " {\n");
+  _M0IPB13StringBuilderPB6Logger13write__string(output, _M0MPB13StringBuilder10to__string(_string_builder$5));
+  const _bind$2 = functions.end - functions.start | 0;
+  let _tmp$2 = 0;
+  while (true) {
+    const _ = _tmp$2;
+    if (_ < _bind$2) {
+      const function_ = functions.buf[functions.start + _ | 0];
+      const method_name = _M0FP35Xpeng10moonthrift7codegen11value__name(function_.name);
+      const _string_builder$6 = _M0MPB13StringBuilder21StringBuilder_2einner(0);
+      _M0MPB13StringBuilder13write__objectGsE(_string_builder$6, service);
+      _M0MPB13StringBuilder13write__objectGsE(_string_builder$6, _M0FP35Xpeng10moonthrift7codegen10type__name(function_.name));
+      const prefix = _M0MPB13StringBuilder10to__string(_string_builder$6);
+      if (function_.oneway) {
+        const _string_builder$7 = _M0MPB13StringBuilder21StringBuilder_2einner(50);
+        _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$7, "  ");
+        _M0MPB13StringBuilder13write__objectGsE(_string_builder$7, method_name);
+        _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$7, " : (");
+        _M0MPB13StringBuilder13write__objectGsE(_string_builder$7, prefix);
+        _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$7, "Args) -> Unit raise @protocol.ProtocolError\n");
+        _M0IPB13StringBuilderPB6Logger13write__string(output, _M0MPB13StringBuilder10to__string(_string_builder$7));
+      } else {
+        const _string_builder$7 = _M0MPB13StringBuilder21StringBuilder_2einner(52);
+        _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$7, "  ");
+        _M0MPB13StringBuilder13write__objectGsE(_string_builder$7, method_name);
+        _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$7, " : (");
+        _M0MPB13StringBuilder13write__objectGsE(_string_builder$7, prefix);
+        _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$7, "Args) -> ");
+        _M0MPB13StringBuilder13write__objectGsE(_string_builder$7, prefix);
+        _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$7, "Result raise @protocol.ProtocolError\n");
+        _M0IPB13StringBuilderPB6Logger13write__string(output, _M0MPB13StringBuilder10to__string(_string_builder$7));
+      }
+      _tmp$2 = _ + 1 | 0;
+      continue;
+    } else {
+      break;
+    }
+  }
+  _M0IPB13StringBuilderPB6Logger13write__string(output, "}\n\n");
+  const response_type = has_oneway ? "@protocol.Message?" : "@protocol.Message";
+  const allowed_kind = has_oneway ? "CALL or ONEWAY" : "CALL";
+  const request_guard = has_oneway ? "request.kind is Call || request.kind is Oneway" : "request.kind is Call";
+  const _string_builder$6 = _M0MPB13StringBuilder21StringBuilder_2einner(198);
+  _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$6, "///|\npub fn ");
+  _M0MPB13StringBuilder13write__objectGsE(_string_builder$6, handler);
+  _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$6, "::process(self : ");
+  _M0MPB13StringBuilder13write__objectGsE(_string_builder$6, handler);
+  _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$6, ", request : @protocol.Message) -> ");
+  _M0MPB13StringBuilder13write__objectGsE(_string_builder$6, response_type);
+  _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$6, " raise @protocol.ProtocolError {\n  if !(");
+  _M0MPB13StringBuilder13write__objectGsE(_string_builder$6, request_guard);
+  _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$6, ") {\n    raise InvalidMessage(\"RPC request must have ");
+  _M0MPB13StringBuilder13write__objectGsE(_string_builder$6, allowed_kind);
+  _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$6, " message type\")\n  }\n  match request.name {\n");
+  _M0IPB13StringBuilderPB6Logger13write__string(output, _M0MPB13StringBuilder10to__string(_string_builder$6));
+  const _bind$3 = functions.end - functions.start | 0;
+  let _tmp$3 = 0;
+  while (true) {
+    const _ = _tmp$3;
+    if (_ < _bind$3) {
+      const function_ = functions.buf[functions.start + _ | 0];
+      const method_name = _M0FP35Xpeng10moonthrift7codegen11value__name(function_.name);
+      const _string_builder$7 = _M0MPB13StringBuilder21StringBuilder_2einner(0);
+      _M0MPB13StringBuilder13write__objectGsE(_string_builder$7, service);
+      _M0MPB13StringBuilder13write__objectGsE(_string_builder$7, _M0FP35Xpeng10moonthrift7codegen10type__name(function_.name));
+      const prefix = _M0MPB13StringBuilder10to__string(_string_builder$7);
+      if (function_.oneway) {
+        const _string_builder$8 = _M0MPB13StringBuilder21StringBuilder_2einner(254);
+        _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$8, "    ");
+        _M0MPB13StringBuilder13write__objectGsE(_string_builder$8, _M0FP35Xpeng10moonthrift7codegen14escape__string(function_.name));
+        _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$8, " => {\n      if !(request.kind is Oneway) {\n        Some(@rpc.application_exception_reply(request, 2, \"expected ONEWAY request\"))\n      } else {\n        let args = ");
+        _M0MPB13StringBuilder13write__objectGsE(_string_builder$8, prefix);
+        _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$8, "Args::from_thrift_value(request.body)\n        (self.");
+        _M0MPB13StringBuilder13write__objectGsE(_string_builder$8, method_name);
+        _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$8, ")(args)\n        None\n      }\n    }\n");
+        _M0IPB13StringBuilderPB6Logger13write__string(output, _M0MPB13StringBuilder10to__string(_string_builder$8));
+      } else {
+        const result_prefix = has_oneway ? "Some(" : "";
+        const result_suffix = has_oneway ? ")" : "";
+        const kind_guard = has_oneway ? "      if !(request.kind is Call) {\n        return None\n      }\n" : "";
+        const _string_builder$8 = _M0MPB13StringBuilder21StringBuilder_2einner(460);
+        _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$8, "    ");
+        _M0MPB13StringBuilder13write__objectGsE(_string_builder$8, _M0FP35Xpeng10moonthrift7codegen14escape__string(function_.name));
+        _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$8, " => {\n");
+        _M0MPB13StringBuilder13write__objectGsE(_string_builder$8, kind_guard);
+        _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$8, "      let args = ");
+        _M0MPB13StringBuilder13write__objectGsE(_string_builder$8, prefix);
+        _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$8, "Args::from_thrift_value(request.body) catch {\n        _ => return ");
+        _M0MPB13StringBuilder13write__objectGsE(_string_builder$8, result_prefix);
+        _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$8, "@rpc.application_exception_reply(request, 7, \"invalid RPC arguments\")");
+        _M0MPB13StringBuilder13write__objectGsE(_string_builder$8, result_suffix);
+        _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$8, "\n      }\n      let result = (self.");
+        _M0MPB13StringBuilder13write__objectGsE(_string_builder$8, method_name);
+        _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$8, ")(args) catch {\n        _ => return ");
+        _M0MPB13StringBuilder13write__objectGsE(_string_builder$8, result_prefix);
+        _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$8, "@rpc.application_exception_reply(request, 6, \"RPC handler failed\")");
+        _M0MPB13StringBuilder13write__objectGsE(_string_builder$8, result_suffix);
+        _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$8, "\n      }\n      ");
+        _M0MPB13StringBuilder13write__objectGsE(_string_builder$8, result_prefix);
+        _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$8, "{\n        name: request.name,\n        kind: Reply,\n        sequence_id: request.sequence_id,\n        body: result.to_thrift_value(),\n      }");
+        _M0MPB13StringBuilder13write__objectGsE(_string_builder$8, result_suffix);
+        _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$8, "\n    }\n");
+        _M0IPB13StringBuilderPB6Logger13write__string(output, _M0MPB13StringBuilder10to__string(_string_builder$8));
+      }
+      _tmp$3 = _ + 1 | 0;
+      continue;
+    } else {
+      break;
+    }
+  }
+  if (has_oneway) {
+    _M0IPB13StringBuilderPB6Logger13write__string(output, "    _ => if request.kind is Oneway { None } else { Some(@rpc.application_exception_reply(request, 1, \"unknown RPC method \\{request.name}\")) }\n  }\n}\n\n");
+    const _string_builder$7 = _M0MPB13StringBuilder21StringBuilder_2einner(211);
+    _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$7, "///|\npub fn ");
+    _M0MPB13StringBuilder13write__objectGsE(_string_builder$7, handler);
+    _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$7, "::serve_once(self : ");
+    _M0MPB13StringBuilder13write__objectGsE(_string_builder$7, handler);
+    _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$7, ", wire : @rpc.RpcProtocol, request_bytes : Bytes) -> Bytes? raise @protocol.ProtocolError {\n  @rpc.process_once_optional(wire, request_bytes, request => self.process(request))\n}\n\n");
+    _M0IPB13StringBuilderPB6Logger13write__string(output, _M0MPB13StringBuilder10to__string(_string_builder$7));
+    return;
+  } else {
+    _M0IPB13StringBuilderPB6Logger13write__string(output, "    _ => @rpc.application_exception_reply(request, 1, \"unknown RPC method \\{request.name}\")\n  }\n}\n\n");
+    const _string_builder$7 = _M0MPB13StringBuilder21StringBuilder_2einner(201);
+    _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$7, "///|\npub fn ");
+    _M0MPB13StringBuilder13write__objectGsE(_string_builder$7, handler);
+    _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$7, "::serve_once(self : ");
+    _M0MPB13StringBuilder13write__objectGsE(_string_builder$7, handler);
+    _M0IPB13StringBuilderPB6Logger13write__string(_string_builder$7, ", wire : @rpc.RpcProtocol, request_bytes : Bytes) -> Bytes raise @protocol.ProtocolError {\n  @rpc.process_once(wire, request_bytes, request => self.process(request))\n}\n\n");
+    _M0IPB13StringBuilderPB6Logger13write__string(output, _M0MPB13StringBuilder10to__string(_string_builder$7));
+    return;
+  }
+}
 function _M0FP35Xpeng10moonthrift7codegen13render__union(output, schema, name, fields, annotations) {
   const generated_name = _M0FP35Xpeng10moonthrift7codegen10type__name(name);
   _M0IPB13StringBuilderPB6Logger13write__string(output, "///|\n");
@@ -11840,6 +12097,7 @@ function _M0FP35Xpeng10moonthrift7codegen13render__union(output, schema, name, f
 function _M0FP35Xpeng10moonthrift7codegen18render__definition(output, schema, definition) {
   let functions;
   let name;
+  let extends_;
   let annotations;
   _L: {
     let fields;
@@ -11933,10 +12191,12 @@ function _M0FP35Xpeng10moonthrift7codegen18render__definition(output, schema, de
                   default: {
                     const _Service = definition;
                     const _name$7 = _Service._0;
+                    const _extends = _Service._1;
                     const _functions = _Service._2;
                     const _annotations$7 = _Service._3;
                     functions = _functions;
                     name = _name$7;
+                    extends_ = _extends;
                     annotations = _annotations$7;
                     break _L;
                   }
@@ -12007,10 +12267,10 @@ function _M0FP35Xpeng10moonthrift7codegen18render__definition(output, schema, de
     return;
   }
   const service_documentation = _M0FP35Xpeng10moonthrift7codegen13documentation(new _M0TPB9ArrayViewGRP25Xpeng10moonthrift10AnnotationE(annotations, 0, annotations.length));
-  const _string_builder = _M0MPB13StringBuilder21StringBuilder_2einner(78);
+  const _string_builder = _M0MPB13StringBuilder21StringBuilder_2einner(83);
   _M0IPB13StringBuilderPB6Logger13write__string(_string_builder, "// Service models for `");
   _M0MPB13StringBuilder13write__objectGsE(_string_builder, name);
-  _M0IPB13StringBuilderPB6Logger13write__string(_string_builder, "`. Transport dispatch is supplied by the application.\n\n");
+  _M0IPB13StringBuilderPB6Logger13write__string(_string_builder, "`. Runtime facades are emitted for non-inherited services.\n\n");
   _M0IPB13StringBuilderPB6Logger13write__string(output, _M0MPB13StringBuilder10to__string(_string_builder));
   const _bind = functions.length;
   let _tmp = 0;
@@ -12022,9 +12282,10 @@ function _M0FP35Xpeng10moonthrift7codegen18render__definition(output, schema, de
       _tmp = _ + 1 | 0;
       continue;
     } else {
-      return;
+      break;
     }
   }
+  _M0FP35Xpeng10moonthrift7codegen29render__service__rpc__runtime(output, name, extends_, new _M0TPB9ArrayViewGRP25Xpeng10moonthrift11FunctionDefE(functions, 0, functions.length));
 }
 function _M0FP35Xpeng10moonthrift7codegen25generate__moonbit_2einner(schema, path) {
   const output = _M0MPB13StringBuilder21StringBuilder_2einner(0);

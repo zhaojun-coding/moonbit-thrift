@@ -1,0 +1,122 @@
+{
+  "date": "2026-09-27",
+  "version": "0.7.0",
+  "upstream": "Xpeng/moonthrift@0.3.0",
+  "checks": [
+    {
+      "check": "test-js",
+      "command": "moon test --target js",
+      "exit": 0,
+      "tests": 455,
+      "source": "Completed immediately before this receipt; captured tool output, no rerun"
+    },
+    {
+      "check": "fmt",
+      "command": [
+        "C:\\Users\\uiwcv\\Documents\\Codex\\2026-09-10\\ban\\work\\moon\\bin\\moon.exe",
+        "fmt"
+      ],
+      "exit": 0
+    },
+    {
+      "check": "info",
+      "command": [
+        "C:\\Users\\uiwcv\\Documents\\Codex\\2026-09-10\\ban\\work\\moon\\bin\\moon.exe",
+        "info"
+      ],
+      "exit": 0
+    },
+    {
+      "check": "wasm",
+      "command": [
+        "C:\\Users\\uiwcv\\Documents\\Codex\\2026-09-10\\ban\\work\\moon\\bin\\moon.exe",
+        "test",
+        "--target",
+        "wasm-gc"
+      ],
+      "exit": 0
+    },
+    {
+      "check": "build",
+      "command": [
+        "C:\\Users\\uiwcv\\Documents\\Codex\\2026-09-10\\ban\\work\\moon\\bin\\moon.exe",
+        "build",
+        "--target",
+        "js"
+      ],
+      "exit": 0
+    },
+    {
+      "check": "refresh",
+      "command": [
+        "node",
+        "tools/refresh-engines.mjs"
+      ],
+      "exit": 0
+    },
+    {
+      "check": "regenerate",
+      "command": [
+        "node",
+        "tools/generate-upstream-model.mjs"
+      ],
+      "exit": 0
+    },
+    {
+      "check": "fmt-model",
+      "command": [
+        "C:\\Users\\uiwcv\\Documents\\Codex\\2026-09-10\\ban\\work\\moon\\bin\\moon.exe",
+        "fmt"
+      ],
+      "exit": 0
+    },
+    {
+      "check": "typed-network",
+      "command": [
+        "node",
+        "examples/run-upstream-model.mjs"
+      ],
+      "exit": 0
+    },
+    {
+      "check": "adapter-network",
+      "command": [
+        "node",
+        "tools/test-moonthrift.mjs",
+        "--output",
+        "C:\\Users\\uiwcv\\Documents\\Codex\\2026-09-10\\ban\\outputs\\repos\\moonbit-thrift\\evidence\\session-20260927\\NETWORK.json"
+      ],
+      "exit": 0
+    },
+    {
+      "check": "half-close",
+      "command": [
+        "node",
+        "tools/test-half-close.mjs"
+      ],
+      "exit": 0
+    },
+    {
+      "check": "apache-network",
+      "command": [
+        "node",
+        "tools/test-network-reference.mjs"
+      ],
+      "exit": 0
+    }
+  ],
+  "generatedModelUnchangedAfterRegeneration": true,
+  "hashPolicy": "SHA256 of LF-normalized source bytes",
+  "sourceHashes": {
+    "client.mbt": "961d6f5c56b5679aa7faa42f258359b737dd9b872252cbb5de7e7f8f8e323e04",
+    "frame_stream.mbt": "57eae219fa13e68c6e9af9cf1c3526ec54584406767c03cd23ebfe551d6fd2f5",
+    "moonthrift/framing.mbt": "2b68a3e38f1b28cd2ac1ae519474cda881beb643f85b5c06bf8c8e1fdb2ffcf0",
+    "cmd/web/transport.mbt": "af977f6e3c356ce1a84fd4cb1215af2869c57e91b21a9bb43e0d398f22bc5201",
+    "tools/thrift.mjs": "03b12dd6bf2bbc9e52c5ce9d1c3fa61897379bafc48235e6a5d6547032372128",
+    "web/engine.mjs": "c18af7995ea302f00fb4b35b1f7b8227e2a36db52e6f15571f4a1037db2399cc",
+    "examples/moonthrift_model/model.mbt": "04e07f7ee15a50611f8466d17c01a3a980238ff48aac94953fdf94e81343bdcf"
+  },
+  "remoteCI": false,
+  "published": false,
+  "productionAdoption": false
+}

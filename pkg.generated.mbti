@@ -43,16 +43,19 @@ pub suberror SchemaError {
 // Types and methods
 pub struct Client {
   codec : MessageCodec
-  decoder : FrameDecoder
+  decoder : FrameStream
   pending : Map[Int, String]
   mut next_sequence : UInt
   mut failed : Bool
+  mut exhausted : Bool
 }
+pub fn Client::abort(Self) -> Array[PendingCall]
 pub fn Client::call(Self, String, Value, oneway? : Bool) -> Bytes raise CodecError
 pub fn Client::call_with_id(Self, String, Value, oneway? : Bool, response_name? : String?) -> (Int, Bytes) raise CodecError
 pub fn Client::feed(Self, Bytes) -> Array[Message] raise CodecError
 pub fn Client::finish(Self) -> Unit raise CodecError
-pub fn Client::new(Protocol, strict_read? : Bool, strict_write? : Bool, codec? : MessageCodec?) -> Self raise CodecError
+pub fn Client::new(Protocol, strict_read? : Bool, strict_write? : Bool, codec? : MessageCodec?, frame_stream? : FrameStream?) -> Self raise CodecError
+pub fn Client::pending_calls(Self) -> Array[PendingCall]
 pub fn Client::pending_count(Self) -> Int
 
 pub struct FrameDecoder {
@@ -67,6 +70,19 @@ pub fn FrameDecoder::feed(Self, Bytes) -> Array[Bytes] raise CodecError
 pub fn FrameDecoder::finish(Self) -> Unit raise CodecError
 pub fn FrameDecoder::new(max_frame? : Int) -> Self raise CodecError
 pub fn FrameDecoder::reset(Self) -> Unit
+
+pub struct FrameStream {
+  encoder : (Bytes) -> Bytes raise CodecError
+  decoder : (Bytes) -> Array[Bytes] raise CodecError
+  eof : () -> Unit raise CodecError
+  mut closed : Bool
+  mut failed : Bool
+}
+pub fn FrameStream::builtin() -> Self raise CodecError
+pub fn FrameStream::encode(Self, Bytes) -> Bytes raise CodecError
+pub fn FrameStream::feed(Self, Bytes) -> Array[Bytes] raise CodecError
+pub fn FrameStream::finish(Self) -> Unit raise CodecError
+pub fn FrameStream::new(encode~ : (Bytes) -> Bytes raise CodecError, feed~ : (Bytes) -> Array[Bytes] raise CodecError, finish~ : () -> Unit raise CodecError) -> Self
 
 pub(all) enum IdlConst {
   IntegerConstant(Int64)
@@ -158,6 +174,11 @@ pub fn MessageCodec::builtin(Protocol, strict_read? : Bool, strict_write? : Bool
 pub fn MessageCodec::decode(Self, Bytes) -> Message raise CodecError
 pub fn MessageCodec::encode(Self, Message) -> Bytes raise CodecError
 pub fn MessageCodec::new(encode~ : (Message) -> Bytes raise CodecError, decode~ : (Bytes) -> Message raise CodecError) -> Self
+
+pub struct PendingCall {
+  sequence_id : Int
+  response_name : String
+} derive(Eq, @debug.Debug)
 
 pub(all) enum Protocol {
   BinaryProtocol

@@ -1,4 +1,5 @@
 import {
   "zhaojun-coding/thrift" @runtime,
   "Xpeng/moonthrift/protocol" @upstream,
+  "Xpeng/moonthrift/rpc",
 }

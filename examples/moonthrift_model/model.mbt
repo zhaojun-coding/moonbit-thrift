@@ -183,7 +183,7 @@ pub fn Problem::decode_compact(
   Problem::from_thrift_value(@protocol.decode_compact(input, Struct))
 }
 
-// Service models for `Shared`. Transport dispatch is supplied by the application.
+// Service models for `Shared`. Runtime facades are emitted for non-inherited services.
 
 ///|
 /// Generated from Thrift function arguments `SharedAddArgs`.
@@ -1001,4 +1001,304 @@ pub fn SharedSlowResult::decode_compact(
   input : Bytes,
 ) -> SharedSlowResult raise @protocol.ProtocolError {
   SharedSlowResult::from_thrift_value(@protocol.decode_compact(input, Struct))
+}
+
+///|
+/// Typed client for Thrift service Shared.
+pub struct SharedClient {
+  wire : @rpc.RpcProtocol
+  exchange : (Bytes) -> Bytes? raise @protocol.ProtocolError
+  mut next_sequence_id : Int
+}
+
+///|
+pub fn SharedClient::new(
+  wire : @rpc.RpcProtocol,
+  exchange : (Bytes) -> Bytes? raise @protocol.ProtocolError,
+) -> SharedClient {
+  { wire, exchange, next_sequence_id: 1, }
+}
+
+///|
+pub fn SharedClient::add(
+  self : SharedClient,
+  args : SharedAddArgs,
+) -> SharedAddResult raise @protocol.ProtocolError {
+  let sequence_id = self.next_sequence_id
+  self.next_sequence_id += 1
+  let request : @protocol.Message = {
+    name: "add",
+    kind: Call,
+    sequence_id,
+    body: args.to_thrift_value(),
+  }
+  let reply = @rpc.call_once_optional(self.wire, request, self.exchange)
+  SharedAddResult::from_thrift_value(@rpc.reply_result_body(reply))
+}
+
+///|
+pub fn SharedClient::echo(
+  self : SharedClient,
+  args : SharedEchoArgs,
+) -> SharedEchoResult raise @protocol.ProtocolError {
+  let sequence_id = self.next_sequence_id
+  self.next_sequence_id += 1
+  let request : @protocol.Message = {
+    name: "echo",
+    kind: Call,
+    sequence_id,
+    body: args.to_thrift_value(),
+  }
+  let reply = @rpc.call_once_optional(self.wire, request, self.exchange)
+  SharedEchoResult::from_thrift_value(@rpc.reply_result_body(reply))
+}
+
+///|
+pub fn SharedClient::blob(
+  self : SharedClient,
+  args : SharedBlobArgs,
+) -> SharedBlobResult raise @protocol.ProtocolError {
+  let sequence_id = self.next_sequence_id
+  self.next_sequence_id += 1
+  let request : @protocol.Message = {
+    name: "blob",
+    kind: Call,
+    sequence_id,
+    body: args.to_thrift_value(),
+  }
+  let reply = @rpc.call_once_optional(self.wire, request, self.exchange)
+  SharedBlobResult::from_thrift_value(@rpc.reply_result_body(reply))
+}
+
+///|
+pub fn SharedClient::fail(
+  self : SharedClient,
+  args : SharedFailArgs,
+) -> SharedFailResult raise @protocol.ProtocolError {
+  let sequence_id = self.next_sequence_id
+  self.next_sequence_id += 1
+  let request : @protocol.Message = {
+    name: "fail",
+    kind: Call,
+    sequence_id,
+    body: args.to_thrift_value(),
+  }
+  let reply = @rpc.call_once_optional(self.wire, request, self.exchange)
+  SharedFailResult::from_thrift_value(@rpc.reply_result_body(reply))
+}
+
+///|
+pub fn SharedClient::notify(
+  self : SharedClient,
+  args : SharedNotifyArgs,
+) -> Unit raise @protocol.ProtocolError {
+  let sequence_id = self.next_sequence_id
+  self.next_sequence_id += 1
+  let request : @protocol.Message = {
+    name: "notify",
+    kind: Oneway,
+    sequence_id,
+    body: args.to_thrift_value(),
+  }
+  @rpc.send_oneway(self.wire, request, self.exchange)
+}
+
+///|
+pub fn SharedClient::slow(
+  self : SharedClient,
+  args : SharedSlowArgs,
+) -> SharedSlowResult raise @protocol.ProtocolError {
+  let sequence_id = self.next_sequence_id
+  self.next_sequence_id += 1
+  let request : @protocol.Message = {
+    name: "slow",
+    kind: Call,
+    sequence_id,
+    body: args.to_thrift_value(),
+  }
+  let reply = @rpc.call_once_optional(self.wire, request, self.exchange)
+  SharedSlowResult::from_thrift_value(@rpc.reply_result_body(reply))
+}
+
+///|
+/// Typed callbacks for the methods of Shared.
+pub(all) struct SharedHandler {
+  add : (SharedAddArgs) -> SharedAddResult raise @protocol.ProtocolError
+  echo : (SharedEchoArgs) -> SharedEchoResult raise @protocol.ProtocolError
+  blob : (SharedBlobArgs) -> SharedBlobResult raise @protocol.ProtocolError
+  fail : (SharedFailArgs) -> SharedFailResult raise @protocol.ProtocolError
+  notify : (SharedNotifyArgs) -> Unit raise @protocol.ProtocolError
+  slow : (SharedSlowArgs) -> SharedSlowResult raise @protocol.ProtocolError
+}
+
+///|
+pub fn SharedHandler::process(
+  self : SharedHandler,
+  request : @protocol.Message,
+) -> @protocol.Message? raise @protocol.ProtocolError {
+  if !(request.kind is Call || request.kind is Oneway) {
+    raise InvalidMessage("RPC request must have CALL or ONEWAY message type")
+  }
+  match request.name {
+    "add" => {
+      if !(request.kind is Call) {
+        return None
+      }
+      let args = SharedAddArgs::from_thrift_value(request.body) catch {
+        _ =>
+          return Some(
+            @rpc.application_exception_reply(
+              request, 7, "invalid RPC arguments",
+            ),
+          )
+      }
+      let result = (self.add)(args) catch {
+        _ =>
+          return Some(
+            @rpc.application_exception_reply(request, 6, "RPC handler failed"),
+          )
+      }
+      Some({
+        name: request.name,
+        kind: Reply,
+        sequence_id: request.sequence_id,
+        body: result.to_thrift_value(),
+      })
+    }
+    "echo" => {
+      if !(request.kind is Call) {
+        return None
+      }
+      let args = SharedEchoArgs::from_thrift_value(request.body) catch {
+        _ =>
+          return Some(
+            @rpc.application_exception_reply(
+              request, 7, "invalid RPC arguments",
+            ),
+          )
+      }
+      let result = (self.echo)(args) catch {
+        _ =>
+          return Some(
+            @rpc.application_exception_reply(request, 6, "RPC handler failed"),
+          )
+      }
+      Some({
+        name: request.name,
+        kind: Reply,
+        sequence_id: request.sequence_id,
+        body: result.to_thrift_value(),
+      })
+    }
+    "blob" => {
+      if !(request.kind is Call) {
+        return None
+      }
+      let args = SharedBlobArgs::from_thrift_value(request.body) catch {
+        _ =>
+          return Some(
+            @rpc.application_exception_reply(
+              request, 7, "invalid RPC arguments",
+            ),
+          )
+      }
+      let result = (self.blob)(args) catch {
+        _ =>
+          return Some(
+            @rpc.application_exception_reply(request, 6, "RPC handler failed"),
+          )
+      }
+      Some({
+        name: request.name,
+        kind: Reply,
+        sequence_id: request.sequence_id,
+        body: result.to_thrift_value(),
+      })
+    }
+    "fail" => {
+      if !(request.kind is Call) {
+        return None
+      }
+      let args = SharedFailArgs::from_thrift_value(request.body) catch {
+        _ =>
+          return Some(
+            @rpc.application_exception_reply(
+              request, 7, "invalid RPC arguments",
+            ),
+          )
+      }
+      let result = (self.fail)(args) catch {
+        _ =>
+          return Some(
+            @rpc.application_exception_reply(request, 6, "RPC handler failed"),
+          )
+      }
+      Some({
+        name: request.name,
+        kind: Reply,
+        sequence_id: request.sequence_id,
+        body: result.to_thrift_value(),
+      })
+    }
+    "notify" =>
+      if !(request.kind is Oneway) {
+        Some(
+          @rpc.application_exception_reply(
+            request, 2, "expected ONEWAY request",
+          ),
+        )
+      } else {
+        let args = SharedNotifyArgs::from_thrift_value(request.body)
+        (self.notify)(args)
+        None
+      }
+    "slow" => {
+      if !(request.kind is Call) {
+        return None
+      }
+      let args = SharedSlowArgs::from_thrift_value(request.body) catch {
+        _ =>
+          return Some(
+            @rpc.application_exception_reply(
+              request, 7, "invalid RPC arguments",
+            ),
+          )
+      }
+      let result = (self.slow)(args) catch {
+        _ =>
+          return Some(
+            @rpc.application_exception_reply(request, 6, "RPC handler failed"),
+          )
+      }
+      Some({
+        name: request.name,
+        kind: Reply,
+        sequence_id: request.sequence_id,
+        body: result.to_thrift_value(),
+      })
+    }
+    _ =>
+      if request.kind is Oneway {
+        None
+      } else {
+        Some(
+          @rpc.application_exception_reply(
+            request,
+            1,
+            "unknown RPC method \{request.name}",
+          ),
+        )
+      }
+  }
+}
+
+///|
+pub fn SharedHandler::serve_once(
+  self : SharedHandler,
+  wire : @rpc.RpcProtocol,
+  request_bytes : Bytes,
+) -> Bytes? raise @protocol.ProtocolError {
+  @rpc.process_once_optional(wire, request_bytes, request => {
+    self.process(request)
+  })
 }

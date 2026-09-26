@@ -2,9 +2,9 @@
   "project": "thrift",
   "title": "基于 Xpeng/moonthrift 的 RPC 会话与 Node TCP/TLS 适配",
   "module": "zhaojun-coding/thrift",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "repository": "https://github.com/zhaojun-coding/moonbit-thrift",
-  "status": "已新增直接适配，待团队同步后复核",
+  "status": "本地多请求会话扩展完成，待团队同步复核",
   "remainingRisk": "无确认使用方；Node网络宿主不是MoonBit原生I/O；上游路径不支持UUID/legacy；是否认可扩展范围由组委会判断。",
   "actualUsersClaimed": false,
   "anonymousCloneVerified": true,
@@ -13,8 +13,8 @@
   "localChangesPublished": false,
   "proposalLines": 22,
   "useCase": "上游生成模型通过实际TCP完成精确i64的Binary/Compact RPC",
-  "diff": "直接依赖 Xpeng/moonthrift@0.2.0 的生成器和协议包，通过公开适配器接入有状态 Client/FrameDecoder 与 Node TCP/TLS 宿主。保留的动态Schema和builtin codec不作为独有创新。",
+  "diff": "直接依赖上游0.3.0的生成器、消息和分帧；本地增量限定为多请求会话关联、整批交付、未决结果和失败生命周期。typed单次RPC归属上游。",
   "license": "MIT AND Apache-2.0",
-  "dependency": "Xpeng/moonthrift@0.2.0",
+  "dependency": "Xpeng/moonthrift@0.3.0",
   "anonymousCloneVerifiedDate": "2026-09-22"
 }

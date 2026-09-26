@@ -1,0 +1,27 @@
+{
+  "groups": 4,
+  "checks": [
+    {
+      "protocol": "binary",
+      "codec": "builtin",
+      "delayedResponseAfterInputEOF": true
+    },
+    {
+      "protocol": "binary",
+      "codec": "moonthrift",
+      "delayedResponseAfterInputEOF": true
+    },
+    {
+      "protocol": "compact",
+      "codec": "builtin",
+      "delayedResponseAfterInputEOF": true
+    },
+    {
+      "protocol": "compact",
+      "codec": "moonthrift",
+      "delayedResponseAfterInputEOF": true
+    }
+  ]
+}
+
+STDERR
