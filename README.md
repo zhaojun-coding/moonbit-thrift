@@ -35,7 +35,7 @@ node examples/run-upstream-model.mjs
 
 只需要 IDL/编解码时，优先评估 [Xpeng/moonthrift](https://github.com/pxgt/moonthrift)。需要其生成模型参加 framed RPC、处理会话和宿主失败生命周期时，才有评估本扩展的理由。没有确认使用方，也没有上游认可或共同维护的证明。
 
-本地材料：[申报书](PROPOSAL.md)、[复核说明](REVIEW-RESPONSE.md)、[使用任务](USE-CASE.md)、[查重与关系](DUPLICATION.md)、[测试方法](TESTING.md)、[许可证说明](THIRD-PARTY-NOTICES.md)。最终报名表与公开代码需由对接团队同步，本地完成不等于通过初审。
+本地材料：[申报书](PROPOSAL.md)、[复核说明](REVIEW-RESPONSE.md)、[使用任务](USE-CASE.md)、[查重与关系](DUPLICATION.md)、[测试方法](TESTING.md)、[许可证说明](THIRD-PARTY-NOTICES.md)。最终报名表与公开代码需由申报人同步，本地完成不等于通过初审。
 
 CI固定的编译器与标准库版本见 [TOOLCHAIN.md](TOOLCHAIN.md)；升级时需同时核对生成产物。
 
@@ -63,4 +63,4 @@ moon package
 
 本地核验：JS/Wasm-GC 测试、上游生成模型、106 份可用 IDL 与 26 项 schema 参考检查通过；另有 2 项参考输入不可用。 `moon package` 已完成离线打包预检，它不等于已发布到 Mooncakes。
 
-公开交付（2026-09-28 核对）：当日 [https://github.com/zhaojun-coding/moonbit-thrift](https://github.com/zhaojun-coding/moonbit-thrift) 可匿名读取 Git HEAD，Mooncakes 在线版本为 `0.5.0`；此处源码版本 `0.7.0` 仍需由团队同步到公开仓库，检查新提交的 GitHub Actions，再由对应账号发布 Mooncakes 新版。相关远端 CI 与赛事结果仍需以实际记录核对。项目许可见 [LICENSE](LICENSE)；如使用第三方材料，其来源和许可见仓内相应说明。
+公开交付（2026-09-28 核对）：当日 [https://github.com/zhaojun-coding/moonbit-thrift](https://github.com/zhaojun-coding/moonbit-thrift) 可匿名读取 Git HEAD，Mooncakes 在线版本为 `0.5.0`；此处源码版本 `0.7.0` 仍需由申报人同步到公开仓库，检查新提交的 GitHub Actions，再由对应账号发布 Mooncakes 新版。相关远端 CI 与赛事结果仍需以实际记录核对。项目许可见 [LICENSE](LICENSE)；如使用第三方材料，其来源和许可见仓内相应说明。
