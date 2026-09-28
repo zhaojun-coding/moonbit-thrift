@@ -46,3 +46,19 @@ CI固定的编译器与标准库版本见 [TOOLCHAIN.md](TOOLCHAIN.md)；升级�
 一个 feed 中所有响应验证成功后才移除 pending；合法回复后跟错误回复不会导致半批交付。完整 32 位序号空间用尽后禁止新请求，仍可排空回复。每次 feed 至多16 MiB+4字节、4096帧，单上游帧1 MiB。EOF 封闭 Client；FrameStream 的输入 EOF 仍允许服务端发送已受理请求的回复，错误则封闭双向。网络取消仍由 Node 负责。
 
 当前验证见 [session-20260927](evidence/session-20260927/LOCAL-CHECKS.json)，核心455项/后端，新增状态边界、上游增量分帧、4种延迟半关闭回复以及旧 Apache 互通回归。边界和失败证据是可复核的基础，不表示已获上游认可或赛事通过。
+
+## 本地验收与公开交付（2026-09-28）
+
+核心实现使用 MoonBit；[固定编译器](.moonbit-version)为 `moonc 0.10.14+7d59c7ec9`。先按本文安装宿主依赖、运行 `moon update`，再从仓库根目录执行以下与 [CI](.github/workflows/ci.yml) 对齐的检查；可运行任务和适用边界见本文前面的示例与说明。
+
+```sh
+moon check
+moon test --target wasm-gc
+moon test --target js
+moon build --target js
+moon package
+```
+
+本地核验：JS/Wasm-GC 测试、上游生成模型、106 份可用 IDL 与 26 项 schema 参考检查通过；另有 2 项参考输入不可用。 `moon package` 已完成离线打包预检，它不等于已发布到 Mooncakes。
+
+公开交付（2026-09-28 核对）：当日 [https://github.com/zhaojun-coding/moonbit-thrift](https://github.com/zhaojun-coding/moonbit-thrift) 可匿名读取 Git HEAD，Mooncakes 在线版本为 `0.5.0`；此处源码版本 `0.7.0` 仍需由团队同步到公开仓库，检查新提交的 GitHub Actions，再由对应账号发布 Mooncakes 新版。相关远端 CI 与赛事结果仍需以实际记录核对。项目许可见 [LICENSE](LICENSE)；如使用第三方材料，其来源和许可见仓内相应说明。
