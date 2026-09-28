@@ -19,7 +19,10 @@ pub fn Problem::decode_binary(Bytes) -> Self raise @protocol.ProtocolError
 pub fn Problem::decode_compact(Bytes) -> Self raise @protocol.ProtocolError
 pub fn Problem::encode_binary(Self) -> Bytes raise @protocol.ProtocolError
 pub fn Problem::encode_compact(Self) -> Bytes raise @protocol.ProtocolError
+pub fn Problem::equal(Self, Self) -> Bool
 pub fn Problem::from_thrift_value(@protocol.Value) -> Self raise @protocol.ProtocolError
+pub fn Problem::not_equal(Self, Self) -> Bool
+pub fn Problem::to_repr(Self) -> @debug.Repr
 pub fn Problem::to_thrift_value(Self) -> @protocol.Value
 
 pub(all) struct Record {
@@ -31,7 +34,10 @@ pub fn Record::decode_binary(Bytes) -> Self raise @protocol.ProtocolError
 pub fn Record::decode_compact(Bytes) -> Self raise @protocol.ProtocolError
 pub fn Record::encode_binary(Self) -> Bytes raise @protocol.ProtocolError
 pub fn Record::encode_compact(Self) -> Bytes raise @protocol.ProtocolError
+pub fn Record::equal(Self, Self) -> Bool
 pub fn Record::from_thrift_value(@protocol.Value) -> Self raise @protocol.ProtocolError
+pub fn Record::not_equal(Self, Self) -> Bool
+pub fn Record::to_repr(Self) -> @debug.Repr
 pub fn Record::to_thrift_value(Self) -> @protocol.Value
 
 pub(all) struct SharedAddArgs {
@@ -42,7 +48,10 @@ pub fn SharedAddArgs::decode_binary(Bytes) -> Self raise @protocol.ProtocolError
 pub fn SharedAddArgs::decode_compact(Bytes) -> Self raise @protocol.ProtocolError
 pub fn SharedAddArgs::encode_binary(Self) -> Bytes raise @protocol.ProtocolError
 pub fn SharedAddArgs::encode_compact(Self) -> Bytes raise @protocol.ProtocolError
+pub fn SharedAddArgs::equal(Self, Self) -> Bool
 pub fn SharedAddArgs::from_thrift_value(@protocol.Value) -> Self raise @protocol.ProtocolError
+pub fn SharedAddArgs::not_equal(Self, Self) -> Bool
+pub fn SharedAddArgs::to_repr(Self) -> @debug.Repr
 pub fn SharedAddArgs::to_thrift_value(Self) -> @protocol.Value
 
 pub(all) enum SharedAddResult {
@@ -52,7 +61,10 @@ pub fn SharedAddResult::decode_binary(Bytes) -> Self raise @protocol.ProtocolErr
 pub fn SharedAddResult::decode_compact(Bytes) -> Self raise @protocol.ProtocolError
 pub fn SharedAddResult::encode_binary(Self) -> Bytes raise @protocol.ProtocolError
 pub fn SharedAddResult::encode_compact(Self) -> Bytes raise @protocol.ProtocolError
+pub fn SharedAddResult::equal(Self, Self) -> Bool
 pub fn SharedAddResult::from_thrift_value(@protocol.Value) -> Self raise @protocol.ProtocolError
+pub fn SharedAddResult::not_equal(Self, Self) -> Bool
+pub fn SharedAddResult::to_repr(Self) -> @debug.Repr
 pub fn SharedAddResult::to_thrift_value(Self) -> @protocol.Value
 
 pub(all) struct SharedBlobArgs {
@@ -62,7 +74,10 @@ pub fn SharedBlobArgs::decode_binary(Bytes) -> Self raise @protocol.ProtocolErro
 pub fn SharedBlobArgs::decode_compact(Bytes) -> Self raise @protocol.ProtocolError
 pub fn SharedBlobArgs::encode_binary(Self) -> Bytes raise @protocol.ProtocolError
 pub fn SharedBlobArgs::encode_compact(Self) -> Bytes raise @protocol.ProtocolError
+pub fn SharedBlobArgs::equal(Self, Self) -> Bool
 pub fn SharedBlobArgs::from_thrift_value(@protocol.Value) -> Self raise @protocol.ProtocolError
+pub fn SharedBlobArgs::not_equal(Self, Self) -> Bool
+pub fn SharedBlobArgs::to_repr(Self) -> @debug.Repr
 pub fn SharedBlobArgs::to_thrift_value(Self) -> @protocol.Value
 
 pub(all) enum SharedBlobResult {
@@ -72,7 +87,10 @@ pub fn SharedBlobResult::decode_binary(Bytes) -> Self raise @protocol.ProtocolEr
 pub fn SharedBlobResult::decode_compact(Bytes) -> Self raise @protocol.ProtocolError
 pub fn SharedBlobResult::encode_binary(Self) -> Bytes raise @protocol.ProtocolError
 pub fn SharedBlobResult::encode_compact(Self) -> Bytes raise @protocol.ProtocolError
+pub fn SharedBlobResult::equal(Self, Self) -> Bool
 pub fn SharedBlobResult::from_thrift_value(@protocol.Value) -> Self raise @protocol.ProtocolError
+pub fn SharedBlobResult::not_equal(Self, Self) -> Bool
+pub fn SharedBlobResult::to_repr(Self) -> @debug.Repr
 pub fn SharedBlobResult::to_thrift_value(Self) -> @protocol.Value
 
 pub struct SharedClient {
@@ -95,7 +113,10 @@ pub fn SharedEchoArgs::decode_binary(Bytes) -> Self raise @protocol.ProtocolErro
 pub fn SharedEchoArgs::decode_compact(Bytes) -> Self raise @protocol.ProtocolError
 pub fn SharedEchoArgs::encode_binary(Self) -> Bytes raise @protocol.ProtocolError
 pub fn SharedEchoArgs::encode_compact(Self) -> Bytes raise @protocol.ProtocolError
+pub fn SharedEchoArgs::equal(Self, Self) -> Bool
 pub fn SharedEchoArgs::from_thrift_value(@protocol.Value) -> Self raise @protocol.ProtocolError
+pub fn SharedEchoArgs::not_equal(Self, Self) -> Bool
+pub fn SharedEchoArgs::to_repr(Self) -> @debug.Repr
 pub fn SharedEchoArgs::to_thrift_value(Self) -> @protocol.Value
 
 pub(all) enum SharedEchoResult {
@@ -105,7 +126,10 @@ pub fn SharedEchoResult::decode_binary(Bytes) -> Self raise @protocol.ProtocolEr
 pub fn SharedEchoResult::decode_compact(Bytes) -> Self raise @protocol.ProtocolError
 pub fn SharedEchoResult::encode_binary(Self) -> Bytes raise @protocol.ProtocolError
 pub fn SharedEchoResult::encode_compact(Self) -> Bytes raise @protocol.ProtocolError
+pub fn SharedEchoResult::equal(Self, Self) -> Bool
 pub fn SharedEchoResult::from_thrift_value(@protocol.Value) -> Self raise @protocol.ProtocolError
+pub fn SharedEchoResult::not_equal(Self, Self) -> Bool
+pub fn SharedEchoResult::to_repr(Self) -> @debug.Repr
 pub fn SharedEchoResult::to_thrift_value(Self) -> @protocol.Value
 
 pub(all) struct SharedFailArgs {
@@ -125,7 +149,10 @@ pub fn SharedFailResult::decode_binary(Bytes) -> Self raise @protocol.ProtocolEr
 pub fn SharedFailResult::decode_compact(Bytes) -> Self raise @protocol.ProtocolError
 pub fn SharedFailResult::encode_binary(Self) -> Bytes raise @protocol.ProtocolError
 pub fn SharedFailResult::encode_compact(Self) -> Bytes raise @protocol.ProtocolError
+pub fn SharedFailResult::equal(Self, Self) -> Bool
 pub fn SharedFailResult::from_thrift_value(@protocol.Value) -> Self raise @protocol.ProtocolError
+pub fn SharedFailResult::not_equal(Self, Self) -> Bool
+pub fn SharedFailResult::to_repr(Self) -> @debug.Repr
 pub fn SharedFailResult::to_thrift_value(Self) -> @protocol.Value
 
 pub(all) struct SharedHandler {
@@ -146,7 +173,10 @@ pub fn SharedNotifyArgs::decode_binary(Bytes) -> Self raise @protocol.ProtocolEr
 pub fn SharedNotifyArgs::decode_compact(Bytes) -> Self raise @protocol.ProtocolError
 pub fn SharedNotifyArgs::encode_binary(Self) -> Bytes raise @protocol.ProtocolError
 pub fn SharedNotifyArgs::encode_compact(Self) -> Bytes raise @protocol.ProtocolError
+pub fn SharedNotifyArgs::equal(Self, Self) -> Bool
 pub fn SharedNotifyArgs::from_thrift_value(@protocol.Value) -> Self raise @protocol.ProtocolError
+pub fn SharedNotifyArgs::not_equal(Self, Self) -> Bool
+pub fn SharedNotifyArgs::to_repr(Self) -> @debug.Repr
 pub fn SharedNotifyArgs::to_thrift_value(Self) -> @protocol.Value
 
 pub(all) enum SharedNotifyResult {
@@ -156,7 +186,10 @@ pub fn SharedNotifyResult::decode_binary(Bytes) -> Self raise @protocol.Protocol
 pub fn SharedNotifyResult::decode_compact(Bytes) -> Self raise @protocol.ProtocolError
 pub fn SharedNotifyResult::encode_binary(Self) -> Bytes raise @protocol.ProtocolError
 pub fn SharedNotifyResult::encode_compact(Self) -> Bytes raise @protocol.ProtocolError
+pub fn SharedNotifyResult::equal(Self, Self) -> Bool
 pub fn SharedNotifyResult::from_thrift_value(@protocol.Value) -> Self raise @protocol.ProtocolError
+pub fn SharedNotifyResult::not_equal(Self, Self) -> Bool
+pub fn SharedNotifyResult::to_repr(Self) -> @debug.Repr
 pub fn SharedNotifyResult::to_thrift_value(Self) -> @protocol.Value
 
 pub(all) struct SharedSlowArgs {
@@ -166,7 +199,10 @@ pub fn SharedSlowArgs::decode_binary(Bytes) -> Self raise @protocol.ProtocolErro
 pub fn SharedSlowArgs::decode_compact(Bytes) -> Self raise @protocol.ProtocolError
 pub fn SharedSlowArgs::encode_binary(Self) -> Bytes raise @protocol.ProtocolError
 pub fn SharedSlowArgs::encode_compact(Self) -> Bytes raise @protocol.ProtocolError
+pub fn SharedSlowArgs::equal(Self, Self) -> Bool
 pub fn SharedSlowArgs::from_thrift_value(@protocol.Value) -> Self raise @protocol.ProtocolError
+pub fn SharedSlowArgs::not_equal(Self, Self) -> Bool
+pub fn SharedSlowArgs::to_repr(Self) -> @debug.Repr
 pub fn SharedSlowArgs::to_thrift_value(Self) -> @protocol.Value
 
 pub(all) enum SharedSlowResult {
@@ -176,7 +212,10 @@ pub fn SharedSlowResult::decode_binary(Bytes) -> Self raise @protocol.ProtocolEr
 pub fn SharedSlowResult::decode_compact(Bytes) -> Self raise @protocol.ProtocolError
 pub fn SharedSlowResult::encode_binary(Self) -> Bytes raise @protocol.ProtocolError
 pub fn SharedSlowResult::encode_compact(Self) -> Bytes raise @protocol.ProtocolError
+pub fn SharedSlowResult::equal(Self, Self) -> Bool
 pub fn SharedSlowResult::from_thrift_value(@protocol.Value) -> Self raise @protocol.ProtocolError
+pub fn SharedSlowResult::not_equal(Self, Self) -> Bool
+pub fn SharedSlowResult::to_repr(Self) -> @debug.Repr
 pub fn SharedSlowResult::to_thrift_value(Self) -> @protocol.Value
 
 // Type aliases

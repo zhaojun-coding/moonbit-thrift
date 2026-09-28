@@ -2,7 +2,6 @@ import {
   "zhaojun-coding/thrift" @runtime,
   "zhaojun-coding/thrift/moonthrift" @adapter,
   "zhaojun-coding/thrift/examples/moonthrift_model" @model,
-  "moonbitlang/core/json",
 }
 
 supported_targets = "js"

@@ -34,11 +34,13 @@ pub fn skip_prefix(Bytes, Kind, Protocol) -> Int raise CodecError
 pub(all) suberror CodecError {
   Invalid(String)
 } derive(@debug.Debug)
+pub fn CodecError::to_repr(Self) -> @debug.Repr
 
 pub suberror SchemaError {
   Syntax(String, IdlLocation)
   InvalidSchema(String)
 } derive(@debug.Debug)
+pub fn SchemaError::to_repr(Self) -> @debug.Repr
 
 // Types and methods
 pub struct Client {
@@ -92,6 +94,9 @@ pub(all) enum IdlConst {
   ListConstant(Array[IdlConst])
   MapConstant(Array[(IdlConst, IdlConst)])
 } derive(Eq, @debug.Debug)
+pub fn IdlConst::equal(Self, Self) -> Bool
+pub fn IdlConst::not_equal(Self, Self) -> Bool
+pub fn IdlConst::to_repr(Self) -> @debug.Repr
 
 pub(all) enum IdlDefinition {
   Alias(String, IdlType, Map[String, String])
@@ -100,6 +105,9 @@ pub(all) enum IdlDefinition {
   Constant(String, IdlType, IdlConst)
   Service(String, String?, Array[IdlMethod], Map[String, String])
 } derive(Eq, @debug.Debug)
+pub fn IdlDefinition::equal(Self, Self) -> Bool
+pub fn IdlDefinition::not_equal(Self, Self) -> Bool
+pub fn IdlDefinition::to_repr(Self) -> @debug.Repr
 
 pub(all) struct IdlField {
   id : Int
@@ -110,6 +118,9 @@ pub(all) struct IdlField {
   annotations : Map[String, String]
   location : IdlLocation
 } derive(Eq, @debug.Debug)
+pub fn IdlField::equal(Self, Self) -> Bool
+pub fn IdlField::not_equal(Self, Self) -> Bool
+pub fn IdlField::to_repr(Self) -> @debug.Repr
 
 pub(all) struct IdlLocation {
   source : String
@@ -117,6 +128,10 @@ pub(all) struct IdlLocation {
   line : Int
   column : Int
 } derive(Eq, ToJson, @debug.Debug)
+pub fn IdlLocation::equal(Self, Self) -> Bool
+pub fn IdlLocation::not_equal(Self, Self) -> Bool
+pub fn IdlLocation::to_json(Self) -> Json
+pub fn IdlLocation::to_repr(Self) -> @debug.Repr
 
 pub(all) struct IdlMethod {
   name : String
@@ -127,6 +142,9 @@ pub(all) struct IdlMethod {
   annotations : Map[String, String]
   location : IdlLocation
 } derive(Eq, @debug.Debug)
+pub fn IdlMethod::equal(Self, Self) -> Bool
+pub fn IdlMethod::not_equal(Self, Self) -> Bool
+pub fn IdlMethod::to_repr(Self) -> @debug.Repr
 
 pub(all) struct IdlModule {
   source : String
@@ -135,6 +153,9 @@ pub(all) struct IdlModule {
   cpp_includes : Array[String]
   definitions : Array[IdlDefinition]
 } derive(Eq, @debug.Debug)
+pub fn IdlModule::equal(Self, Self) -> Bool
+pub fn IdlModule::not_equal(Self, Self) -> Bool
+pub fn IdlModule::to_repr(Self) -> @debug.Repr
 
 pub(all) enum IdlType {
   Base(String)
@@ -143,6 +164,9 @@ pub(all) enum IdlType {
   SetOf(IdlType)
   MapOf(IdlType, IdlType)
 } derive(Eq, @debug.Debug)
+pub fn IdlType::equal(Self, Self) -> Bool
+pub fn IdlType::not_equal(Self, Self) -> Bool
+pub fn IdlType::to_repr(Self) -> @debug.Repr
 
 pub(all) enum Kind {
   BoolKind
@@ -158,6 +182,9 @@ pub(all) enum Kind {
   MapKind
   UuidKind
 } derive(Eq, @debug.Debug)
+pub fn Kind::equal(Self, Self) -> Bool
+pub fn Kind::not_equal(Self, Self) -> Bool
+pub fn Kind::to_repr(Self) -> @debug.Repr
 
 pub(all) struct Message {
   name : String
@@ -165,6 +192,9 @@ pub(all) struct Message {
   sequence_id : Int
   body : Value
 } derive(Eq, @debug.Debug)
+pub fn Message::equal(Self, Self) -> Bool
+pub fn Message::not_equal(Self, Self) -> Bool
+pub fn Message::to_repr(Self) -> @debug.Repr
 
 pub struct MessageCodec {
   encoder : (Message) -> Bytes raise CodecError
@@ -179,17 +209,26 @@ pub struct PendingCall {
   sequence_id : Int
   response_name : String
 } derive(Eq, @debug.Debug)
+pub fn PendingCall::equal(Self, Self) -> Bool
+pub fn PendingCall::not_equal(Self, Self) -> Bool
+pub fn PendingCall::to_repr(Self) -> @debug.Repr
 
 pub(all) enum Protocol {
   BinaryProtocol
   CompactProtocol
 } derive(Eq, @debug.Debug)
+pub fn Protocol::equal(Self, Self) -> Bool
+pub fn Protocol::not_equal(Self, Self) -> Bool
+pub fn Protocol::to_repr(Self) -> @debug.Repr
 
 pub(all) enum RpcOutcome {
   Success(Json)
   DeclaredException(String, Json)
   ApplicationFailure(Int, String)
 } derive(Eq, @debug.Debug)
+pub fn RpcOutcome::equal(Self, Self) -> Bool
+pub fn RpcOutcome::not_equal(Self, Self) -> Bool
+pub fn RpcOutcome::to_repr(Self) -> @debug.Repr
 
 pub struct Schema {
   // private fields
@@ -223,7 +262,10 @@ pub(all) enum Value {
   MapValue(Kind?, Kind?, Array[(Value, Value)])
   Uuid(Bytes)
 } derive(Eq, @debug.Debug)
+pub fn Value::equal(Self, Self) -> Bool
 pub fn Value::kind(Self) -> Kind
+pub fn Value::not_equal(Self, Self) -> Bool
+pub fn Value::to_repr(Self) -> @debug.Repr
 
 // Type aliases
 

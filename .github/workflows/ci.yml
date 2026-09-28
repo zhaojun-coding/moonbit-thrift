@@ -21,10 +21,10 @@ jobs:
       - run: moon update
       - run: moon fmt && moon info && git diff --exit-code
       - run: python tools/generate_oracles.py && moon fmt && git diff --exit-code
-      - run: moon check
-      - run: moon test --target wasm-gc
-      - run: moon test --target js
-      - run: moon build --target js
+      - run: moon check --deny-warn
+      - run: moon test --target wasm-gc --deny-warn
+      - run: moon test --target js --deny-warn
+      - run: moon build --target js --deny-warn
       - name: Refresh actual browser engine
         run: node tools/refresh-engines.mjs
       - name: Check pinned upstream model generation
