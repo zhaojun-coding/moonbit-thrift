@@ -4,7 +4,7 @@
   "module": "zhaojun-coding/thrift",
   "version": "0.7.0",
   "repository": "https://github.com/zhaojun-coding/moonbit-thrift",
-  "status": "已公开对应版号及成功 CI；本轮材料仅本地修订，赛事审核结果待核实；换题是否批准待核实",
+  "status": "已公开对应版号及成功 CI；本轮材料仅本地修订，赛事审核结果待核实",
   "remainingRisk": "Node承担网络与调度；没有exactly-once/自动重试；上游路径不支持UUID/legacy",
   "actualUsersClaimed": false,
   "defaultBranch": "origin/main",
