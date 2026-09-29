@@ -10,6 +10,8 @@ Mooncakes 已出现 0.7.0 版号，本次文档尚未公开或提交表单；旧
 上游负责分帧；本地MoonBit负责多请求pending序号、乱序、整批交付、未决身份与失败状态；Node 负责 TCP/TLS、调度、队列、超时/取消和关闭。不是 MoonBit 原生网络 I/O。
 Node 动态 Schema 和旧 builtin codec 保留兼容，明确承认与上游重叠；不把已有解析/生成能力重复申报为创新。
 
+上游当前还提供每连接单请求的 native TCP 教程，见 [RPC 范围](https://github.com/pxgt/moonthrift/blob/e4870d0d34909e76df0b9ac3299287a4d00b4dae/docs/rpc-runtime.md)。本扩展的区分点是可复用多请求会话及 Node TCP/TLS 生命周期，不能称上游完全没有网络能力。
+
 ## 可运行任务
 `moon build --target js` → `node tools/refresh-engines.mjs` → `node examples/run-upstream-model.mjs`。
 上游从原创 IDL 生成 SharedAddArgs/SharedAddResult，通过本机真实 TCP 与两种上游协议返回精确 i64 文本 `9007199254740994`。
@@ -23,4 +25,4 @@ JS/Wasm-GC 核心、5组新适配测试、上游模型生成确定性与实际�
 
 0.7.0新增 `pending_calls/abort`、混合响应整批提交、序号用尽保护与EOF封闭；不是自动重试或exactly-once。当前验证见 evidence/session-20260927，旧数字属于0.6.0历史检查。
 
-**验收复现与交付状态（2026-09-28 本地）**：以 moonc 0.10.14+7d59c7ec9 通过 `--deny-warn` 检查、JS/Wasm-GC 测试和构建、最小样例和离线 `moon package`；同一代码在 Ubuntu-D 26.04 WSL2 全新解包后通过格式、接口生成、严格双后端检查及 Node 24.21.0 最小宿主入口；截至 2026-09-29，公开 Git HEAD 为本地提交祖先；Mooncakes 最新版号 `0.7.0` 与本地版号相同；本次文档、包内容与远端 CI 尚需核对。命令与能力边界见 [README](README.md)，自动检查见 [CI](.github/workflows/ci.yml)；本地通过不代表赛事审核通过。
+**公开状态（2026-09-29 核对）**：GitHub [公开仓库](https://github.com/zhaojun-coding/moonbit-thrift)、[Mooncakes 0.7.0](https://mooncakes.io/docs/zhaojun-coding/thrift@0.7.0) 已可访问；[CI 成功记录](https://github.com/zhaojun-coding/moonbit-thrift/actions/runs/36436245224) 对应 `c08f31764d35`。本次材料更新尚未推送；该远端 CI 对应所列公开提交。报名表一致性及赛事审核结果尚未核实。
